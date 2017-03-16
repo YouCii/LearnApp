@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">LearnApp</string>
+
+    <!-- asdasdActivity -->
+    <string name="prompt_user">User</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">登录</string>
+
+    <!-- MainActivity -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+
+    <!-- ChangeFragment -->
+    <string name="change_fragment_one">列表</string>
+    <string name="change_fragment_two">模块</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tianyuan.mvplearn.view.activity.HttpTestActivity">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:divider="@drawable/compat_driver"
+        app:dividerPadding="2dp"
+        app:showDividers="middle">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/MyCardView.ModuleLinear">
+
+                    <TextView
+                        style="@style/MyCardView.Key"
+                        android:text="接口名:" />
+
+                    <EditText
+                        android:id="@+id/request_path"
+                        style="@style/MyCardView.Value"
+                        android:inputType="text"
+                        android:text="ServiceXj.asmx/GetInspectionTaskDevice" />
+
+                    <Button
+                        android:id="@+id/http_add_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="添加参数" />
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    tools:ignore="NestedWeights">
+
+                    <LinearLayout
+                        android:id="@+id/ll_http_params"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioGroup
+                        android:id="@+id/request_type_choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/request_type_post"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Post请求" />
+
+                        <RadioButton
+                            android:id="@+id/request_type_get"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Get请求" />
+
+                    </RadioGroup>
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/test_start"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:id="@+id/http_callback"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView style="@style/MyCardView">
+
+                    <LinearLayout style="@style/MyCardView.MainLinear">
+
+                        <TextView
+                            style="@style/MyCardView.Title"
+                            android:text="服务器配置" />
+
+                        <LinearLayout style="@style/MyCardView.ModuleLinear">
+
+                            <TextView
+                                style="@style/MyCardView.Key"
+                                android:text="IP:" />
+
+                            <EditText
+                                android:id="@+id/server_ip"
+                                style="@style/MyCardView.Value"
+                                android:inputType="text"
+                                android:text="10.67.176.120" />
+
+                        </LinearLayout>
+
+                        <LinearLayout style="@style/MyCardView.ModuleLinear">
+
+                            <TextView
+                                style="@style/MyCardView.Key"
+                                android:text="PORT:" />
+
+                            <EditText
+                                android:id="@+id/server_port"
+                                style="@style/MyCardView.Value"
+                                android:inputType="number"
+                                android:text="86" />
+
+                        </LinearLayout>
+
+                        <LinearLayout style="@style/MyCardView.ModuleLinear">
+
+                            <TextView
+                                style="@style/MyCardView.Key"
+                                android:text="SERVICE:" />
+
+                            <EditText
+                                android:id="@+id/server_name"
+                                style="@style/MyCardView.Value"
+                                android:inputType="text"
+                                android:text="GDXunJianPhone" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView style="@style/MyCardView">
+
+                    <LinearLayout style="@style/MyCardView.MainLinear">
+
+                        <TextView
+                            style="@style/MyCardView.Title"
+                            android:text="访问设置" />
+
+                        <LinearLayout style="@style/MyCardView.ModuleLinear">
+
+                            <TextView
+                                style="@style/MyCardView.Key"
+                                android:text="访问次数:" />
+
+                            <EditText
+                                android:id="@+id/setting_time"
+                                style="@style/MyCardView.Value"
+                                android:inputType="number"
+                                android:text="10" />
+                        </LinearLayout>
+
+                        <LinearLayout style="@style/MyCardView.ModuleLinear">
+
+                            <TextView
+                                style="@style/MyCardView.Key"
+                                android:text="访问间隔:" />
+
+                            <EditText
+                                android:id="@+id/setting_frequency"
+                                style="@style/MyCardView.Value"
+                                android:inputType="number"
+                                android:text="1" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</android.support.design.widget.CoordinatorLayout>

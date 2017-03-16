@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="12dp"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/back_top_tap"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/top_tap1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/top_tap_select"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/bright_silver" />
+
+    <TextView
+        android:id="@+id/top_tap2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/top_tap_normal"
+        android:textSize="18sp" />
+
+</LinearLayout>

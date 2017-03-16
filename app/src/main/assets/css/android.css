@@ -1,0 +1,19 @@
+
+button {
+    font-size: 30pt;
+    height: 100px;
+    width: 25%;
+}
+
+#title {
+    position: absolute;
+    right: 5%;
+    bottom: 2.5%;
+    font-size: 40pt;
+    font-weight: bold;
+}
+
+#num {
+    font-size: 30pt;
+}
+

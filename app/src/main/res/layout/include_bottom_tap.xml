@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_tap"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_tap_height"
+    android:layout_gravity="bottom"
+    android:background="@drawable/back_bottom_tap"
+    android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/main_tap_conversation"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawableTop="@drawable/selector_main_tap_conversation" />
+
+    <RadioButton
+        android:id="@+id/main_tap_call"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawableTop="@drawable/selector_main_tap_call" />
+
+    <RadioButton
+        android:id="@+id/main_tap_contact"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawableTop="@drawable/selector_main_tap_contact" />
+
+
+    <RadioButton
+        android:id="@+id/main_tap_plugin"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawableTop="@drawable/selector_main_tap_plugin" />
+
+</RadioGroup>
