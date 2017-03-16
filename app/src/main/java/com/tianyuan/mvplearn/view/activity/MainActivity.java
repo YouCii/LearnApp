@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements IMainView, View.O
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
