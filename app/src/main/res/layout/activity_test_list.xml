@@ -4,7 +4,7 @@
     android:id="@+id/activity_test_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tianyuan.mvplearn.view.activity.TestListActivity">
+    tools:context="com.youcii.mvplearn.view.activity.TestListActivity">
 
     <ListView
         android:id="@+id/lv_test"

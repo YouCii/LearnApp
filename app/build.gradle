@@ -6,7 +6,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "com.tianyuan.mvplearn"
+        applicationId "com.youcii.mvplearn"
         minSdkVersion 16 /* 4.2 */
         targetSdkVersion 21
         versionCode 1
@@ -44,6 +44,7 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.zhy:percent-support-extends:1.1.1'
     /* RxJava */
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'io.reactivex:rxandroid:1.0.1'

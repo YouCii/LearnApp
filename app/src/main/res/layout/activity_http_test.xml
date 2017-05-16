@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tianyuan.mvplearn.view.activity.HttpTestActivity">
+    tools:context="com.youcii.mvplearn.view.activity.HttpTestActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

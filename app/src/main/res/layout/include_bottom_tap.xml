@@ -31,7 +31,6 @@
         android:button="@null"
         android:drawableTop="@drawable/selector_main_tap_contact" />
 
-
     <RadioButton
         android:id="@+id/main_tap_plugin"
         android:layout_width="0dp"

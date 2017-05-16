@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tianyuan.mvplearn.view.fragment.BlockFragment">
+    tools:context="com.youcii.mvplearn.view.fragment.BlockFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
