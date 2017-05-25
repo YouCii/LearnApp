@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import java.util.List;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
-    List<Fragment> fragmentList;
-    List<String> titleList;
+    private List<Fragment> fragmentList;
+    private List<String> titleList;
 
-    FragmentManager fragmentManager;
-    Fragment currentFragment;
+    private FragmentManager fragmentManager;
+    private Fragment currentFragment;
 
     public MainPagerAdapter(FragmentManager fragmentManager, List<Fragment> fragmentList, List<String> titleList) {
         super(fragmentManager);

@@ -2,7 +2,6 @@ package com.youcii.mvplearn.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -12,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.presenter.activity.LoginPresenter;
 import com.youcii.mvplearn.utils.PermissionUtils;
 import com.youcii.mvplearn.utils.PhoneUtils;
@@ -25,7 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements ILoginView, View.OnClickListener, TextView.OnEditorActionListener {
+public class LoginActivity extends BaseActivity implements ILoginView, View.OnClickListener, TextView.OnEditorActionListener {
 
     private LoginPresenter loginPresenter;
 

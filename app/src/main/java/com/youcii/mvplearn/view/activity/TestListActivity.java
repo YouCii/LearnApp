@@ -3,13 +3,13 @@ package com.youcii.mvplearn.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TestListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class TestListActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
 	@Bind(R.id.lv_test)
 	ListView lv_test;
@@ -41,7 +41,7 @@ public class TestListActivity extends AppCompatActivity implements AdapterView.O
 		testArray.add("diyView测试");
 	}
 
-	public static void openActivity(Context context) {
+	public static void startActivity(Context context) {
 		Intent intent = new Intent(context, TestListActivity.class);
 		context.startActivity(intent);
 	}
@@ -50,13 +50,13 @@ public class TestListActivity extends AppCompatActivity implements AdapterView.O
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		switch (position) {
 			case 0:
-				ListRefreshActivity.openActivity(this);
+				ListRefreshActivity.startActivity(this);
 				break;
 			case 1:
-				HttpTestActivity.openActivity(this);
+				HttpTestActivity.startActivity(this);
 				break;
 			case 2:
-				DiyViewActivity.openActivity(this);
+				DiyViewActivity.startActivity(this);
 				break;
 			default:
 				break;

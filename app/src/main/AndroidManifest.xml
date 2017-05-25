@@ -32,13 +32,10 @@
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.activity.ListRefreshActivity"/>
         <activity android:name=".view.activity.TestListActivity"/>
-        <activity
-            android:name=".view.activity.HttpTestActivity"
-            android:screenOrientation="landscape"/>
+        <activity android:name=".view.activity.HttpTestActivity"/>
         <activity android:name=".view.activity.DiyViewActivity"/>
 
         <service android:name=".service.PitPatService"/>

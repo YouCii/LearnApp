@@ -32,7 +32,7 @@ public class DiyViewActivity extends BaseActivity {
 			subStateView.setState(0);
 	}
 
-	public static void openActivity(Context context) {
+	public static void startActivity(Context context) {
 		context.startActivity(new Intent(context, DiyViewActivity.class));
 	}
 

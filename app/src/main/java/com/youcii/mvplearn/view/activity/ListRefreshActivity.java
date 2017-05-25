@@ -3,12 +3,12 @@ package com.youcii.mvplearn.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.adapter.DeviceListAdapter;
 import com.youcii.mvplearn.adapter.DeviceListAdapter.Device;
+import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.presenter.activity.ListRefreshPresenter;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.view.activity.interfaces.IListRefreshView;
@@ -23,13 +23,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ListRefreshActivity extends AppCompatActivity implements IListRefreshView {
+public class ListRefreshActivity extends BaseActivity implements IListRefreshView {
 
     @Bind(R.id.listview)
     ListView listview;
 
     ListRefreshPresenter listRefreshPresenter;
     List<DeviceListAdapter.Device> deviceList = new ArrayList<>();
+    DeviceListAdapter deviceListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,14 @@ public class ListRefreshActivity extends AppCompatActivity implements IListRefre
         initList(deviceList);
         listRefreshPresenter = new ListRefreshPresenter(this);
         listRefreshPresenter.startRefresh(deviceList);
+        deviceListAdapter =  new DeviceListAdapter(ListRefreshActivity.this, deviceList);
+        listview.setAdapter(deviceListAdapter);
     }
 
     @Subscribe
     public void onEventMainThread(Device device) {
         Collections.sort(deviceList, new DeviceListAdapter.DeviceComparator());
-        listview.setAdapter(new DeviceListAdapter(ListRefreshActivity.this, deviceList));
+        deviceListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -75,7 +78,7 @@ public class ListRefreshActivity extends AppCompatActivity implements IListRefre
         ToastUtils.showShortToast(this, "结束");
     }
 
-    public static void openActivity(Context context) {
+    public static void startActivity(Context context) {
         Intent intent = new Intent(context, ListRefreshActivity.class);
         context.startActivity(intent);
     }
