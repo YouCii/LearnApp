@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class TestListActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
@@ -31,6 +34,16 @@ public class TestListActivity extends BaseActivity implements AdapterView.OnItem
 		ButterKnife.bind(this);
 
 		initArray();
+
+		View view1 = new View(this);
+		view1.setLayoutParams(new AbsListView.LayoutParams(MATCH_PARENT, 50));
+		view1.setBackgroundResource(R.color.black);
+		lv_test.addHeaderView(view1, null, true);
+		View view2 = new View(this);
+		view2.setLayoutParams(new AbsListView.LayoutParams(MATCH_PARENT, 50));
+		view2.setBackgroundResource(R.color.pink);
+		lv_test.addHeaderView(view2, null, true);
+
 		lv_test.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, testArray));
 		lv_test.setOnItemClickListener(this);
 	}
@@ -39,6 +52,26 @@ public class TestListActivity extends BaseActivity implements AdapterView.OnItem
 		testArray.add("列表刷新");
 		testArray.add("接口压力测试");
 		testArray.add("diyView测试");
+
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+		testArray.add("111");
+
 	}
 
 	public static void startActivity(Context context) {

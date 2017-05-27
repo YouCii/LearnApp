@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -43,7 +44,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     //用来存储设备信息和异常信息  
     private Map<String, String> infos = new HashMap<String, String>();
     //用于格式化日期,作为日志文件名的一部分
-    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.CHINA);
 
     /**
      * 保证只有一个CrashHandler实例
