@@ -1,13 +1,13 @@
 package com.youcii.mvplearn.view.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.model.EasyEvent;
 import com.youcii.mvplearn.presenter.fragment.FragRxPresenter;
 import com.youcii.mvplearn.view.fragment.interfaces.IFragRxView;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * Created by YouCii on 2016/12/17.
  */
 
-public class RxFragment extends Fragment implements IFragRxView {
+public class RxFragment extends BaseFragment implements IFragRxView {
 
     @Bind(R.id.rx_text)
     TextView rxText;

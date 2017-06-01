@@ -8,6 +8,7 @@ public interface IFragSocketView {
 
     void addMessageText(String s);
 
-    String getMessageText();
+    String getIp();
 
+    String getPort();
 }

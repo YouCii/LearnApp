@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,11 +13,18 @@
         android:text="消息窗口:"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/socket_message_window"
+    <ScrollView
+        android:id="@+id/sv_message"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:padding="5dp" />
+        android:layout_height="300dp">
+
+        <TextView
+            android:id="@+id/socket_message_window"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:padding="5dp" />
+    </ScrollView>
 
     <View
         android:layout_width="match_parent"
@@ -25,6 +34,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:columnCount="4"
         android:padding="5dp">
 
         <Button
@@ -46,28 +56,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="2dp"
-            android:text="重连" />
+            android:text="连接" />
 
         <Button
             android:id="@+id/socket_current_thread"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="2dp"
-            android:text="当前进程" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:text="其他1" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:text="其他2" />
+            android:text="服务ID" />
 
     </GridLayout>
 
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="\n请在右侧填入网络调试助手\n的ip和端口"
+            app:layout_heightPercent="100%h"
+            app:layout_widthPercent="50%w" />
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_heightPercent="100%h">
+
+            <EditText
+                android:id="@+id/etServerIp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:hint="server ip"
+                android:text="192.168.73.110"
+                app:layout_heightPercent="50%h"
+                app:layout_widthPercent="100%w" />
+
+            <EditText
+                android:id="@+id/etServerPort"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:hint="server port"
+                android:text="8080"
+                app:layout_heightPercent="50%h"
+                app:layout_widthPercent="100%w" />
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
 
 </LinearLayout>

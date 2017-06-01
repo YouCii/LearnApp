@@ -6,6 +6,6 @@ package com.youcii.mvplearn.model;
 
 public class EasyEvent {
 
-    public static final String PitPatGetCallBack = "&&0&&";
+	public String PitPatGetCallBack = "&&0&&";
 
 }

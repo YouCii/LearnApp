@@ -25,14 +25,14 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         val view1 = View(this) // 常量
         view1.layoutParams = AbsListView.LayoutParams(MATCH_PARENT, 50) // set的简写
         view1.setBackgroundResource(R.color.black)
-        lv_test.addHeaderView(view1, null, true) // !!代表会抛出空异常
+        lvTest.addHeaderView(view1, null, true) // !!代表会抛出空异常
         val view2 = View(this)
         view2.layoutParams = AbsListView.LayoutParams(MATCH_PARENT, 50)
         view2.setBackgroundResource(R.color.pink)
-        lv_test.addHeaderView(view2, null, true)
+        lvTest.addHeaderView(view2, null, true)
 
-        lv_test.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, testArray) // 不再使用 new
-        lv_test.onItemClickListener = this // set的简写
+        lvTest.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, testArray) // 不再使用 new
+        lvTest.onItemClickListener = this // set的简写
     }
 
     private fun initArray() {

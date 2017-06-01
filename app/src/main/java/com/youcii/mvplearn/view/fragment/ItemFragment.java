@@ -2,7 +2,6 @@ package com.youcii.mvplearn.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.adapter.MyItemAdapter;
+import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.diyview.RecyclerItemDecoration;
 import com.youcii.mvplearn.model.RecyclerBean;
 import com.youcii.mvplearn.view.fragment.interfaces.IFragItemView;
@@ -20,7 +20,7 @@ import com.youcii.mvplearn.view.fragment.interfaces.IFragItemView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemFragment extends Fragment implements IFragItemView {
+public class ItemFragment extends BaseFragment implements IFragItemView {
 
     private OnListFragmentInteractionListener mListener;
     private int mColumnCount = 1;
@@ -63,7 +63,7 @@ public class ItemFragment extends Fragment implements IFragItemView {
 
         recyclerView.setItemAnimator(new DefaultItemAnimator()); // 设置Item增加、移除动画
         recyclerView.setHasFixedSize(true);// 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        recyclerView.addItemDecoration(new RecyclerItemDecoration(getActivity(), RecyclerItemDecoration.VERTICAL_LIST));// 添加分割线
+        recyclerView.addItemDecoration(new RecyclerItemDecoration(getContext(), RecyclerItemDecoration.VERTICAL_LIST));// 添加分割线
     }
 
     @Override

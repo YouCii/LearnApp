@@ -13,7 +13,7 @@ public class App extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
 
-        CrashHandler.getInstance().init(getApplicationContext());
+        CrashHandler.getInstance().init(this);
         Logger.init("Logger");
 
     }

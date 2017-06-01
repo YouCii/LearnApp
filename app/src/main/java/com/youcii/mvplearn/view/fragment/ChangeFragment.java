@@ -1,7 +1,6 @@
 package com.youcii.mvplearn.view.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.utils.APILimitUtils;
 import com.youcii.mvplearn.utils.FragmentUtils;
 import com.youcii.mvplearn.view.fragment.interfaces.IFragChangeView;
@@ -16,7 +16,7 @@ import com.youcii.mvplearn.view.fragment.interfaces.IFragChangeView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ChangeFragment extends Fragment implements IFragChangeView, View.OnClickListener {
+public class ChangeFragment extends BaseFragment implements IFragChangeView, View.OnClickListener {
     FragmentManager childFragmentManager;
     FragmentUtils fragmentUtils;
 
@@ -61,7 +61,7 @@ public class ChangeFragment extends Fragment implements IFragChangeView, View.On
 
     @Override
     public void changeFragment(String tapTitle) {
-        if (tapTitle.equals(getString(R.string.change_fragment_one))) { // TODO
+        if (tapTitle.equals(getString(R.string.change_fragment_one))) {
             fragmentUtils.replaceContent(new ItemFragment(), R.id.fl_content);
             topTap1.setTextColor(APILimitUtils.getColor(getContext(), R.color.top_tap_select));
             topTap2.setTextColor(APILimitUtils.getColor(getContext(), R.color.top_tap_normal));

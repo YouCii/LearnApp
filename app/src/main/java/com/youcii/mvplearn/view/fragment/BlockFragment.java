@@ -3,14 +3,14 @@ package com.youcii.mvplearn.view.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseFragment;
 
-public class BlockFragment extends Fragment {
+public class BlockFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 

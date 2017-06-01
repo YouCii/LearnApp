@@ -3,7 +3,6 @@ package com.youcii.mvplearn.view.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.view.fragment.interfaces.IFragWebView;
 
 import butterknife.Bind;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by YouCii on 2016/8/12.
  */
-public class WebFragment extends Fragment implements IFragWebView, View.OnClickListener {
+public class WebFragment extends BaseFragment implements IFragWebView, View.OnClickListener {
 
     @Bind(R.id.webview)
     WebView webView;

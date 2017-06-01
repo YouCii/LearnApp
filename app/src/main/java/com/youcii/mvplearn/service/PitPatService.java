@@ -3,12 +3,10 @@ package com.youcii.mvplearn.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 
 import com.orhanobut.logger.Logger;
-import com.youcii.mvplearn.model.EasyEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,164 +19,254 @@ import java.net.Socket;
 /**
  * Created by YouCii on 2016/5/11.
  */
-public class PitPatService extends Service {
-    protected Context context;
+public class PitPatService extends Service { // 服务是主线程
+	protected Context context;
 
-    private String IP = "10.11.204.64"; // 网络调试助手给予的IP和端口
-    private int PORT = 8080;
+	private String IP = ""; // 获取的IP和端口
+	private int PORT = 0;
 
-    private static Socket socket = null;
-    private static OutputStream out = null;
-    private static InputStream in = null;
-    private static BufferedReader bff = null;
+	private Socket socket = null;
+	private OutputStream out = null;
+	private BufferedReader bff = null;
 
-    private static ReceiveThread rcvThread;
-    private static ConnectThread cnctThread;
+	private ConnectThread connectThread;
+	private ReceiveThread receiveThread;
+	private DetectionThread detectionThread;
 
-    private static boolean DetactionFlag = true; // 用于中断进程
+	private SocketStateListener socketStateListener;
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		Logger.i("service: " + "onCreate"); // 生命周期：第一步
+	}
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        SocketConnected(IP, PORT);
+	@Override
+	public IBinder onBind(Intent intent) { // 生命周期：第二步
+		IP = intent.getStringExtra("IP");
+		PORT = Integer.parseInt(intent.getStringExtra("PORT"));
 
-        return super.onStartCommand(intent, flags, startId);
-    }
+		socketConnected(IP, PORT);
 
-    @Override
-    public void onDestroy() {
-        CloseAll();
+		Logger.i("service: " + "onBind");
+		return new ServiceBinder();
+	}
 
-        super.onDestroy();
-    }
+	@Override
+	public void onRebind(Intent intent) {
+		super.onRebind(intent);
+		Logger.i("service: " + "onRebind");
 
-    /**
-     * 进行网络的连接,在线程中进行的网络的建立
-     */
-    private void SocketConnected(String ip, final int port) {
-        cnctThread = new ConnectThread(ip, port);
-        cnctThread.start();
-    }
+		IP = intent.getStringExtra("IP");
+		PORT = Integer.parseInt(intent.getStringExtra("PORT"));
 
-    private class ConnectThread extends Thread {
-        String ip;
-        int port;
+		tryConnectAgain();
+	}
 
-        private ConnectThread(String ip, int port) {
-            this.ip = ip;
-            this.port = port;
-        }
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		Logger.i("service: " + "onStartCommand");
+		return super.onStartCommand(intent, flags, startId);
+	}
 
-        @Override
-        public void run() {
-            super.run();
+	@Override
+	public boolean onUnbind(Intent intent) { // 生命周期：倒数第二步
+		closeAll();
 
-            socket = new Socket();
-            DetactionFlag = true;
-            try {
-                Logger.i("socket: " + "new SocketConnect");
+		Logger.i("service: " + "onUnbind");
+		return super.onUnbind(intent);
+	}
 
-                InetSocketAddress address = new InetSocketAddress(ip, port);
-                socket.connect(address, 20000);
+	@Override
+	public void onDestroy() { // 生命周期：最后一步
+		super.onDestroy();
+		Logger.i("service: " + "onDestroy");
+	}
 
-                /* socket = new Socket(ip, port);
-                socket.setSoTimeout(20000); // 用这种方式的话会出现卡机现象 */
+	public class ServiceBinder extends Binder {
+		public PitPatService getService() {
+			return PitPatService.this;
+		}
+	}
 
-                out = socket.getOutputStream();
-                in = socket.getInputStream();
-                bff = new BufferedReader(new InputStreamReader(in)); // 接受数据的对象
+	/**
+	 * 进行网络的连接,在线程中进行的网络的建立
+	 */
+	private void socketConnected(String ip, int port) {
+		connectThread = new ConnectThread(ip, port);
+		connectThread.start();
+	}
 
-                // 开启数据读取
-                if (rcvThread == null || !rcvThread.isAlive()) {
-                    rcvThread = new ReceiveThread();
-                    rcvThread.start();
-                }
+	private class ConnectThread extends Thread {
+		String ip;
+		int port;
 
-                try {
-                    out.write(("1, zzp\n").getBytes());  // TODO 发送信息
-                    out.flush();
-                    Logger.e("socket: " + "发送成功");
-                } catch (Exception e) {
-                    Logger.e("socket: " + "发送失败");
-                    e.printStackTrace();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Logger.e("socket: " + "连接失败：" + e.toString());
-            }
-        }
-    }
+		private ConnectThread(String ip, int port) {
+			this.ip = ip;
+			this.port = port;
+		}
 
-    /**
-     * 接收数据线程
-     */
-    private class ReceiveThread extends Thread {
-        public void run() {
-            super.run();
-            String read;
-            while (DetactionFlag) {
-                try {
-                    if (bff != null) {
-                        read = bff.readLine();
-                        Logger.i("socket: " + "接收到数据: " + read); // TODO 接收信息
-                        EventBus.getDefault().post(EasyEvent.PitPatGetCallBack + read);
-                        break;
-                    }
-                } catch (IOException e) {
-                    Logger.e("socket: " + "接收失败");
-                    try {
-                        sleep(5000);// 避免 网络出现错误后仍一直发送数据, 浪费电量流量
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    e.printStackTrace();
-                }
-            }
+		@Override
+		public void run() {
+			super.run();
 
-            TryConnectedAgain();
-        }
-    }
+			socket = new Socket();
 
-    /**
-     * 重新开启心跳发送
-     */
-    private void TryConnectedAgain() {
-        CloseAll();
+			// 开启断线重连
+			if (detectionThread == null) detectionThread = new DetectionThread();
+			detectionThread.start();
 
-        SocketConnected(IP, PORT);
-    }
+			try {
+				Logger.i("socket: " + "new SocketConnect");
 
-    /**
-     * 关闭所有
-     */
-    public static void CloseAll() {
-        try {
-            if (socket != null && !socket.isClosed()) {
-                // 先停止在关闭，否则数据丢失
-                socket.shutdownInput();
-                socket.shutdownOutput();
-                socket.close();  // 网络助手保存了历史链接, 但是发送不了, socket应该是断开了
-            } else {
-                Logger.i("socket: " + "socket was closed successfully!");
-            }
+				InetSocketAddress address = new InetSocketAddress(ip, port);
+				socket.connect(address, 20000);
+				/* socket = new Socket(ip, port);
+				socket.setSoTimeout(20000); // 用这种方式的话会出现卡机现象 */
 
-            if (out != null) out.close();
-            if (bff != null) bff.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+				if (socketStateListener != null) socketStateListener.onConnect();
 
-        if (rcvThread != null) {
-            DetactionFlag = false;
-            rcvThread.interrupt(); // 通过DDMS测试, 确实死掉了
-        }
-        if (cnctThread != null) {
-            cnctThread.interrupt();// 通过DDMS测试, 确实死掉了
-        }
+				// 开启数据读取
+				if (receiveThread == null) receiveThread = new ReceiveThread();
+				receiveThread.start();
 
-    }
+				out = socket.getOutputStream();
+				InputStream in = socket.getInputStream();
+				bff = new BufferedReader(new InputStreamReader(in)); // 接受数据的对象
+
+				sentMessage("new Connect");
+			} catch (IOException e) {
+				e.printStackTrace();
+				Logger.e("socket: " + "连接失败：" + e.toString());
+			}
+		}
+	}
+
+	public void sentMessage(String string) {
+		try {
+			out.write((string + "\n").getBytes());
+			out.flush();
+			if (socketStateListener != null) socketStateListener.onSend(string);
+
+			Logger.i("socket: " + "发送成功");
+		} catch (Exception e) {
+			Logger.e("socket: " + "发送失败");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 接收数据线程
+	 */
+	private class ReceiveThread extends Thread {
+		public void run() {
+			super.run();
+			String read;
+			try {
+				while (!Thread.interrupted()) {
+					try {
+						if (bff != null) {
+							read = bff.readLine();
+							if (read != null) {
+								Logger.i("socket: " + "接收到数据: " + read);
+								if (socketStateListener != null)
+									socketStateListener.onReceive(read);
+							} else
+								sleep(5000);
+						}
+					} catch (IOException e) {
+						sleep(5000);
+						Logger.e("socket接收失败：" + e);
+						e.printStackTrace();
+					}
+				}
+			} catch (InterruptedException e1) {
+				Logger.e("接收数据进程" + this.getId() + "interrupt"); // 对sleep的try-catch必须放在while外面
+			}
+		}
+	}
+
+	/**
+	 * 断线重连检测线程,创建后一直循环
+	 */
+	private class DetectionThread extends Thread {
+		public void run() {
+			try {
+				while (!Thread.interrupted()) {
+					sleep(5000);
+					try {
+						Logger.i("断线重连进程" + this.getId() + "在运行");
+						if (socket != null) socket.sendUrgentData(0xFF);
+					} catch (IOException e) {
+						tryConnectAgain();
+					}
+				}
+			} catch (InterruptedException ee) {
+				Logger.e("断线重连进程" + this.getId() + "interrupt"); // 对sleep的try-catch必须放在while外面
+			}
+		}
+	}
+
+	/**
+	 * 断线重连方法
+	 */
+	private void tryConnectAgain() {
+		Logger.e("断线重连了");
+		closeAll();
+		socketConnected(IP, PORT);
+	}
+
+	/**
+	 * 关闭所有
+	 */
+	private void closeAll() {
+		try {
+			if (socket != null && !socket.isClosed()) {
+				// 先停止在关闭，否则数据丢失
+				socket.shutdownInput();
+				socket.shutdownOutput();
+				socket.close();  // 网络助手保存了历史链接, 但是发送不了, socket应该是断开了
+			} else {
+				Logger.i("socket: " + "socket was closed successfully!");
+			}
+
+			if (out != null) out.close();
+			if (bff != null) bff.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (receiveThread != null) {
+			receiveThread.interrupt(); // 此方法并不是强制中断进程，而是取消阻塞，包括sleep，令其迅速执行完成
+			receiveThread = null;
+		}
+		if (detectionThread != null) {
+			detectionThread.interrupt();
+			detectionThread = null;
+		}
+		if (connectThread != null) {
+			connectThread.interrupt();
+			connectThread = null;
+		}
+
+		if (socketStateListener != null)
+			socketStateListener.onBreak();
+	}
+
+	public interface SocketStateListener {
+
+		void onBreak();
+
+		void onConnect();
+
+		void onReceive(String string);
+
+		void onSend(String string);
+
+	}
+
+	public void setSocketStateListener(SocketStateListener socketStateListener) {
+		this.socketStateListener = socketStateListener;
+	}
+
 }
