@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
 
-    <WebView
-        android:id="@+id/webview"
+    <com.github.lzyzsd.jsbridge.BridgeWebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -34,7 +34,7 @@
             android:id="@+id/nativeNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:text="11" />
 
         <Button
@@ -48,5 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="两种方式实现互相调用：\n1. 增大数字采用原生的 jsInterface 方式\n2. 减小数字采用 jsBridge" />
     </LinearLayout>
 </LinearLayout>
