@@ -107,7 +107,7 @@ public class PermissionUtils {
                     .setNegativeButton("退出应用", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (context instanceof Activity) ((Activity) context).finish();
+                            if (context instanceof Activity) ((Activity) context).onBackPressed();
                             System.exit(0);
                         }
                     })

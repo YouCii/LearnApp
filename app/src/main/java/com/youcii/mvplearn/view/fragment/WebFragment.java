@@ -77,7 +77,7 @@ public class WebFragment extends BaseFragment implements IFragWebView, View.OnCl
 	public void onDestroyView() {
 		super.onDestroyView();
 		ButterKnife.unbind(this);
-		webView.destroy();
+		if (webView != null) webView.destroy();
 	}
 
 	private class jsInterface {

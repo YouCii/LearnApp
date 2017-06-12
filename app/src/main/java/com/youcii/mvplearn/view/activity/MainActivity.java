@@ -4,13 +4,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.adapter.MainPagerAdapter;
@@ -32,7 +33,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements IMainView, View.OnClickListener, RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener, ItemFragment.OnListFragmentInteractionListener, BlockFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements IMainView, View.OnClickListener, ViewPager.OnPageChangeListener, ItemFragment.OnListFragmentInteractionListener, BlockFragment.OnFragmentInteractionListener {
 	private List<Fragment> fragmentList = new ArrayList<>();
 	private List<String> titleList = new ArrayList<>();
 
@@ -44,8 +45,8 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 	ViewPager mViewPager;
 	@Bind(R.id.fab)
 	FloatingActionButton fab;
-	@Bind(R.id.bottom_tap)
-	RadioGroup bottom_tap;
+	@Bind(R.id.main_tab_layout)
+	TabLayout mainTabLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,28 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 
 		initFragmentList();
 		fab.setOnClickListener(this);
-		bottom_tap.setOnCheckedChangeListener(this);
 
 		MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragmentList, titleList);
 		mViewPager.setAdapter(mainPagerAdapter);
 		mViewPager.addOnPageChangeListener(this);
 
-		bottom_tap.check(bottom_tap.getChildAt(0).getId());
+		mainTabLayout.setTabMode(TabLayout.MODE_FIXED);
+		mainTabLayout.setupWithViewPager(mViewPager);
+
+		ImageView imageView = new ImageView(this);
+		imageView.setImageResource(R.drawable.selector_main_tap_call);
+		mainTabLayout.getTabAt(0).setCustomView(imageView);
+		imageView = new ImageView(this);
+		imageView.setImageResource(R.drawable.selector_main_tap_conversation);
+		mainTabLayout.getTabAt(1).setCustomView(imageView);
+		imageView = new ImageView(this);
+		imageView.setImageResource(R.drawable.selector_main_tap_contact);
+		mainTabLayout.getTabAt(2).setCustomView(imageView);
+		imageView = new ImageView(this);
+		imageView.setImageResource(R.drawable.selector_main_tap_plugin);
+		mainTabLayout.getTabAt(3).setCustomView(imageView);
+
+		mainTabLayout.getTabAt(0).getCustomView().setSelected(true);
 	}
 
 	@Override
@@ -127,7 +143,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 		if (v.getId() == R.id.fab) {
 			TestListActivity.Companion.startActivity(this);
 		} else {
-			finish();
+			onBackPressed();
 		}
 	}
 
@@ -142,22 +158,13 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 	}
 
 	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		View checkView = findViewById(checkedId);
-		int position = bottom_tap.indexOfChild(checkView);
-		collapsingToolbarLayout.setTitle(titleList.get(position));
-		if (checkView != null && checkView.isPressed())
-			mViewPager.setCurrentItem(position);
-	}
-
-	@Override
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 	}
 
 	@Override
 	public void onPageSelected(int position) {
-		bottom_tap.check(bottom_tap.getChildAt(position).getId());
+		collapsingToolbarLayout.setTitle(titleList.get(position));
 	}
 
 	@Override
