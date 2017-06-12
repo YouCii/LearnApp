@@ -4,7 +4,7 @@
 目前用到的小技术和v7的控件：
 01. MVP；
 02. CardView；
-03. CollapsingToolbarLayout和ToolBar；
+03. CollapsingToolbarLayout和ToolBar,TabLayout；
 04. Socket和OkGo；
 05. FloatingActionButton；
 06. TextInputLayout和AutoCompleteTextView；
