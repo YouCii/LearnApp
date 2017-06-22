@@ -43,6 +43,7 @@ public abstract class BaseCallBack<T> extends AbsCallback<T> {
 			return;
 		} else if (t instanceof Exception) {
 			onError(call, response, (Exception) t);
+			return;
 		}
 		onSuccess(t);
 		response.close();

@@ -1,6 +1,7 @@
 package com.youcii.mvplearn.base
 
 import com.lzy.okgo.OkGo
+import com.lzy.okgo.request.GetRequest
 import com.lzy.okgo.request.PostRequest
 
 /**
@@ -31,5 +32,10 @@ abstract class BaseNetWork { // 主构造方法在这写：abstract class BaseNe
         postRequest.execute(callBack)
     }
 
+    protected fun <T> starGetRequest(callBack: BaseCallBack<T>?) {
+        val getRequest: GetRequest = OkGo.get(url)
+        for ((key, value) in map) getRequest.params(key, value)
+        getRequest.execute(callBack)
+    }
 
 }
