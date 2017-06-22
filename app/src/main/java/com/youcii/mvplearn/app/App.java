@@ -1,5 +1,8 @@
 package com.youcii.mvplearn.app;
 
+import android.content.Context;
+
+import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.Logger;
 
 import org.litepal.LitePalApplication;
@@ -9,13 +12,23 @@ import org.litepal.LitePalApplication;
  */
 public class App extends LitePalApplication {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+	private static Context context;
 
-        CrashHandler.getInstance().init(this);
-        Logger.init("Logger");
+	@Override
+	public void onCreate() {
+		super.onCreate();
 
-    }
+		context = getApplicationContext();
+
+		CrashHandler.getInstance().init(this);
+		Logger.init("Logger");
+
+		OkGo.init(this);
+		OkGo.getInstance().setConnectTimeout(1000);
+	}
+
+	public static Context getInstance() {
+		return context;
+	}
 
 }

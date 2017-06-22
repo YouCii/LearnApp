@@ -1,34 +1,35 @@
 package com.youcii.mvplearn.network;
 
-import android.os.CountDownTimer;
-
-import org.greenrobot.eventbus.EventBus;
+import com.youcii.mvplearn.app.App;
+import com.youcii.mvplearn.base.BaseNetWork;
+import com.youcii.mvplearn.callback.LoginCallBack;
 
 /**
  * Created by YouCii on 2016/7/15.
  */
-public class LoginNetWork {
+public class LoginNetWork extends BaseNetWork {
+	private String user, password;
 
-    String user, password;
+	public LoginNetWork(String user, String password) {
+		this.user = user;
+		this.password = password;
+	}
 
-    public LoginNetWork(String user, String password) {
-        this.user = user;
-        this.password = password;
-    }
+	@Override
+	protected void initUrl() {
+		setUrl("http://www.baidu.com");
+	}
 
-    public void requestNetWork() {
+	@Override
+	protected void initParams() {
+		super.initParams();
+		getMap().put("user", user);
+		getMap().put("password", password);
+	}
 
-        // 模拟访问网络服务
-        new CountDownTimer(2000, 2000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                EventBus.getDefault().post("登陆成功");
-            }
-        }.start();
-
-    }
+	@Override
+	public void requestNetWork() {
+		super.requestNetWork();
+		startPostRequest(new LoginCallBack(App.getContext()));
+	}
 }
