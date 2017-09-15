@@ -3,5 +3,4 @@
 /build
 local.properties
 *.iml
-/app/build
-/app/proguardMapping.txt
+/app/src/main/assets/.idea

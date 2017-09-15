@@ -40,6 +40,7 @@
         <activity android:name=".view.activity.TestListActivity" />
         <activity android:name=".view.activity.HttpTestActivity" />
         <activity android:name=".view.activity.DiyViewActivity" />
+        <activity android:name=".view.activity.H5Activity" />
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@ import com.youcii.mvplearn.base.BaseActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class AnimActivity extends BaseActivity {
+public class H5Activity extends BaseActivity {
 
 	@Bind(R.id.imageView)
 	ImageView imageView;
@@ -17,7 +17,7 @@ public class AnimActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_anim);
+		setContentView(R.layout.activity_h5);
 		ButterKnife.bind(this);
 	}
 
