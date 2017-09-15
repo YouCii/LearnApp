@@ -36,7 +36,7 @@
                         android:id="@+id/request_path"
                         style="@style/MyCardView.Value"
                         android:inputType="text"
-                        android:text="ServiceXj.asmx/GetInspectionTaskDevice" />
+                        android:text="" />
 
                     <Button
                         android:id="@+id/http_add_param"
@@ -139,7 +139,7 @@
                                 android:id="@+id/server_ip"
                                 style="@style/MyCardView.Value"
                                 android:inputType="text"
-                                android:text="10.67.176.120" />
+                                android:text="" />
 
                         </LinearLayout>
 
@@ -153,7 +153,7 @@
                                 android:id="@+id/server_port"
                                 style="@style/MyCardView.Value"
                                 android:inputType="number"
-                                android:text="86" />
+                                android:text="" />
 
                         </LinearLayout>
 
@@ -167,7 +167,7 @@
                                 android:id="@+id/server_name"
                                 style="@style/MyCardView.Value"
                                 android:inputType="text"
-                                android:text="GDXunJianPhone" />
+                                android:text="" />
 
                         </LinearLayout>
                     </LinearLayout>
