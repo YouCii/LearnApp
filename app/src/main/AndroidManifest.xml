@@ -41,6 +41,9 @@
         <activity android:name=".view.activity.HttpTestActivity" />
         <activity android:name=".view.activity.DiyViewActivity" />
         <activity android:name=".view.activity.H5Activity" />
+        <activity
+            android:name=".view.activity.CollapsingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

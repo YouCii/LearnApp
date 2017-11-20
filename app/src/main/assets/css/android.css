@@ -1,10 +1,12 @@
 
+/* 标签选择器 */
 button {
-    font-size: 30pt;
+    font-size: 30pt; /* pt基本不使用了 */
     height: 100px;
     width: 25%;
 }
 
+/* ID选择器 */
 #title {
     position: absolute;
     right: 5%;
@@ -13,7 +15,7 @@ button {
     font-weight: bold;
 }
 
+/* ID选择器 */
 #num {
     font-size: 30pt;
 }
-

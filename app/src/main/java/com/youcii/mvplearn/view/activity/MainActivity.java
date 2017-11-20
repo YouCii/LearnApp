@@ -2,7 +2,6 @@ package com.youcii.mvplearn.view.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -37,8 +36,6 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 	private List<Fragment> fragmentList = new ArrayList<>();
 	private List<String> titleList = new ArrayList<>();
 
-	@Bind(R.id.collapsing_toolbar_layout)
-	CollapsingToolbarLayout collapsingToolbarLayout;
 	@Bind(R.id.toolbar)
 	Toolbar toolbar;
 	@Bind(R.id.main_viewpager)
@@ -97,7 +94,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 
 	@Override
 	public void initToolBar(String title) {
-		collapsingToolbarLayout.setTitle(title);
+		toolbar.setTitle(title);
 
 		toolbar.setNavigationIcon(R.drawable.toolbar_back);
 		setSupportActionBar(toolbar);
@@ -164,7 +161,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 
 	@Override
 	public void onPageSelected(int position) {
-		collapsingToolbarLayout.setTitle(titleList.get(position));
+		toolbar.setTitle(titleList.get(position));
 	}
 
 	@Override

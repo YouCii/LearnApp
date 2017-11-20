@@ -1,0 +1,253 @@
+/****************************************************************************************************************************
+                                                   用于学习的说明界面
+*****************************************************************************************************************************/
+
+/* 跟据屏幕设置字体大小, 然后后面使用rem就可以了 */
+@media all and (min-width: 721px) {
+    html {
+        font-size: 62.5%
+    }
+}
+
+@media all and (max-width: 720px) {
+    html {
+        font-size: 62.5%
+    }
+}
+
+@media all and (max-width: 640px) {
+    html {
+        font-size: 55.556%
+    }
+}
+
+@media all and (max-width: 540px) {
+    html {
+        font-size: 46.875%
+    }
+}
+
+@media all and (max-width: 480px) {
+    html {
+        font-size: 41.667%
+    }
+}
+
+@media all and (max-width: 432px) {
+    html {
+        font-size: 37.5%
+    }
+}
+
+@media all and (max-width: 414px) {
+    html {
+        font-size: 35.9375%
+    }
+}
+
+@media all and (max-width: 400px) {
+    html {
+        font-size: 34.722%
+    }
+}
+
+@media all and (max-width: 360px) {
+    html {
+        font-size: 31.25%
+    }
+}
+
+@media all and (max-width: 340px) {
+    html {
+        font-size: 29.514%
+    }
+}
+
+@media all and (max-width: 320px) {
+    html {
+        font-size: 27.778%
+    }
+}
+
+/*********************************  一、选择器  ***********************************/
+
+/* 1.标签选择器 */
+h2 {
+    font-size: 3rem;
+}
+
+/* 派生选择器(标签派生): 各类派生都是从前面条件的标签下找符合第二条件的标签, 可能是当前标签, 也可能是子标签 */
+li strong {
+    font-style: italic;
+}
+
+/* 2. ID选择器 */
+#title {
+    bottom: 2.5%;
+}
+
+/* 派生选择器(ID派生) */
+#sidebar p {
+    font-style: italic;
+}
+
+p #sidebar {
+    font-style: italic;
+}
+
+/* 3. 类选择器: 类名为stress的标签样式 */
+.stress {
+    color: red;
+}
+
+/* 派生选择器(类派生) */
+.stress button {
+    bottom: 2.5%;
+}
+
+button .stress {
+    bottom: 2.5%;
+}
+
+/* 4. 属性选择器: 带有 title 属性的所有标签设置样式
+    [title  = hello]: 相等
+    [title ~= hello]: 包含hello, 但hello须是独立单词, 例如 title = a hello a, title = a-hello-a
+    [title *= hello]: 包含hello, 只要包含就行, 例如 title = ahelloa
+    [title |= hello]: 开头是hello, 但hello须是独立单词, 例如 title = hello a, title = hello-a
+    [title ^= hello]: 开头是hello, 只要包含就行, 例如 title = helloa0
+    [title $= hello]: 结尾是hello, 只要包含就行, 例如 title = ahello
+ */
+[title] {
+    color: red;
+}
+
+/* 派生选择器(属性派生) */
+input [type="text"] {
+    width: 150px;
+}
+
+/*********************************  二、样式  ***********************************/
+
+/* 背景 */
+p {
+    background: url('https://qlogo3.store.qq.com/qzone/550341130/550341130/100?1493799433') no-repeat 66% 33%; /* 简化 background-color, background-image, background-repeat, background-position 等 */
+}
+
+/* 文本 */
+p {
+    text-indent: 5em; /* 段落首行缩进, 可以负值, 但仅对块状元素有效, 行内元素无效 */
+    text-align: center; /* 左右对齐或居中, justify是两端对齐 */
+    word-spacing: 10px; /* 单词之间的间隔 */
+    letter-spacing: inherit; /* 字母间的间隔: 继承父元素 */
+    text-transform: capitalize; /* 处理文本大小写: capitalize首字母大写, uppercase全大写, lowercase全小写 */
+    text-decoration: blink; /* 文本样式, 可以设置下划线/颜色等 */
+    white-space: pre; /* 处理空白符, 设置成 pre(可能是保留的意思) 可以允许连续的空格和换行 */
+}
+
+/* 字体 */
+h1 {
+    font-family: sans-serif; /* 通用字体, 如果想用特定字体, 如 Georgia , 最好在后面加上 serif, 防止特定字体不存在的情况, 例: font-family: Georgia, serif; */
+    font-style: italic; /* 字体风格, 其中 italic 和 oblique 都是斜体, 效果在web浏览器上基本一样 */
+    font-variant: small-caps; /* 字体变形, 可以设置小型的大写字母 */
+    font-weight: bold; /* 设置粗体: 100~900 从细到粗, 400是normal */
+    font-size: 20em; /* 字体大小(各种大小建议都要使用rem作为单位) */
+}
+
+/* 链接的样式: link未访问, visited已访问, hover鼠标覆盖, active鼠标点击的时候. 注意各种状态的顺序不能变 */
+a:link {
+    color: red;
+}
+
+a:visited {
+    color: cadetblue;
+}
+
+a:hover {
+    color: aliceblue;
+}
+
+a:active {
+    color: aqua;
+}
+
+/* 列表 */
+ul {
+    list-style: square outside; /* 无序列表的列表项设置为方块, 位置在外面 */
+}
+
+ul li {
+    list-style-image: url("http://fanyi.baidu.com/static/translation/img/header/logo_cbfea26.png") /* 使用图片作为列表项标志 */
+}
+
+/* 表格 */
+table {
+    border: brown;
+    border-collapse: collapse; /* 展示单一边框, 防止border和原有表格的边框同时显示 */
+}
+
+/* 轮廓 */
+p {
+    outline: #00ff00 dotted; /* 与border类似, 不过更漂亮, 但是只有声明了 !DOCTYPE 后 IE8 以上才会有效 */
+}
+
+div {
+    width: 150px;
+    height: 150px;
+    overflow: scroll; /* scroll显示滚动条, hidden不显示多余的内容, visible内容显示但是控件不会变大, auto会根据实际内容多少判断是否显示scroll */
+}
+
+/*********************************  三、盒模型  ***********************************/
+
+p {
+    margin: 10%; /* 垂直外边距合并: 只有普通文档流中块框的垂直外边距才会发生外边距合并, 行内框、浮动框或绝对定位之间的外边距不会合并 */
+    border: red 2px; /* 边框位于margin和padding中间 */
+    border-style: solid solid solid none; /* 设置边框的 上右下左 样式 */
+    padding: 10px;
+}
+
+/*********************************  四、定位  ***********************************/
+
+/* relative相对原位置偏移 */
+h2 .pos_left {
+    position: relative; /* 相对于原位置左移20px */
+    left: -20px
+}
+
+/* absolute在父布局中的绝对布局 */
+h2 .pos_abs {
+    position: absolute; /* 位于父布局的左上100px */
+    left: 100px;
+    top: 100px; /* 如果top不设置, 会按流式布局依次往下摆放 */
+    clip: rect(0px 50px 200px 0px); /* 裁剪显示, 没有position属性不起效果 */
+}
+
+/* fixed在视窗内的绝对布局 */
+p .one {
+    position: fixed; /* 位于浏览器左上角各5px */
+    left: 5px;
+    top: 5px;
+}
+
+/* 浮动, 脱离原文件流, 放置到相应位置, 多个浮动构成浮动的文件流, 顺序排列 */
+p .two {
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

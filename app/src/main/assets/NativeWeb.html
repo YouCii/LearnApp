@@ -1,0 +1,26 @@
+<!-- 为了使 IE7 和 IE8 支持属性选择器 -->
+<!DOCTYPE html>
+<!-- 这里的lang="en"可以删除，如果不删除的，用谷歌之类打开，它会认为是英文的，会自动给翻译（如果设置了自动翻译的话） -->
+<html lang="en">
+<head>
+    <!-- charset是必须的, viewport和content好像是处理屏幕缩放以适应移动端, 然而添加删除并没有发现有啥区别 -->
+    <meta charset="utf-8" name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">
+    <!-- 页面的标题, 会显示到浏览器的页签上 -->
+    <title>仿Native页面</title>
+    <!-- 外部式CSS, 另外两种是内联式(直接写在标签里)和嵌入式(写到html中), 优先级 内联>嵌入>外部 -->
+    <link href="css/NativeWeb.css" rel="stylesheet" type="text/css"/>
+    <!-- 嵌入式(写到html中) -->
+    <style type="text/css">
+        hr {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h2> 标题标题</h2>
+</header>
+
+</body>
+</html>

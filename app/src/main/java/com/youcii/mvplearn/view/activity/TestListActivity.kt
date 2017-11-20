@@ -39,6 +39,8 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray?.add("列表刷新") // ? 代表自动检测空，如果为空则跳过，不抛出异常
         testArray?.add("接口压力测试")
         testArray?.add("diyView测试")
+        testArray?.add("仿Native网页")
+        testArray?.add("可滑动的大图title")
 
         testArray?.add("111")
         testArray?.add("111")
@@ -66,6 +68,8 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             2 -> ListRefreshActivity.startActivity(this)
             3 -> HttpTestActivity.startActivity(this)
             4 -> DiyViewActivity.startActivity(this)
+            5 -> H5Activity.startActivity(this)
+            6 -> CollapsingActivity.startActivity(this)
             else -> {
             }
         }
