@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_test_list.*
 
 class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
 
-    internal val testArray: ArrayList<String>? = ArrayList()  // internal 私有，常量，如果不写默认是 public, 必须初始化
+    private val testArray: ArrayList<String>? = ArrayList()  // internal 类似于包可见. 如果不写默认是 public, 必须初始化
 
     override fun onCreate(savedInstanceState: Bundle?) { // 取消@Override，而是方法前override
         super.onCreate(savedInstanceState)

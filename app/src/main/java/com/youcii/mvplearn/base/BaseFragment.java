@@ -14,8 +14,11 @@ public class BaseFragment extends Fragment {
 
 	protected Activity activity;
 
+	@Override
 	public Context getContext() {
-		if (activity == null) return App.getContext();
+		if (activity == null) {
+            return App.getContext();
+        }
 		return activity;
 	}
 

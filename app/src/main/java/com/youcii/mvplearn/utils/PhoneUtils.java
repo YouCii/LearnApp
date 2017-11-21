@@ -21,10 +21,11 @@ public class PhoneUtils {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
+        if (networkInfo != null && networkInfo.isConnected()) {
             return 1; // 有网
-        else
+        } else {
             return 0; // 没网
+        }
     }
 
 }

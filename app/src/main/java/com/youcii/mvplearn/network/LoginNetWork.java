@@ -22,9 +22,8 @@ public class LoginNetWork extends BaseNetWork {
 
 	@Override
 	protected void initParams() {
-		super.initParams();
-		getMap().put("user", user);
-		getMap().put("password", password);
+		getParamsMap().put("user", user);
+		getParamsMap().put("password", password);
 	}
 
 	@Override

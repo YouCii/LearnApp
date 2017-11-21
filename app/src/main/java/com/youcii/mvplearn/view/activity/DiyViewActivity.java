@@ -26,10 +26,11 @@ public class DiyViewActivity extends BaseActivity {
 
 	@OnClick(R.id.bt_change)
 	void onClick() {
-		if (subStateView.getCurrentState() < 3)
-			subStateView.setState(subStateView.getCurrentState() + 1);
-		else
-			subStateView.setState(0);
+		if (subStateView.getCurrentState() < 3) {
+            subStateView.setState(subStateView.getCurrentState() + 1);
+        } else {
+            subStateView.setState(0);
+        }
 	}
 
 	public static void startActivity(Context context) {

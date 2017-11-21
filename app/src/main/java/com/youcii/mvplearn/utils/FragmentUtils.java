@@ -23,16 +23,19 @@ public class FragmentUtils {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        if (fragmentList != null)
-            for (Fragment from : fragmentList)
+        if (fragmentList != null) {
+            for (Fragment from : fragmentList) {
                 fragmentTransaction.hide(from);
+            }
+        }
 
         if (!to.isAdded() && !fragmentArray.contains(to)) { // 切换太快的话，isAdded函数返回会出错，自己再次判断一下
             fragmentTransaction.add(containerViewId, to);
             fragmentArray.add(to);
         }
 
-        if (fragmentTransaction.commit() != 0)
+        if (fragmentTransaction.commit() != 0) {
             fragmentTransaction.show(to);
+        }
     }
 }

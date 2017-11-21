@@ -56,10 +56,11 @@ public class ItemFragment extends BaseFragment implements IFragItemView {
 
     @Override
     public void setRecyclerView(RecyclerView recyclerView, int mColumnCount) {
-        if (mColumnCount <= 1)
+        if (mColumnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        else
+        } else {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(mColumnCount, StaggeredGridLayoutManager.VERTICAL));
+        }
 
         recyclerView.setItemAnimator(new DefaultItemAnimator()); // 设置Item增加、移除动画
         recyclerView.setHasFixedSize(true);// 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能

@@ -39,45 +39,58 @@ public class PermissionUtils {
      * @return true if no permission be refused;
      */
     public static boolean examinePermission(final Context context, int... permissions) {
-        if (permissions == null || permissions.length == 0) return true;
+        if (permissions == null || permissions.length == 0) {
+            return true;
+        }
 
         List<String> list = new ArrayList<>();
-        if (permissions[0] == ALL)
+        if (permissions[0] == ALL) {
             permissions = new int[]{INTERNET, LOCATION, WAKE_LOCK, READ_PHONE_STATE, WRITE_EXTERNAL_STORAGE, KILL_BACKGROUND_PROCESSES, CAMERA, VIBRATE};
+        }
 
         for (int permission : permissions) {
             switch (permission) {
                 case INTERNET:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                         list.add("访问网络权限");
+                    }
                     break;
                 case LOCATION:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         list.add("定位权限");
+                    }
                     break;
                 case WAKE_LOCK:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
                         list.add("保持屏幕唤醒权限");
+                    }
                     break;
                 case READ_PHONE_STATE:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                         list.add("读取手机状态权限");
+                    }
                     break;
                 case WRITE_EXTERNAL_STORAGE:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         list.add("存储权限");
+                    }
                     break;
                 case KILL_BACKGROUND_PROCESSES:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.KILL_BACKGROUND_PROCESSES) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.KILL_BACKGROUND_PROCESSES) != PackageManager.PERMISSION_GRANTED) {
                         list.add("杀死后台进程权限");
+                    }
                     break;
                 case CAMERA:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         list.add("使用摄像头权限");
+                    }
                     break;
                 case VIBRATE:
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
                         list.add("震动权限");
+                    }
+                    break;
+                default:
                     break;
             }
         }
@@ -107,7 +120,9 @@ public class PermissionUtils {
                     .setNegativeButton("退出应用", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (context instanceof Activity) ((Activity) context).onBackPressed();
+                            if (context instanceof Activity) {
+                                ((Activity) context).onBackPressed();
+                            }
                             System.exit(0);
                         }
                     })

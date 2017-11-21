@@ -51,23 +51,39 @@ public class SubStateView extends LinearLayout {
 
 		switch (state) {
 			case STATE_SUBSCRIBED:
-				if (progressBar.isShown()) progressBar.setVisibility(GONE);
-				if (!imageView.isShown()) imageView.setVisibility(VISIBLE);
+				if (progressBar.isShown()) {
+                    progressBar.setVisibility(GONE);
+                }
+				if (!imageView.isShown()) {
+                    imageView.setVisibility(VISIBLE);
+                }
 				imageView.setBackgroundResource(R.drawable.substate_yes);
 				break;
 			case STATE_NOT_SUBSCRIBED:
-				if (progressBar.isShown()) progressBar.setVisibility(GONE);
-				if (!imageView.isShown()) imageView.setVisibility(VISIBLE);
+				if (progressBar.isShown()) {
+                    progressBar.setVisibility(GONE);
+                }
+				if (!imageView.isShown()) {
+                    imageView.setVisibility(VISIBLE);
+                }
 				imageView.setBackgroundResource(R.drawable.substate_not);
 				break;
 			case STATE_DISABLE:
-				if (progressBar.isShown()) progressBar.setVisibility(GONE);
-				if (!imageView.isShown()) imageView.setVisibility(VISIBLE);
+				if (progressBar.isShown()) {
+                    progressBar.setVisibility(GONE);
+                }
+				if (!imageView.isShown()) {
+                    imageView.setVisibility(VISIBLE);
+                }
 				imageView.setBackgroundResource(R.drawable.substate_cannot);
 				break;
 			case STATE_CHANGING:
-				if (!progressBar.isShown()) progressBar.setVisibility(VISIBLE);
-				if (imageView.isShown()) imageView.setVisibility(GONE);
+				if (!progressBar.isShown()) {
+                    progressBar.setVisibility(VISIBLE);
+                }
+				if (imageView.isShown()) {
+                    imageView.setVisibility(GONE);
+                }
 				break;
 			default:
 				break;

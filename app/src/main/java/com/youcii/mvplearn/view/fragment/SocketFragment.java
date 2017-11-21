@@ -77,6 +77,8 @@ public class SocketFragment extends BaseFragment implements IFragSocketView {
 			case R.id.socket_current_thread:
 				fragSocketPresenter.socketCurrentThread();
 				break;
+			default:
+				break;
 		}
 	}
 

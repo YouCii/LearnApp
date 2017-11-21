@@ -5,17 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.utils.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CollapsingActivity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * @author Administrator
+ */
+public class CollapsingActivity extends BaseActivity implements View.OnClickListener {
 
     @Bind(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;

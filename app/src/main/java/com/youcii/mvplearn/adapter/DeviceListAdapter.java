@@ -115,10 +115,12 @@ public class DeviceListAdapter extends BaseAdapter {
     public static class DeviceComparator implements Comparator<Device> {
         @Override
         public int compare(Device o1, Device o2) {
-            if (o2.distance < o1.distance)
+            if (o2.distance < o1.distance) {
                 return 1;
-            if (o2.distance > o1.distance)
+            }
+            if (o2.distance > o1.distance) {
                 return -1;
+            }
             return 0;
         }
     }

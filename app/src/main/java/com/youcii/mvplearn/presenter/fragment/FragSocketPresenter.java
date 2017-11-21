@@ -23,11 +23,13 @@ public class FragSocketPresenter implements IFragSocketPresenter {
 	private PitPatService pitPatService;
 
 	private ServiceConnection connection = new ServiceConnection() {
+		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			pitPatService = ((PitPatService.ServiceBinder) service).getService();
 			pitPatService.setSocketStateListener(socketStateListener);
 		}
 
+		@Override
 		public void onServiceDisconnected(ComponentName name) { // 此方法只有在service异常时才调用
 			pitPatService = null;
 		}
@@ -40,7 +42,9 @@ public class FragSocketPresenter implements IFragSocketPresenter {
 
 	@Override
 	public void socketSend() {
-		if (pitPatService != null) pitPatService.sentMessage("message from client");
+		if (pitPatService != null) {
+            pitPatService.sentMessage("message from client");
+        }
 	}
 
 	@Override

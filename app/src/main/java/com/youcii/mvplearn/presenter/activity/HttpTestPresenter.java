@@ -29,13 +29,15 @@ public class HttpTestPresenter {
         Map<String, String> paramList = iHttpTestView.getParams();
 
         builder = HttpRequestBuilder.getInstance();
-        if (iHttpTestView.isPostRequest())
+        if (iHttpTestView.isPostRequest()) {
             builder = builder.PostRequest(iHttpTestView.getUrl());
-        else
+        } else {
             builder = builder.GetRequest(iHttpTestView.getUrl());
+        }
 
-        for (Map.Entry<String, String> entry : paramList.entrySet())
+        for (Map.Entry<String, String> entry : paramList.entrySet()) {
             builder.addParams(entry.getKey(), entry.getValue());
+        }
 
         for (int i = 0; i < iHttpTestView.getRequestTime(); i++){
 

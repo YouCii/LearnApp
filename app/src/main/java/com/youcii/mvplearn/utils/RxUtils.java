@@ -13,7 +13,6 @@ import rx.schedulers.Schedulers;
 /**
  * Created by YouCii on 2016/12/17.
  */
-
 public class RxUtils {
 
 	public static void rxTest(EasyEvent[] events, IFragRxView iFragRxView) {

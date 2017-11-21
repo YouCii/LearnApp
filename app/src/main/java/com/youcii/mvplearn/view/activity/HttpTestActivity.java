@@ -114,10 +114,10 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
 
 	@Override
 	public Map<String, String> getParams() {
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>(5);
 		for (int i = 0; i < keyView.size(); i++) {
 			String key = ((EditText) keyView.get(i)).getText().toString();
-			if (!key.equals("")) {
+			if (!"".equals(key)) {
 				map.put(key, ((EditText) valueView.get(i)).getText().toString());
 			}
 		}

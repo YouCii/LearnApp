@@ -8,19 +8,21 @@ import com.lzy.okgo.request.PostRequest
  * Created by Administrator on 2017/6/21.
  */
 
-abstract class BaseNetWork { // 主构造方法在这写：abstract class BaseNetWork(val map: HashMap<String, String>)
+abstract class BaseNetWork { // 主构造方法在这写：abstract class BaseNetWork(val paramsMap: HashMap<String, String>)
 
     var url: String = ""
-    var map: Map<String, String> = HashMap()
+    var paramsMap: Map<String, String> = HashMap()
 
     init { // 构造时默认调用
     }
 
     protected abstract fun initUrl()
 
-    protected open fun initParams() { // 如果让子类可以重写的话需要加 open 关键字
-    }
+    protected abstract fun initParams()
 
+    /**
+     * 如果让子类可以重写的话需要加 open 关键字
+     */
     protected open fun requestNetWork() {
         initUrl()
         initParams()
@@ -28,13 +30,13 @@ abstract class BaseNetWork { // 主构造方法在这写：abstract class BaseNe
 
     protected fun <T> startPostRequest(callBack: BaseCallBack<T>?) {
         val postRequest: PostRequest = OkGo.post(url)
-        for ((key, value) in map) postRequest.params(key, value)
+        for ((key, value) in paramsMap) postRequest.params(key, value)
         postRequest.execute(callBack)
     }
 
     protected fun <T> starGetRequest(callBack: BaseCallBack<T>?) {
         val getRequest: GetRequest = OkGo.get(url)
-        for ((key, value) in map) getRequest.params(key, value)
+        for ((key, value) in paramsMap) getRequest.params(key, value)
         getRequest.execute(callBack)
     }
 

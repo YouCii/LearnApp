@@ -20,10 +20,11 @@ public class HttpRequestBuilder {
     }
 
     public void execute(AbsCallback callback) {
-        if (getRequest != null)
+        if (getRequest != null) {
             getRequest.execute(callback);
-        else
+        } else {
             postRequest.execute(callback);
+        }
     }
 
     /**
@@ -35,23 +36,25 @@ public class HttpRequestBuilder {
      * @param callback     访问回调
      */
     public void execute(long connTimeOut, long readTimeOut, long writeTimeOut, AbsCallback callback) {
-        if (getRequest != null)
+        if (getRequest != null) {
             getRequest.connTimeOut(connTimeOut)
                     .readTimeOut(readTimeOut)
                     .writeTimeOut(writeTimeOut)
                     .execute(callback);
-        else
+        } else {
             postRequest.connTimeOut(connTimeOut)
                     .readTimeOut(readTimeOut)
                     .writeTimeOut(writeTimeOut)
                     .execute(callback);
+        }
     }
 
     public HttpRequestBuilder addParams(String key, String map) {
-        if (getRequest != null)
+        if (getRequest != null) {
             getRequest.params(key, map);
-        else
+        } else {
             postRequest.params(key, map);
+        }
         return this;
     }
 

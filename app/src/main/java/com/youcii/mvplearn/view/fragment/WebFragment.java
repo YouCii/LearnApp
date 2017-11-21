@@ -64,10 +64,11 @@ public class WebFragment extends BaseFragment implements IFragWebView, View.OnCl
 		webView.registerHandler("decNativeNum", new BridgeHandler() {
 			@Override
 			public void handler(String data, CallBackFunction function) {
-				if (data.contains("啊啊"))
-					nativeNum.setText((Integer.parseInt(nativeNum.getText().toString()) - 1) + "");
-				else
-					ToastUtils.showShortToast(activity, data);
+				if (data.contains("啊啊")) {
+                    nativeNum.setText((Integer.parseInt(nativeNum.getText().toString()) - 1) + "");
+                } else {
+                    ToastUtils.showShortToast(activity, data);
+                }
 				function.onCallBack(data);
 			}
 		});
@@ -77,7 +78,9 @@ public class WebFragment extends BaseFragment implements IFragWebView, View.OnCl
 	public void onDestroyView() {
 		super.onDestroyView();
 		ButterKnife.unbind(this);
-		if (webView != null) webView.destroy();
+		if (webView != null) {
+            webView.destroy();
+        }
 	}
 
 	private class jsInterface {

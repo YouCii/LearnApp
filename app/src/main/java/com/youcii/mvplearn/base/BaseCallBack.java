@@ -63,8 +63,9 @@ public abstract class BaseCallBack<T> extends AbsCallback<T> {
 				return null;
 			}
 			Object responseObject = GsonUtils.json2Bean(json, getTClass());
-			if (!((BaseResponse) responseObject).status.equals("success"))
-				return (T) new Exception("网络请求失败：" + ((BaseResponse) responseObject).msg);
+			if (!"success".equals(((BaseResponse) responseObject).status)) {
+                return (T) new Exception("网络请求失败：" + ((BaseResponse) responseObject).msg);
+            }
 			return (T) responseObject;
 		} else if (cls == String.class) {
 			try {
@@ -85,10 +86,11 @@ public abstract class BaseCallBack<T> extends AbsCallback<T> {
 	public void onError(@Nullable Call call, Response response, Exception e) {
 		super.onError(call, response, e);
 
-		if (response.body().toString().contains("ConnectTimeoutException"))
-			Toast.makeText(context, "服务器超时无响应", Toast.LENGTH_SHORT).show();
-		else
-			Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+		if (response.body().toString().contains("ConnectTimeoutException")) {
+            Toast.makeText(context, "服务器超时无响应", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+        }
 	}
 
 	// 反射获取T.class

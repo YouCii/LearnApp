@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Subscribe
     public void onEventMainThread(String loginResponse) {
-        if (loginResponse.equals("登陆成功")) {
+        if ("登陆成功".equals(loginResponse)) {
             turnProgress(false);
             clearPass();
             loginPresenter.saveUser(et_user.getText().toString(), et_password.getText().toString());
@@ -95,10 +95,11 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Override
     public void turnProgress(boolean onOff) {
-        if (onOff)
+        if (onOff) {
             login_progress.setVisibility(View.VISIBLE);
-        else
+        } else {
             login_progress.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

@@ -20,15 +20,20 @@ public class ViewUtils {
     public static void hideInput(Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = ((Activity) context).getCurrentFocus();
-        if (imm.isActive() && view != null)
+        if (imm.isActive() && view != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     /* 设置listview高度 */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
-        if (listView == null) return;
+        if (listView == null) {
+            return;
+        }
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) return;
+        if (listAdapter == null) {
+            return;
+        }
 
         int totalHeight = 0;
         for (int i = 0; i < listAdapter.getCount(); i++) {
