@@ -1,8 +1,6 @@
 package com.youcii.mvplearn.base
 
-import com.lzy.okgo.OkGo
-import com.lzy.okgo.request.GetRequest
-import com.lzy.okgo.request.PostRequest
+import com.youcii.mvplearn.utils.HttpRequestBuilder
 
 /**
  * Created by Administrator on 2017/6/21.
@@ -29,14 +27,14 @@ abstract class BaseNetWork { // 主构造方法在这写：abstract class BaseNe
     }
 
     protected fun <T> startPostRequest(callBack: BaseCallBack<T>?) {
-        val postRequest: PostRequest = OkGo.post(url)
-        for ((key, value) in paramsMap) postRequest.params(key, value)
+        val postRequest: HttpRequestBuilder = HttpRequestBuilder.getInstance().postRequest(url)
+        for ((key, value) in paramsMap) postRequest.addParams(key, value)
         postRequest.execute(callBack)
     }
 
-    protected fun <T> starGetRequest(callBack: BaseCallBack<T>?) {
-        val getRequest: GetRequest = OkGo.get(url)
-        for ((key, value) in paramsMap) getRequest.params(key, value)
+    protected fun <T> startGetRequest(callBack: BaseCallBack<T>?) {
+        val getRequest: HttpRequestBuilder = HttpRequestBuilder.getInstance().getRequest(url)
+        for ((key, value) in paramsMap) getRequest.addParams(key, value)
         getRequest.execute(callBack)
     }
 

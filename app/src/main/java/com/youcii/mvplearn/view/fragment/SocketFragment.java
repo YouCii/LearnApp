@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.presenter.fragment.FragSocketPresenter;
+import com.youcii.mvplearn.utils.ThreadPool;
 import com.youcii.mvplearn.view.fragment.interfaces.IFragSocketView;
 
 import butterknife.Bind;
@@ -85,18 +86,16 @@ public class SocketFragment extends BaseFragment implements IFragSocketView {
 	@Override
 	public void addMessageText(String s) {
 		socketMessageWindow.append("\n" + s);
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				try {
-					sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				activity.runOnUiThread(() -> svMessage.fullScroll(ScrollView.FOCUS_DOWN));// 滚到底部
+
+		ThreadPool.getThreadPool().execute(() -> {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		}.start();
+			// 滚到底部
+			activity.runOnUiThread(() -> svMessage.fullScroll(ScrollView.FOCUS_DOWN));
+		});
 	}
 
 	@Override

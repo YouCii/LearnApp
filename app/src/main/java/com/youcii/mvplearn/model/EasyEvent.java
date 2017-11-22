@@ -1,11 +1,11 @@
 package com.youcii.mvplearn.model;
 
 /**
- * Created by YouCii on 2016/12/3.
+ * @author YouCii
+ * @date 2016/12/3
  */
-
 public class EasyEvent {
 
-	public String PitPatGetCallBack = "&&0&&";
+	public String pitPatGetCallBack = "&&0&&";
 
 }

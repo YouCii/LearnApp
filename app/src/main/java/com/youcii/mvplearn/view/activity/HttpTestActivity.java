@@ -96,7 +96,8 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
 	@Override
 	public void addParam() {
 		View view = getLayoutInflater().inflate(R.layout.include_key_value, null);
-		llHttpParams.addView(view);// 整改照片列表
+		// 整改照片列表
+		llHttpParams.addView(view);
 
 		keyView.add(view.findViewById(R.id.include_key));
 		valueView.add(view.findViewById(R.id.include_value));

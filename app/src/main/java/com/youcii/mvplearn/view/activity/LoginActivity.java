@@ -32,13 +32,13 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Bind(R.id.qxjd)
     TextView qxjd;
     @Bind(R.id.login_progress)
-    ProgressBar login_progress;
+    ProgressBar loginProgress;
     @Bind(R.id.bt_login)
     Button login;
     @Bind(R.id.et_user)
-    AutoCompleteTextView et_user;
+    AutoCompleteTextView etUser;
     @Bind(R.id.et_password)
-    EditText et_password;
+    EditText etPassword;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -50,8 +50,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
         loginPresenter = new LoginPresenter(this);
         login.setOnClickListener(this);
-        et_user.setOnEditorActionListener(this);
-        et_password.setOnEditorActionListener(this);
+        etUser.setOnEditorActionListener(this);
+        etPassword.setOnEditorActionListener(this);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         if ("登陆成功".equals(loginResponse)) {
             turnProgress(false);
             clearPass();
-            loginPresenter.saveUser(et_user.getText().toString(), et_password.getText().toString());
+            loginPresenter.saveUser(etUser.getText().toString(), etPassword.getText().toString());
 
             startActivity();
         } else {
@@ -90,15 +90,15 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Override
     public void clearPass() {
-        et_password.setText("");
+        etPassword.setText("");
     }
 
     @Override
     public void turnProgress(boolean onOff) {
         if (onOff) {
-            login_progress.setVisibility(View.VISIBLE);
+            loginProgress.setVisibility(View.VISIBLE);
         } else {
-            login_progress.setVisibility(View.INVISIBLE);
+            loginProgress.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -115,21 +115,21 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Override
     public void startActivity() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("userName", et_user.getText().toString());
+        intent.putExtra("userName", etUser.getText().toString());
         startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
         ViewUtils.hideInput(this);
-        loginPresenter.login(et_user.getText().toString(), et_password.getText().toString());
+        loginPresenter.login(etUser.getText().toString(), etPassword.getText().toString());
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         switch (v.getId()) {
             case R.id.et_user:
-                et_password.requestFocus();
+                etPassword.requestFocus();
                 break;
             case R.id.et_password:
                 onClick(null);

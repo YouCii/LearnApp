@@ -13,7 +13,7 @@ public class APILimitUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return context.getColor(colorId);
         } else {
-            return context.getResources().getColor(colorId);
+            return context.getResources().getColor(colorId, null);
         }
     }
 

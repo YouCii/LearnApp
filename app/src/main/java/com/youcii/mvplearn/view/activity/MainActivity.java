@@ -103,14 +103,14 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		CenterButtonInit(menu); // 方式2：getMenuInflater().inflate(R.menu.menu_main, menu); // 通过布局定义
+		centerButtonInit(menu); // 方式2：getMenuInflater().inflate(R.menu.menu_main, menu); // 通过布局定义
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	/**
 	 * 初始化各个按键参数
 	 */
-	private void CenterButtonInit(Menu menu) {
+	private void centerButtonInit(Menu menu) {
 		menu.clear();
 
 		menu.add(0, MainMenuID.设置, 0, "设置");

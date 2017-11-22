@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by sayyid on 2016/4/14.
+ * @author Administrator
  */
 public class DeviceListAdapter extends BaseAdapter {
 
@@ -55,27 +55,27 @@ public class DeviceListAdapter extends BaseAdapter {
         if (convertView == null) {
             deviceHolder = new DeviceHolder();
             convertView = inflater.inflate(R.layout.item_device, parent, false);
-            deviceHolder.tv_device = (TextView) convertView.findViewById(R.id.tv_device);
+            deviceHolder.tvDevice = (TextView) convertView.findViewById(R.id.tv_device);
             deviceHolder.location = (TextView) convertView.findViewById(R.id.location);
-            deviceHolder.tv_distance = (TextView) convertView.findViewById(R.id.tv_distance);
+            deviceHolder.tvDistance = (TextView) convertView.findViewById(R.id.tv_distance);
 
             convertView.setTag(deviceHolder);
         } else {
             deviceHolder = (DeviceHolder) convertView.getTag();
         }
         deviceHolder.location.setVisibility(View.VISIBLE);
-        deviceHolder.tv_device.setText(devices.get(position).deviceName);
-        if (getDouble(devices.get(position).X) == 0 || getDouble(devices.get(position).Y) == 0) {
+        deviceHolder.tvDevice.setText(devices.get(position).deviceName);
+        if (getDouble(devices.get(position).x) == 0 || getDouble(devices.get(position).y) == 0) {
             deviceHolder.location.setText("无坐标记录");
-            deviceHolder.tv_distance.setVisibility(View.GONE);
+            deviceHolder.tvDistance.setVisibility(View.GONE);
         } else {
             DecimalFormat fot = new DecimalFormat("#.######");
-            deviceHolder.location.setText(fot.format(getDouble(devices.get(position).X)) + "\n" + fot.format(getDouble(devices.get(position).Y)));
-            deviceHolder.tv_distance.setVisibility(View.VISIBLE);
+            deviceHolder.location.setText(fot.format(getDouble(devices.get(position).x)) + "\n" + fot.format(getDouble(devices.get(position).y)));
+            deviceHolder.tvDistance.setVisibility(View.VISIBLE);
             if (devices.get(position).distance > 1000) {
-                deviceHolder.tv_distance.setText("距离上次确定的距离大于1000米");
+                deviceHolder.tvDistance.setText("距离上次确定的距离大于1000米");
             } else {
-                deviceHolder.tv_distance.setText(devices.get(position).distance + " 米");
+                deviceHolder.tvDistance.setText(devices.get(position).distance + " 米");
             }
         }
         return convertView;
@@ -91,23 +91,22 @@ public class DeviceListAdapter extends BaseAdapter {
         return d;
     }
 
-    // ViewHolder
     private class DeviceHolder {
-        TextView tv_device;
+        TextView tvDevice;
         TextView location;
-        TextView tv_distance;
+        TextView tvDistance;
     }
 
     public static class Device {
         private String deviceName;
-        private String X;
-        private String Y;
+        private String x;
+        private String y;
         public double distance = 0;
 
         public Device(String deviceName, String x, String y, double distance) {
             this.deviceName = deviceName;
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
             this.distance = distance;
         }
     }

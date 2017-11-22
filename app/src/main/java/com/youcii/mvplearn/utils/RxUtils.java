@@ -52,14 +52,16 @@ public class RxUtils {
 		};
 
 		Observable.create(onSubscribe)
-				.subscribeOn(Schedulers.io())  // onSubscribe
+				// onSubscribe
+				.subscribeOn(Schedulers.io())
 				.doOnSubscribe(new Action0() {
 					@Override
 					public void call() {
 						iFragRxView.addText("doOnSubscribe: " + Thread.currentThread().getName() + "\n");
 					}
 				})
-				.subscribeOn(Schedulers.newThread()) // doOnSubscribe
+				// doOnSubscribe
+				.subscribeOn(Schedulers.newThread())
 				.observeOn(Schedulers.newThread())
 				.flatMap(new Func1<EasyEvent[], Observable<EasyEvent>>() {
 					@Override
@@ -72,7 +74,7 @@ public class RxUtils {
 					@Override // 把EasyEvent转化为String
 					public String call(EasyEvent eEvent) {
 						iFragRxView.addText("map: " + Thread.currentThread().getName() + "\n");
-						return eEvent.PitPatGetCallBack;
+						return eEvent.pitPatGetCallBack;
 					}
 				})
 				.filter(new Func1<String, Boolean>() {
@@ -83,7 +85,8 @@ public class RxUtils {
 					}
 				})
 				.limit(2)
-				.observeOn(AndroidSchedulers.mainThread()) //subscriber
+				//subscriber
+				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(subscriber);
 	}
 

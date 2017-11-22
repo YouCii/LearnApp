@@ -63,17 +63,17 @@ public class HttpRequestBuilder {
      */
     private GetRequest getRequest = null;
 
-    public HttpRequestBuilder GetRequest(String url) {
+    public HttpRequestBuilder getRequest(String url) {
         getRequest = OkGo.get(url);
         return this;
     }
 
     /**
-     * PostRequest 构建
+     * postRequest 构建
      */
     private PostRequest postRequest = null;
 
-    public HttpRequestBuilder PostRequest(String url) {
+    public HttpRequestBuilder postRequest(String url) {
         postRequest = OkGo.post(url);
         return this;
     }
