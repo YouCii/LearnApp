@@ -17,7 +17,7 @@ public class BaseFragment extends Fragment {
 	@Override
 	public Context getContext() {
 		if (activity == null) {
-            return App.getContext();
+            return App.getInstance();
         }
 		return activity;
 	}

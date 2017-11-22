@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 
 import com.youcii.mvplearn.listener.BackOnGestureListener;
 
+/**
+ * @author Administrator
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
 	private GestureDetector mGestureDetector;

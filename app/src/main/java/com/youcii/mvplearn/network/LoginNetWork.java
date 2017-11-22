@@ -1,13 +1,20 @@
 package com.youcii.mvplearn.network;
 
+import android.support.annotation.Nullable;
+
+import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.app.App;
+import com.youcii.mvplearn.base.BaseCallBack;
 import com.youcii.mvplearn.base.BaseNetWork;
-import com.youcii.mvplearn.callback.LoginCallBack;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
- * Created by YouCii on 2016/7/15.
+ * @author YouCii
+ * @date 2016/7/15
  */
-public class LoginNetWork extends BaseNetWork {
+public class LoginNetWork extends BaseNetWork<String> {
 	private String user, password;
 
 	public LoginNetWork(String user, String password) {
@@ -27,8 +34,20 @@ public class LoginNetWork extends BaseNetWork {
 	}
 
 	@Override
-	public void requestNetWork() {
-		super.requestNetWork();
-		startPostRequest(new LoginCallBack(App.getContext()));
+	protected void initCallBack() {
+		setCallBack(new BaseCallBack<String>(App.getInstance()) {
+			@Override
+			protected void onSuccess(String string) {
+				setChanged();
+				notifyObservers(App.getInstance().getString(R.string.success));
+			}
+
+			@Override
+			public void onError(@Nullable Call call, Response response, Exception e) {
+				super.onError(call, response, e);
+				setChanged();
+				notifyObservers(App.getInstance().getString(R.string.error));
+			}
+		});
 	}
 }

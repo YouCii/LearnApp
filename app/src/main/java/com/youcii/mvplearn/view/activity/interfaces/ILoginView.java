@@ -1,7 +1,8 @@
 package com.youcii.mvplearn.view.activity.interfaces;
 
 /**
- * Created by YouCii on 2016/7/14.
+ * @author YouCii
+ * @date 2016/7/14
  */
 public interface ILoginView {
 
@@ -12,6 +13,10 @@ public interface ILoginView {
     void turnLogin(boolean onOff);
 
     void showToast(String content);
+
+    void loginSuccess();
+
+    void loginFail();
 
     void startActivity();
 }

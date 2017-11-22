@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">LearnApp</string>
 
-    <!-- asdasdActivity -->
+    <!-- 常用 -->
+    <string name="success">success</string>
+    <string name="error">error</string>
+
+    <!-- LoginActivity -->
     <string name="prompt_user">User</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">登录</string>

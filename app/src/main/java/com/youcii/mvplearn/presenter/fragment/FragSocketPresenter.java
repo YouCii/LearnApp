@@ -7,16 +7,15 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.youcii.mvplearn.presenter.fragment.interfaces.IFragSocketPresenter;
 import com.youcii.mvplearn.service.PitPatService;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.view.fragment.interfaces.IFragSocketView;
 
 /**
- * Created by YouCii on 2016/12/3.
+ * @author YouCii
+ * @date 2016/12/3
  */
-
-public class FragSocketPresenter implements IFragSocketPresenter {
+public class FragSocketPresenter {
 	private Activity activity;
 
 	private IFragSocketView iFragSocketView;
@@ -40,30 +39,28 @@ public class FragSocketPresenter implements IFragSocketPresenter {
 		this.activity = activity;
 	}
 
-	@Override
 	public void socketSend() {
 		if (pitPatService != null) {
             pitPatService.sentMessage("message from client");
         }
 	}
 
-	@Override
 	public void socketBreak() {
 		if (pitPatService != null) {
-			activity.unbindService(connection); // 会触发unBind()和onDestroy()
+			// 会触发unBind()和onDestroy()
+			activity.unbindService(connection);
 			pitPatService = null;
 		}
 	}
 
-	@Override
 	public void socketConnect() {
 		Intent intent = new Intent(activity, PitPatService.class);
 		intent.putExtra("IP", iFragSocketView.getIp());
 		intent.putExtra("PORT", iFragSocketView.getPort());
-		activity.bindService(intent, connection, Context.BIND_AUTO_CREATE); // 会触发onCreate()和onBind()，不触发onStartCommand； 多次点击不会多次触发
+		// 会触发onCreate()和onBind()，不触发onStartCommand； 多次点击不会多次触发
+		activity.bindService(intent, connection, Context.BIND_AUTO_CREATE);
 	}
 
-	@Override
 	public void socketCurrentThread() {
 		ToastUtils.showShortSnack(activity.getWindow().getDecorView(), "待写");
 	}

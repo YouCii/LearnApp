@@ -1,30 +1,47 @@
 package com.youcii.mvplearn.presenter.activity;
 
-
+import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.app.App;
 import com.youcii.mvplearn.network.LoginNetWork;
-import com.youcii.mvplearn.presenter.activity.interfaces.ILoginPresenter;
 import com.youcii.mvplearn.view.activity.interfaces.ILoginView;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
- * Created by YouCii on 2016/7/15.
+ * @author YouCii
+ * @date 2016/7/15
  */
-public class LoginPresenter implements ILoginPresenter {
+public class LoginPresenter implements Observer {
 
-    private ILoginView iLoginView;
+	private ILoginView iLoginView;
 
-    public LoginPresenter(ILoginView iLoginView) {
-        this.iLoginView = iLoginView;
-    }
+	public LoginPresenter(ILoginView iLoginView) {
+		this.iLoginView = iLoginView;
+	}
 
-    @Override
-    public void login(String user, String password) {
-        iLoginView.turnProgress(true);
-        new LoginNetWork(user, password).requestNetWork();
-    }
+	public void login(String user, String password) {
+		iLoginView.turnProgress(true);
 
-    @Override
-    public void saveUser(String user, String password) {
-        iLoginView.showToast("getEvent");
-    }
+		LoginNetWork loginNetWork = new LoginNetWork(user, password);
+		loginNetWork.addObserver(this);
+		loginNetWork.postNetWork();
+	}
 
+	public void saveUser(String user, String password) {
+		iLoginView.showToast("getEvent");
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		if (observable instanceof LoginNetWork) {
+			if (data instanceof String) {
+				if (App.getInstance().getString(R.string.success).equals(data)) {
+					iLoginView.loginSuccess();
+				} else {
+					iLoginView.loginFail();
+				}
+			}
+		}
+	}
 }

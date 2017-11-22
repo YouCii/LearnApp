@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.FileConvert;
+import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.app.App;
 import com.youcii.mvplearn.utils.GsonUtils;
 
 import java.io.File;
@@ -18,16 +20,16 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2017/4/25.
+ * @author Administrator
+ * @date 2017/4/25
  */
-
 public abstract class BaseCallBack<T> extends AbsCallback<T> {
 	protected Context context;
 	private String destFileDir;
 	private String destFileName;
 
 	public BaseCallBack(Context context) {
-		this.context = context;
+		this(context, null, null);
 	}
 
 	public BaseCallBack(Context context, String destFileDir, String destFileName) {
@@ -63,9 +65,9 @@ public abstract class BaseCallBack<T> extends AbsCallback<T> {
 				return null;
 			}
 			Object responseObject = GsonUtils.json2Bean(json, getTClass());
-			if (!"success".equals(((BaseResponse) responseObject).status)) {
-                return (T) new Exception("网络请求失败：" + ((BaseResponse) responseObject).msg);
-            }
+			if (!App.getInstance().getString(R.string.success).equals(((BaseResponse) responseObject).status)) {
+				return (T) new Exception("网络请求失败：" + ((BaseResponse) responseObject).msg);
+			}
 			return (T) responseObject;
 		} else if (cls == String.class) {
 			try {
@@ -87,19 +89,23 @@ public abstract class BaseCallBack<T> extends AbsCallback<T> {
 		super.onError(call, response, e);
 
 		if (response.body().toString().contains("ConnectTimeoutException")) {
-            Toast.makeText(context, "服务器超时无响应", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-        }
+			Toast.makeText(context, "服务器超时无响应", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+		}
 	}
 
-	// 反射获取T.class
+	/**
+	 * 反射获取T.class
+	 */
 	private Class<T> getTClass() {
 		Class<T> tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		return tClass;
 	}
 
-	// 返回file
+	/**
+	 * 返回file
+	 */
 	private File convertToFile(Response response) {
 		FileConvert convert = new FileConvert(destFileDir, destFileName);
 		convert.setCallback(this);
