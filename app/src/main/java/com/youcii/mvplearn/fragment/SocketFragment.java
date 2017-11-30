@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment;
+package com.youcii.mvplearn.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.presenter.fragment.FragSocketPresenter;
 import com.youcii.mvplearn.utils.ThreadPool;
-import com.youcii.mvplearn.view.fragment.interfaces.IFragSocketView;
+import com.youcii.mvplearn.fragment.interfaces.IFragSocketView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

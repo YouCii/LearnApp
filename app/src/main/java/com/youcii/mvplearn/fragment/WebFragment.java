@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment;
+package com.youcii.mvplearn.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import com.github.lzyzsd.jsbridge.DefaultHandler;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.utils.ToastUtils;
-import com.youcii.mvplearn.view.fragment.interfaces.IFragWebView;
+import com.youcii.mvplearn.fragment.interfaces.IFragWebView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

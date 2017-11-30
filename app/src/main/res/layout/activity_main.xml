@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.youcii.mvplearn.view.activity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <!-- AppBarLayout 一种支持响应滚动手势的app bar布局（比如工具栏滚出或滚入屏幕) -->
     <android.support.design.widget.AppBarLayout

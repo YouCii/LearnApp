@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity;
+package com.youcii.mvplearn.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import com.youcii.mvplearn.adapter.DeviceListAdapter.Device;
 import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.presenter.activity.ListRefreshPresenter;
 import com.youcii.mvplearn.utils.ToastUtils;
-import com.youcii.mvplearn.view.activity.interfaces.IListRefreshView;
+import com.youcii.mvplearn.activity.interfaces.IListRefreshView;
 
 import java.util.ArrayList;
 import java.util.Collections;

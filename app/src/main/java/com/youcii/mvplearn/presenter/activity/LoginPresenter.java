@@ -3,7 +3,7 @@ package com.youcii.mvplearn.presenter.activity;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.app.App;
 import com.youcii.mvplearn.network.LoginNetWork;
-import com.youcii.mvplearn.view.activity.interfaces.ILoginView;
+import com.youcii.mvplearn.activity.interfaces.ILoginView;
 
 import java.util.Observable;
 import java.util.Observer;

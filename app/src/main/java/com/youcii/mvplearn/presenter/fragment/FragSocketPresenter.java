@@ -9,7 +9,7 @@ import android.os.IBinder;
 
 import com.youcii.mvplearn.service.PitPatService;
 import com.youcii.mvplearn.utils.ToastUtils;
-import com.youcii.mvplearn.view.fragment.interfaces.IFragSocketView;
+import com.youcii.mvplearn.fragment.interfaces.IFragSocketView;
 
 /**
  * @author YouCii

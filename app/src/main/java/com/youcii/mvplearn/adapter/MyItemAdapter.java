@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.model.RecyclerBean;
-import com.youcii.mvplearn.view.fragment.ItemFragment.OnListFragmentInteractionListener;
+import com.youcii.mvplearn.fragment.ItemFragment.OnListFragmentInteractionListener;
 import com.youcii.mvplearn.viewholder.MyItemViewHolder;
 
 import java.util.List;

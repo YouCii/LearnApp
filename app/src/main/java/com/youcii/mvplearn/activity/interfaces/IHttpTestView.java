@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity.interfaces;
+package com.youcii.mvplearn.activity.interfaces;
 
 import java.util.Map;
 

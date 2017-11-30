@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment.interfaces;
+package com.youcii.mvplearn.fragment.interfaces;
 
 /**
  * Created by YouCii on 2016/12/17.

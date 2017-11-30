@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment;
+package com.youcii.mvplearn.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +11,7 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.utils.APILimitUtils;
 import com.youcii.mvplearn.utils.FragmentUtils;
-import com.youcii.mvplearn.view.fragment.interfaces.IFragChangeView;
+import com.youcii.mvplearn.fragment.interfaces.IFragChangeView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

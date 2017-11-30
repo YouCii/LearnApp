@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity;
+package com.youcii.mvplearn.activity;
 
 import android.content.Context;
 import android.content.Intent;

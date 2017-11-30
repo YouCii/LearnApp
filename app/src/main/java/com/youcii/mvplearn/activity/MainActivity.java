@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity;
+package com.youcii.mvplearn.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,13 +18,13 @@ import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.model.MainMenuID;
 import com.youcii.mvplearn.model.RecyclerBean;
 import com.youcii.mvplearn.utils.ToastUtils;
-import com.youcii.mvplearn.view.activity.interfaces.IMainView;
-import com.youcii.mvplearn.view.fragment.BlockFragment;
-import com.youcii.mvplearn.view.fragment.ChangeFragment;
-import com.youcii.mvplearn.view.fragment.ItemFragment;
-import com.youcii.mvplearn.view.fragment.RxFragment;
-import com.youcii.mvplearn.view.fragment.SocketFragment;
-import com.youcii.mvplearn.view.fragment.WebFragment;
+import com.youcii.mvplearn.activity.interfaces.IMainView;
+import com.youcii.mvplearn.fragment.BlockFragment;
+import com.youcii.mvplearn.fragment.ChangeFragment;
+import com.youcii.mvplearn.fragment.ItemFragment;
+import com.youcii.mvplearn.fragment.RxFragment;
+import com.youcii.mvplearn.fragment.SocketFragment;
+import com.youcii.mvplearn.fragment.WebFragment;
 
 import java.util.ArrayList;
 import java.util.List;

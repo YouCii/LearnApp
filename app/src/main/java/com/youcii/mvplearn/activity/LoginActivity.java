@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity;
+package com.youcii.mvplearn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.youcii.mvplearn.utils.PermissionUtils;
 import com.youcii.mvplearn.utils.PhoneUtils;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.utils.ViewUtils;
-import com.youcii.mvplearn.view.activity.interfaces.ILoginView;
+import com.youcii.mvplearn.activity.interfaces.ILoginView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

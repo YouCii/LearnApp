@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity;
+package com.youcii.mvplearn.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.presenter.activity.HttpTestPresenter;
-import com.youcii.mvplearn.view.activity.interfaces.IHttpTestView;
+import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

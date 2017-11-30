@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment;
+package com.youcii.mvplearn.fragment;
 
 import android.content.Context;
 import android.net.Uri;

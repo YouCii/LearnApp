@@ -1,11 +1,9 @@
 package com.youcii.mvplearn.utils;
 
-
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PostRequest;
-
+import com.youcii.mvplearn.adapter.okgo.CallBackAdapter;
 
 /**
  * Created by YouCii on 2016/12/29.
@@ -13,43 +11,32 @@ import com.lzy.okgo.request.PostRequest;
  * 用于承接网络访问框架与逻辑层, 避免更换框架时的大幅改动
  */
 
-public class HttpRequestBuilder {
+public class HttpRequestBuilder<T> {
 
-    public static HttpRequestBuilder getInstance() {
-        return new HttpRequestBuilder();
-    }
+    /**
+     * getRequest 构建
+     */
+    private GetRequest<T> getRequest = null;
 
-    public void execute(AbsCallback callback) {
-        if (getRequest != null) {
-            getRequest.execute(callback);
-        } else {
-            postRequest.execute(callback);
-        }
+    public HttpRequestBuilder<T> getRequest(String url) {
+        getRequest = OkGo.get(url);
+        return this;
     }
 
     /**
-     * 设置超时时间的请求
-     *
-     * @param connTimeOut  连接超时时间
-     * @param readTimeOut  读超时
-     * @param writeTimeOut 写超时
-     * @param callback     访问回调
+     * postRequest 构建
      */
-    public void execute(long connTimeOut, long readTimeOut, long writeTimeOut, AbsCallback callback) {
-        if (getRequest != null) {
-            getRequest.connTimeOut(connTimeOut)
-                    .readTimeOut(readTimeOut)
-                    .writeTimeOut(writeTimeOut)
-                    .execute(callback);
-        } else {
-            postRequest.connTimeOut(connTimeOut)
-                    .readTimeOut(readTimeOut)
-                    .writeTimeOut(writeTimeOut)
-                    .execute(callback);
-        }
+    private PostRequest<T> postRequest = null;
+
+    public HttpRequestBuilder<T> postRequest(String url) {
+        postRequest = OkGo.post(url);
+        return this;
     }
 
-    public HttpRequestBuilder addParams(String key, String map) {
+    /**
+     * 添加参数
+     */
+    public HttpRequestBuilder<T> addParams(String key, String map) {
         if (getRequest != null) {
             getRequest.params(key, map);
         } else {
@@ -59,23 +46,13 @@ public class HttpRequestBuilder {
     }
 
     /**
-     * getRequest 构建
+     * 发起请求
      */
-    private GetRequest getRequest = null;
-
-    public HttpRequestBuilder getRequest(String url) {
-        getRequest = OkGo.get(url);
-        return this;
+    public void execute(CallBackAdapter<T> callback) {
+        if (getRequest != null) {
+            getRequest.execute(callback);
+        } else {
+            postRequest.execute(callback);
+        }
     }
-
-    /**
-     * postRequest 构建
-     */
-    private PostRequest postRequest = null;
-
-    public HttpRequestBuilder postRequest(String url) {
-        postRequest = OkGo.post(url);
-        return this;
-    }
-
 }

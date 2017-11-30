@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment;
+package com.youcii.mvplearn.fragment;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -11,7 +11,7 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.model.EasyEvent;
 import com.youcii.mvplearn.presenter.fragment.FragRxPresenter;
-import com.youcii.mvplearn.view.fragment.interfaces.IFragRxView;
+import com.youcii.mvplearn.fragment.interfaces.IFragRxView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

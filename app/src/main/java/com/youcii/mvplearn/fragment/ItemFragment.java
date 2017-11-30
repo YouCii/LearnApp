@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment;
+package com.youcii.mvplearn.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.youcii.mvplearn.adapter.MyItemAdapter;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.diyview.RecyclerItemDecoration;
 import com.youcii.mvplearn.model.RecyclerBean;
-import com.youcii.mvplearn.view.fragment.interfaces.IFragItemView;
+import com.youcii.mvplearn.fragment.interfaces.IFragItemView;
 
 import java.util.ArrayList;
 import java.util.List;

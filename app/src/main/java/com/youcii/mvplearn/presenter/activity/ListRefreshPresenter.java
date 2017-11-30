@@ -3,7 +3,7 @@ package com.youcii.mvplearn.presenter.activity;
 import android.os.CountDownTimer;
 
 import com.youcii.mvplearn.adapter.DeviceListAdapter;
-import com.youcii.mvplearn.view.activity.interfaces.IListRefreshView;
+import com.youcii.mvplearn.activity.interfaces.IListRefreshView;
 
 import java.util.List;
 import java.util.Observable;

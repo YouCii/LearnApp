@@ -7,28 +7,40 @@ import com.orhanobut.logger.Logger;
 
 import org.litepal.LitePalApplication;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+
 /**
- * Created by YouCii on 2016/7/15.
+ * @author YouCii
+ * @date 2016/7/15
  */
 public class App extends LitePalApplication {
 
-	private static Context context;
+    private static Context context;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-		context = getApplicationContext();
+        context = getApplicationContext();
 
-		CrashHandler.getInstance().init(this);
-		Logger.init("Logger");
+        CrashHandler.getInstance().init(this);
+        Logger.init("Logger");
 
-		OkGo.init(this);
-		OkGo.getInstance().setConnectTimeout(1000);
-	}
+        initOkGo();
+    }
 
-	public static Context getInstance() {
-		return context;
-	}
+    public static Context getInstance() {
+        return context;
+    }
 
+    private void initOkGo() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(10 * 1000, TimeUnit.MILLISECONDS)
+                .readTimeout(10 * 1000, TimeUnit.MILLISECONDS)
+                .writeTimeout(10 * 1000, TimeUnit.MILLISECONDS);
+        OkGo.getInstance().init(this)
+                .setOkHttpClient(builder.build());
+    }
 }

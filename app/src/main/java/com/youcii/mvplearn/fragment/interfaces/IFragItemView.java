@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.fragment.interfaces;
+package com.youcii.mvplearn.fragment.interfaces;
 
 import android.support.v7.widget.RecyclerView;
 

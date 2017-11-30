@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.view.activity.interfaces;
+package com.youcii.mvplearn.activity.interfaces;
 
 /**
  * Created by YouCii on 2016/8/11.
