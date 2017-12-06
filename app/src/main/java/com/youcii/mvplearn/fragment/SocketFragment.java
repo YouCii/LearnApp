@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
-import com.youcii.mvplearn.presenter.fragment.FragSocketPresenter;
+import com.youcii.mvplearn.presenter.FragSocketPresenter;
 import com.youcii.mvplearn.utils.ThreadPool;
 import com.youcii.mvplearn.fragment.interfaces.IFragSocketView;
 

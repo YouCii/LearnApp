@@ -9,7 +9,7 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.adapter.DeviceListAdapter;
 import com.youcii.mvplearn.adapter.DeviceListAdapter.Device;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.presenter.activity.ListRefreshPresenter;
+import com.youcii.mvplearn.presenter.ListRefreshPresenter;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.activity.interfaces.IListRefreshView;
 

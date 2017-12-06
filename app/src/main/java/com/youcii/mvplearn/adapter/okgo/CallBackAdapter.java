@@ -69,7 +69,7 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
     }
 
     /**
-     * 反射获取T.class
+     * 反射获取T.class TODO 有问题
      */
     private Class<T> getTClass() {
         Class<T> tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];

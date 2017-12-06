@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.presenter.activity.HttpTestPresenter;
+import com.youcii.mvplearn.presenter.HttpTestPresenter;
 import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
 
 import java.util.ArrayList;

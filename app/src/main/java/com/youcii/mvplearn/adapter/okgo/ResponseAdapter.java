@@ -24,6 +24,7 @@ public class ResponseAdapter<T> {
     /**
      * 禁止外部调用, 否则隔离功能失效, 需要com.lzy.okgo.model.Response内数据时可以写某数据的get方法
      */
+    @Deprecated
     private Response getResponse() {
         return response;
     }

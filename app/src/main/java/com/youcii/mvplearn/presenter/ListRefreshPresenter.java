@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.presenter.activity;
+package com.youcii.mvplearn.presenter;
 
 import android.os.CountDownTimer;
 

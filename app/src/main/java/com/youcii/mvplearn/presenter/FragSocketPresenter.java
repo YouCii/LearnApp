@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.presenter.fragment;
+package com.youcii.mvplearn.presenter;
 
 import android.app.Activity;
 import android.content.ComponentName;

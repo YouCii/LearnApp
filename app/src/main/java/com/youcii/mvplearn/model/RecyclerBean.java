@@ -1,9 +1,9 @@
 package com.youcii.mvplearn.model;
 
 /**
- * Created by YouCii on 2016/8/15.
+ * @author YouCii
+ * @date 2016/8/15
  */
-
 public class RecyclerBean {
     private String id = "";
     private String content = "";

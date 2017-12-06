@@ -1,7 +1,8 @@
 package com.youcii.mvplearn.model;
 
 /**
- * Created by YouCii on 2016/8/11.
+ * @author YouCii
+ * @date 2016/8/11
  */
 public class MainMenuID {
 

@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.presenter.fragment;
+package com.youcii.mvplearn.presenter;
 
 import com.youcii.mvplearn.model.EasyEvent;
 import com.youcii.mvplearn.fragment.interfaces.IFragRxView;

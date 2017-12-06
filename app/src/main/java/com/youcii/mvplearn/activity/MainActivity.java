@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.fab) {
-			TestListActivity.Companion.startActivity(this);
+			TestListActivity.startActivity(this);
 		} else {
 			onBackPressed();
 		}

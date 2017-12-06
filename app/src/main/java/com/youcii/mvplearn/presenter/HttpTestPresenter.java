@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.presenter.activity;
+package com.youcii.mvplearn.presenter;
 
 import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
 import com.youcii.mvplearn.network.HttpTestNetWork;

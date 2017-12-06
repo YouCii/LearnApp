@@ -11,13 +11,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.activity.interfaces.ILoginView;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.presenter.activity.LoginPresenter;
+import com.youcii.mvplearn.presenter.LoginPresenter;
 import com.youcii.mvplearn.utils.PermissionUtils;
 import com.youcii.mvplearn.utils.PhoneUtils;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.utils.ViewUtils;
-import com.youcii.mvplearn.activity.interfaces.ILoginView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,7 +70,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 	@Override
 	public void loginSuccess() {
 		turnProgress(false);
-		loginPresenter.saveUser(etUser.getText().toString(), etPassword.getText().toString());
 		clearPass();
 		startActivity();
 	}

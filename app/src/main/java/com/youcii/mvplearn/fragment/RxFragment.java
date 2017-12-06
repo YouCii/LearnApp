@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseFragment;
 import com.youcii.mvplearn.model.EasyEvent;
-import com.youcii.mvplearn.presenter.fragment.FragRxPresenter;
+import com.youcii.mvplearn.presenter.FragRxPresenter;
 import com.youcii.mvplearn.fragment.interfaces.IFragRxView;
 
 import butterknife.Bind;

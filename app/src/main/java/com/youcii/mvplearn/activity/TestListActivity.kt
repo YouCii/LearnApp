@@ -41,8 +41,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray?.add("diyView测试")
         testArray?.add("仿Native网页")
         testArray?.add("可滑动的大图title")
-
-        testArray?.add("111")
+        testArray?.add("IP归属地查询")
         testArray?.add("111")
         testArray?.add("111")
         testArray?.add("111")
@@ -70,12 +69,17 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             4 -> DiyViewActivity.startActivity(this)
             5 -> H5Activity.startActivity(this)
             6 -> CollapsingActivity.startActivity(this)
+            7 -> IPQueryActivity.startActivity(this)
             else -> {
             }
         }
     }
 
     companion object {
+        /**
+         * 加上@JvmStatic后, 可以直接TestListActivity.startActivity, 不加的话, java文件调用需要TestListActivity.companion.startActivity
+         */
+        @JvmStatic
         fun startActivity(context: Context?) {
             val intent = Intent(context, TestListActivity::class.java)
             context?.startActivity(intent)
