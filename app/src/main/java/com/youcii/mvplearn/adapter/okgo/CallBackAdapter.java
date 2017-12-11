@@ -7,9 +7,6 @@ import android.util.Log;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.FileConvert;
 import com.lzy.okgo.model.Response;
-import com.youcii.mvplearn.R;
-import com.youcii.mvplearn.app.App;
-import com.youcii.mvplearn.base.BaseResponse;
 import com.youcii.mvplearn.utils.GsonUtils;
 
 import java.io.File;
@@ -39,24 +36,19 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
     }
 
     @Override
-    public T convertResponse(okhttp3.Response response) {
+    public final T convertResponse(okhttp3.Response response) {
         T t = null;
-        Class<?> cls = getTClass();
+        Class<T> cls = getTClass();
         try {
-            if (cls == BaseResponse.class) {
-                String json = response.body().string();
-                Object responseObject = GsonUtils.json2Bean(json, getTClass());
-                if (!App.getInstance().getString(R.string.success).equals(((BaseResponse) responseObject).status)) {
-                    t = (T) new Exception("网络请求失败：" + ((BaseResponse) responseObject).msg);
-                } else {
-                    t = (T) responseObject;
-                }
-            } else if (cls == String.class) {
+            if (cls == String.class) {
                 t = (T) response.body().string();
             } else if (cls == Bitmap.class) {
                 t = (T) BitmapFactory.decodeStream(response.body().byteStream());
             } else if (cls == File.class) {
                 t = (T) new FileConvert(destFileDir, destFileName).convertResponse(response);
+            } else {
+                String json = response.body() == null ? "" : response.body().string();
+                t = GsonUtils.json2Bean(json, cls);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,7 +61,7 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
     }
 
     /**
-     * 反射获取T.class TODO 有问题
+     * 反射获取T.class 测试没有问题
      */
     private Class<T> getTClass() {
         Class<T> tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -79,23 +71,32 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
     /**
      * 替代三方包的回调暴漏给业务层
      */
-    public void onSuccess(ResponseAdapter<T> response) {
+    public void onSuccess(T t) {
     }
 
     /**
      * 替代三方包的回调暴漏给业务层
      */
-    public void onError(ResponseAdapter<T> response) {
+    public void onError(String errorInfo) {
     }
 
     @Override
     public final void onSuccess(Response<T> response) {
-        onSuccess(new ResponseAdapter<>(response));
+        if (response.isSuccessful()) {
+            T t = response.body();
+            if (t != null) {
+                onSuccess(t);
+            } else {
+                onError("回调格式错误");
+            }
+        } else {
+            onError(response.message());
+        }
     }
 
     @Override
     public final void onError(Response<T> response) {
         super.onError(response);
-        onError(new ResponseAdapter<>(response));
+        onError(response.message());
     }
 }

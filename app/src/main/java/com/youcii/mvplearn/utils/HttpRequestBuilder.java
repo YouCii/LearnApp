@@ -34,13 +34,26 @@ public class HttpRequestBuilder<T> {
     }
 
     /**
+     * 添加请求头
+     */
+    public HttpRequestBuilder<T> addHeader(String key, String value) {
+        if (getRequest != null) {
+            getRequest.headers(key, value);
+        } else {
+            postRequest.headers(key, value);
+        }
+        return this;
+    }
+
+
+    /**
      * 添加参数
      */
-    public HttpRequestBuilder<T> addParams(String key, String map) {
+    public HttpRequestBuilder<T> addParams(String key, String value) {
         if (getRequest != null) {
-            getRequest.params(key, map);
+            getRequest.params(key, value);
         } else {
-            postRequest.params(key, map);
+            postRequest.params(key, value);
         }
         return this;
     }

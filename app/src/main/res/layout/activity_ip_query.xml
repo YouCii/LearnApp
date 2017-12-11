@@ -14,7 +14,8 @@
         android:layout_height="55dp"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:hint="ip" />
+        android:hint="ip"
+        android:text="114.247.50.2" />
 
     <Button
         android:id="@+id/btnQuery"

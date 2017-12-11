@@ -1,9 +1,7 @@
 package com.youcii.mvplearn.network;
 
 import com.youcii.mvplearn.adapter.okgo.CallBackAdapter;
-import com.youcii.mvplearn.adapter.okgo.ResponseAdapter;
 import com.youcii.mvplearn.base.BaseNetWork;
-import com.youcii.mvplearn.utils.ThreadPool;
 
 import java.util.Map;
 
@@ -34,16 +32,9 @@ public class HttpTestNetWork extends BaseNetWork<String> {
     protected void initCallBack() {
         setCallBack(new CallBackAdapter<String>() {
             @Override
-            public void onSuccess(ResponseAdapter response) {
-                ThreadPool.getThreadPool().execute(() -> {
-                    try {
-                        setChanged();
-                        notifyObservers(convertResponse(response.getRawResponse()));
-
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
-                });
+            public void onSuccess(String string) {
+                setChanged();
+                notifyObservers(string);
             }
         });
     }

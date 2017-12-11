@@ -3,10 +3,11 @@ package com.youcii.mvplearn.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.google.gson.JsonSyntaxException
 import com.lzy.okgo.OkGo
 import com.lzy.okrx2.adapter.ObservableBody
 import com.youcii.mvplearn.R
-import com.youcii.mvplearn.adapter.okgo.JsonConvert
+import com.youcii.mvplearn.adapter.okgo.JsonConverter
 import com.youcii.mvplearn.base.BaseActivity
 import com.youcii.mvplearn.model.IpQueryResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,15 +25,15 @@ class IPQueryActivity : BaseActivity() {
                 startQuery()
             }
         })
+
+        etIp.setSelection(etIp.text.length)
     }
 
     private fun startQuery() {
-        val observable = OkGo.post<IpQueryResponse>("http://iploc.market.alicloudapi.com/v3/ip")
-                .headers("Authorization", "e791ada94bd74182aaab249e51128ad3")
+        val observable = OkGo.get<IpQueryResponse>("http://iploc.market.alicloudapi.com/v3/ip")
+                .headers("Authorization", "APPCODE e791ada94bd74182aaab249e51128ad3")
                 .params("ip", etIp.text.toString())
-                // 强制把params拼在url后面, 哪怕是post
-                .isSpliceUrl(true)
-                .converter(JsonConvert<IpQueryResponse>())
+                .converter(JsonConverter(IpQueryResponse::class.java))
                 .adapt(ObservableBody<IpQueryResponse>())
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -40,7 +41,7 @@ class IPQueryActivity : BaseActivity() {
                 .subscribe({ ipQueryResponse ->
                     tvResult.text = ipQueryResponse.toString()
                 }, { throwable: Throwable? ->
-                    tvResult.text = throwable.toString()
+                    tvResult.text = if (throwable is JsonSyntaxException) "无数据" else throwable.toString()
                 })
     }
 

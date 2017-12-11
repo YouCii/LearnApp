@@ -75,8 +75,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 	}
 
 	@Override
-	public void loginFail() {
-		showToast("登录失败");
+	public void loginFail(String errorInfo) {
+		turnProgress(false);
+		showToast("登录失败: " + errorInfo);
 	}
 
 	@Override

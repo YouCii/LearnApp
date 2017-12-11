@@ -16,12 +16,16 @@ class IpQueryResponse : BaseResponse() {
      * adcode : 110000
      * rectangle : 116.0119343,39.66127144;116.7829835,40.2164962
      */
-    private var status = ""
-    private var info = ""
-    private var infocode = ""
-    private var province = ""
-    private var city = ""
-    private var adcode = ""
-    private var rectangle = ""
+
+    var info = ""
+    var infocode = ""
+    var province = ""
+    var city = ""
+    var adcode = ""
+    var rectangle = ""
+
+    override fun toString(): String {
+        return "IpQueryResponse\n\ninfo='$info', \ninfocode='$infocode', \nprovince='$province', \ncity='$city', \nadcode='$adcode', \nrectangle='$rectangle'"
+    }
 
 }

@@ -16,7 +16,7 @@ public interface ILoginView {
 
     void loginSuccess();
 
-    void loginFail();
+    void loginFail(String errorInfo);
 
     void startActivity();
 }

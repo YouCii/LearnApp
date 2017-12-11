@@ -1,11 +1,12 @@
 package com.youcii.mvplearn.presenter;
 
-import android.text.TextUtils;
-
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.convert.StringConvert;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.youcii.mvplearn.activity.interfaces.ILoginView;
+import com.youcii.mvplearn.adapter.okgo.CallBackAdapter;
+import com.youcii.mvplearn.adapter.okgo.JsonConverter;
+import com.youcii.mvplearn.model.IpQueryResponse;
+import com.youcii.mvplearn.utils.HttpRequestBuilder;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -35,32 +36,57 @@ public class LoginPresenter {
         iLoginView.showToast("getEvent");
     }
 
+    /**
+     * 使用CallBack方式请求
+     */
+    private void callBackRequest(String user, String password) {
+        new HttpRequestBuilder<IpQueryResponse>()
+                .getRequest("http://iploc.market.alicloudapi.com/v3/ip")
+                .addHeader("Authorization", "APPCODE e791ada94bd74182aaab249e51128ad3")
+                .addParams("ip", "114.247.50.2")
+                .execute(new CallBackAdapter<IpQueryResponse>() {
+                    @Override
+                    public void onSuccess(IpQueryResponse ipQueryResponse) {
+                        iLoginView.loginSuccess();
+                        saveUser(user, password);
+                    }
+
+                    @Override
+                    public void onError(String errorInfo) {
+                        iLoginView.loginFail(errorInfo);
+                    }
+                });
+    }
+
+    /**
+     * 使用RxJava方式请求
+     */
     private void observableRequest(String user, String password) {
-        Observable<String> observable = OkGo.<String>post("http://www.baidu.com")
-                .params("user", user)
-                .params("password", password)
-                .converter(new StringConvert())
-                .adapt(new ObservableBody<String>());
+        Observable<IpQueryResponse> observable = OkGo.<IpQueryResponse>get("http://iploc.market.alicloudapi.com/v3/ip")
+                .headers("Authorization", "APPCODE e791ada94bd74182aaab249e51128ad3")
+                .params("ip", "114.247.50.2")
+                .converter(new JsonConverter<>(IpQueryResponse.class))
+                .adapt(new ObservableBody<>());
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(new Predicate<String>() {
+                .filter(new Predicate<IpQueryResponse>() {
                     @Override
-                    public boolean test(String string) throws Exception {
-                        return !TextUtils.isEmpty(string);
+                    public boolean test(IpQueryResponse ipQueryResponse) throws Exception {
+                        return ipQueryResponse != null;
                     }
                 })
                 .take(1)
-                .subscribe(new Consumer<String>() {
+                .subscribe(new Consumer<IpQueryResponse>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(IpQueryResponse ipQueryResponse) throws Exception {
                         iLoginView.loginSuccess();
-                        saveUser(s, password);
+                        saveUser(user, password);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) {
-                        iLoginView.loginFail();
+                        iLoginView.loginFail(throwable.getMessage());
                     }
                 });
     }
