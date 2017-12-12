@@ -5,10 +5,10 @@
 01. MVP;
 02. CardView;
 03. CollapsingToolbarLayout和ToolBar,TabLayout;
-04. Socket和OkGo;
+04. Socket;
 05. FloatingActionButton;
 06. TextInputLayout和AutoCompleteTextView;
-07. RxJava和RxAndroid;
+07. OkGo2 + RxJava2;
 08. Android原生和JS的互相调用:jsInterface方式和jsBridge方式;
 09. Gesture手势实现屏幕外部左滑返回;
 10. Kotlin;
