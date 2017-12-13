@@ -61,7 +61,9 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
     }
 
     /**
-     * 反射获取T.class 测试没有问题
+     * 反射获取T.class
+     * <p>
+     * 测试没有问题, 哪怕Response有多层继承
      */
     private Class<T> getTClass() {
         Class<T> tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];

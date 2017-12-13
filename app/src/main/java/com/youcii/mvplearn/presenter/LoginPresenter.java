@@ -29,10 +29,10 @@ public class LoginPresenter {
     public void login(String user, String password) {
         iLoginView.turnProgress(true);
 
-        observableRequest(user, password);
+        callBackRequest(user, password);
     }
 
-    public void saveUser(String user, String password) {
+    private void saveUser(String user, String password) {
         iLoginView.showToast("getEvent");
     }
 
