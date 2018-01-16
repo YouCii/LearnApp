@@ -16,4 +16,5 @@
 12. 隔离封装了OkGo的请求和回调;
 13. CSS/的学习注释JS;
 14. 线程池;
-15. Observer/Observable
+15. Observer/Observable;
+16. Retrofit简单实用;

@@ -29,7 +29,7 @@ class IPQueryActivity : BaseActivity() {
 
         btnQuery.setOnClickListener({ view ->
             if (view.id == R.id.btnQuery) {
-                startRetroQuery()
+                startRetrofitQuery()
             }
         })
 
@@ -52,7 +52,7 @@ class IPQueryActivity : BaseActivity() {
                 })
     }
 
-    private fun startRetroQuery() {
+    private fun startRetrofitQuery() {
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://iploc.market.alicloudapi.com/")
                 .build()

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.FileConvert;
 import com.lzy.okgo.model.Response;
@@ -47,8 +48,10 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
             } else if (cls == File.class) {
                 t = (T) new FileConvert(destFileDir, destFileName).convertResponse(response);
             } else {
-                String json = response.body() == null ? "" : response.body().string();
-                t = GsonUtils.json2Bean(json, cls);
+                if (response.body() != null) {
+                    JsonReader jsonReader = new JsonReader(response.body().charStream());
+                    t = GsonUtils.json2Bean(jsonReader, cls);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

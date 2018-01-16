@@ -1,5 +1,6 @@
 package com.youcii.mvplearn.adapter.okgo
 
+import com.google.gson.stream.JsonReader
 import com.lzy.okgo.convert.Converter
 import com.youcii.mvplearn.utils.GsonUtils
 import okhttp3.Response
@@ -13,7 +14,8 @@ import okhttp3.Response
 class JsonConverter<T>(private var cls: Class<T>) : Converter<T> {
 
     override fun convertResponse(p0: Response?): T {
-        return GsonUtils.json2Bean(p0?.body()?.string(), cls)
+        val jsonReader = JsonReader(p0?.body()?.charStream())
+        return GsonUtils.json2Bean(jsonReader, cls)
     }
 
 }
