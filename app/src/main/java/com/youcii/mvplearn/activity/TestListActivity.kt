@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_test_list.*
 
 class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
 
-    private val testArray: ArrayList<String>? = ArrayList()  // internal 类似于包可见. 如果不写默认是 public, 必须初始化
+    private val testArray: ArrayList<String> = ArrayList()  // internal 类似于包可见. 如果不写默认是 public, 必须初始化
 
     override fun onCreate(savedInstanceState: Bundle?) { // 取消@Override，而是方法前override
         super.onCreate(savedInstanceState)
@@ -36,29 +36,29 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
     }
 
     private fun initArray() {
-        testArray?.add("列表刷新") // ? 代表自动检测空，如果为空则跳过，不抛出异常
-        testArray?.add("接口压力测试")
-        testArray?.add("diyView测试")
-        testArray?.add("仿Native网页")
-        testArray?.add("可滑动的大图title")
-        testArray?.add("IP归属地查询")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
-        testArray?.add("111")
+        testArray.add("列表刷新") // ? 代表自动检测空，如果为空则跳过，不抛出异常
+        testArray.add("接口压力测试")
+        testArray.add("diyView测试")
+        testArray.add("仿Native网页")
+        testArray.add("可滑动的大图title")
+        testArray.add("IP归属地查询")
+        testArray.add("PagerGridView")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
+        testArray.add("111")
 
     }
 
@@ -70,6 +70,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             5 -> H5Activity.startActivity(this)
             6 -> CollapsingActivity.startActivity(this)
             7 -> IPQueryActivity.startActivity(this)
+            8 -> PagerGridActivity.startActivity(this)
             else -> {
             }
         }

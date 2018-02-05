@@ -1,21 +1,17 @@
 # LearnApp
-小框架, 主要包括自己学习的新技术/测试用界面等.
+小程序, 主要包括自己学习的新技术/测试用界面等.
 
-目前用到的小技术和v7的控件/其他内容：
-01. MVP;
-02. CardView;
-03. CollapsingToolbarLayout和ToolBar,TabLayout;
-04. Socket;
-05. FloatingActionButton;
-06. TextInputLayout和AutoCompleteTextView;
-07. OkGo2 + RxJava2;
-08. Android原生和JS的互相调用:jsInterface方式和jsBridge方式;
-09. Gesture手势实现屏幕外部左滑返回;
-10. Kotlin;
-11. aar导包方式;
-12. 隔离封装了OkGo的请求和回调;
-13. CSS/的学习注释JS;
-14. 线程池;
-15. Observer/Observable;
-16. Retrofit简单实用;
-17. 简单实用的蒙版引导实现;
+应用内用到的东西:
+01. 语言: java + kotlin
+02. 架构: MVP
+03. 用到的 MaterialDesign 控件: CardView, FloatingActionButton, ToolBar和CollapsingToolbarLayout, TextInputLayout, AutoCompleteTextView;
+04. 网络请求: OkGo2 + RxJava2, Retrofit2 + RxJava; 隔离封装OkGo的请求和回调;
+05. Android原生和JS的互相调用:jsInterface方式和jsBridge方式;
+06. Socket长连接, 可与网络调试助手通信;
+07. Gesture手势实现屏幕外部左滑返回;
+08. aar导包方式;
+09. CSS/的学习注释JS;
+10. 线程池;
+11. Observer/Observable;
+12. 简单实用的蒙版引导实现;
+13. 使用layout方式自定义控件, 实现带有指示器可循环滚动的菜单页;

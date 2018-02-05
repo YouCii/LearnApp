@@ -35,8 +35,8 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.ListRefreshActivity" />
         <activity android:name=".activity.TestListActivity" />
         <activity android:name=".activity.HttpTestActivity" />
@@ -46,6 +46,7 @@
             android:name=".activity.CollapsingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.IPQueryActivity" />
+        <activity android:name=".activity.PagerGridActivity" />
     </application>
 
 </manifest>

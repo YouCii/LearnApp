@@ -46,6 +46,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':pagerGridView')
     /* 这个aar里面包含了assets里一个js文件，所以单纯的jar是不行的，Eclipse想引用的话必须把assets的文件复制到自己的项目中 */
     compile(name: 'jsbridge-1.0.4', ext: 'aar')
 
