@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.jdw.widget.BindViewHolderRunnable
 import com.jdw.widget.PagerGridBean
-import com.jdw.widget.SwitchAdapter
 import com.youcii.mvplearn.R
 import com.youcii.mvplearn.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_pager_grid.*
@@ -31,7 +30,7 @@ class PagerGridActivity : BaseActivity() {
         pagerGridView.setPagerAdapter(this, dataList)
     }
 
-    private val bindHolderRunnable: BindViewHolderRunnable = BindViewHolderRunnable { viewHolder: SwitchAdapter.ViewHolder, drawableResource ->
+    private val bindHolderRunnable = BindViewHolderRunnable { viewHolder, drawableResource ->
         viewHolder.imageView.setBackgroundResource(drawableResource as Int)
     }
 

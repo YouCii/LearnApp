@@ -81,7 +81,7 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
 		}
 	}
 
-	int i = 0;
+	private int i = 0;
 
 	@Override
 	public void doOnCallBack(String content) {

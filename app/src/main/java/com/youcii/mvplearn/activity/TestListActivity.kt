@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.youcii.mvplearn.R
 import com.youcii.mvplearn.base.BaseActivity
+import com.youcii.mvplearn.model.InstitutionEnum
 import kotlinx.android.synthetic.main.activity_test_list.*
 
 class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
@@ -43,7 +44,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("可滑动的大图title")
         testArray.add("IP归属地查询")
         testArray.add("PagerGridView")
-        testArray.add("111")
+        testArray.add("IntDef替代Enum")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -71,6 +72,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             6 -> CollapsingActivity.startActivity(this)
             7 -> IPQueryActivity.startActivity(this)
             8 -> PagerGridActivity.startActivity(this)
+            9 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
             else -> {
             }
         }

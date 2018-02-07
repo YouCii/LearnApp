@@ -47,6 +47,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.IPQueryActivity" />
         <activity android:name=".activity.PagerGridActivity" />
+        <activity android:name=".activity.IntDefActivity" />
     </application>
 
 </manifest>
