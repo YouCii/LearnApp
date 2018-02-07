@@ -48,6 +48,7 @@
         <activity android:name=".activity.IPQueryActivity" />
         <activity android:name=".activity.PagerGridActivity" />
         <activity android:name=".activity.IntDefActivity" />
+        <activity android:name=".activity.ImmersiveActivity" />
     </application>
 
 </manifest>

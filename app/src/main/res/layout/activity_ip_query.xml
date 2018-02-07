@@ -14,7 +14,7 @@
         android:layout_height="55dp"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:hint="ip"
+        android:hint="请输入正确的ip地址"
         android:text="114.247.50.2" />
 
     <Button
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="查询归属地" />
+        android:text="查询IP归属地" />
 
     <TextView
         android:id="@+id/tvResult"

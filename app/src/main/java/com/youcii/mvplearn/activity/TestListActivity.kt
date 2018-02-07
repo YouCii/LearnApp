@@ -41,10 +41,11 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("接口压力测试")
         testArray.add("diyView测试")
         testArray.add("仿Native网页")
-        testArray.add("可滑动的大图title")
-        testArray.add("IP归属地查询")
+        testArray.add("可滑动的大图ToolBar")
+        testArray.add("Retrofit/OkGo")
         testArray.add("PagerGridView")
         testArray.add("IntDef替代Enum")
+        testArray.add("沉浸式效果")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -73,6 +74,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             7 -> IPQueryActivity.startActivity(this)
             8 -> PagerGridActivity.startActivity(this)
             9 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
+            10 -> ImmersiveActivity.startActivity(this)
             else -> {
             }
         }

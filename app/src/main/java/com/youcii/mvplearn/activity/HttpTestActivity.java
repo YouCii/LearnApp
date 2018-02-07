@@ -4,15 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
 import com.youcii.mvplearn.base.BaseActivity;
 import com.youcii.mvplearn.presenter.HttpTestPresenter;
-import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +52,8 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// 代码设置隐藏ActionBar
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_http_test);
 		ButterKnife.bind(this);
 
