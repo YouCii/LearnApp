@@ -11,7 +11,7 @@ class SingleClass private constructor() {
     companion object {
         /**
          * 懒汉模式单例
-         * @link [http://blog.csdn.net/j550341130/article/details/78731480]}
+         * @link http://blog.csdn.net/j550341130/article/details/78731480
          */
         @JvmStatic
         val instance: SingleClass by lazy { SingleClass() }

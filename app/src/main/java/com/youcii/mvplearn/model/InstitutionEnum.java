@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * java 中的 IntDef
+ * java 中的 IntDef 注解
  * <p>
  * 可用于替代Enum, 但要想像Enum一样 暂存数据或者提供各种方法, 还需另写工具类, 比较麻烦
  * flag=true时, 可以使用 & | 等操作符
