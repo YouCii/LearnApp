@@ -16,7 +16,7 @@ class IntDefActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_int_def)
 
-        currentDay = intent.getLongExtra(INTENT_KEY, InstitutionEnum.BANK)
+        currentDay = intent.getIntExtra(INTENT_KEY, InstitutionEnum.BANK)
 
         when (currentDay) {
             InstitutionEnum.BANK -> textView.text = currentDay.toString()
@@ -32,7 +32,7 @@ class IntDefActivity : BaseActivity() {
         private const val INTENT_KEY = "enum"
 
         @JvmStatic
-        fun startActivity(context: Context, @InstitutionEnum enum: Long) {
+        fun startActivity(context: Context, @InstitutionEnum enum: Int) {
             val intent = Intent(context, IntDefActivity::class.java)
             intent.putExtra(INTENT_KEY, enum)
             context.startActivity(intent)

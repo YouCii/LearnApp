@@ -36,6 +36,10 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         lvTest.onItemClickListener = this // set的简写
     }
 
+    /**
+     * kotlin的方法锁是这样的
+     */
+    @Synchronized
     private fun initArray() {
         testArray.add("列表刷新") // ? 代表自动检测空，如果为空则跳过，不抛出异常
         testArray.add("接口压力测试")

@@ -15,8 +15,8 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.CLASS)
 public @interface InstitutionEnum {
 
-    long SHOP = 0L;
-    long HOTEL = 1L;
-    long BANK = 1L << 1;
+    int SHOP = 0;
+    int HOTEL = 1;
+    int BANK = 1 << 1;
 
 }

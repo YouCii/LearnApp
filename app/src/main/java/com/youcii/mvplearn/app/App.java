@@ -3,7 +3,9 @@ package com.youcii.mvplearn.app;
 import android.content.Context;
 
 import com.lzy.okgo.OkGo;
+import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 import org.litepal.LitePalApplication;
 
@@ -26,7 +28,8 @@ public class App extends LitePalApplication {
         context = getApplicationContext();
 
         CrashHandler.getInstance().init(this);
-        Logger.init("Logger");
+        LeakCanary.install(this);  // 启用LeakCanary, 正式发布时会自动失效
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         initOkGo();
     }

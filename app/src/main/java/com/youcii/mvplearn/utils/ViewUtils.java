@@ -8,9 +8,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.wangjie.shadowviewhelper.ShadowProperty;
-import com.wangjie.shadowviewhelper.ShadowViewHelper;
-
 /**
  * Created by YouCii on 2016/7/18.
  */
@@ -45,13 +42,6 @@ public class ViewUtils {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-    }
-
-    /* 给某控件添加阴影效果 */
-    public static void addViewShadow(View view) {
-        ShadowProperty shadowProperty = new ShadowProperty();
-        shadowProperty.setShadowColor(0x77000000).setShadowDy(2).setShadowRadius(3);
-        ShadowViewHelper.bindShadowHelper(shadowProperty, view);
     }
 
 }
