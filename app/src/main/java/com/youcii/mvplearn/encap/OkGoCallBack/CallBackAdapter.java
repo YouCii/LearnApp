@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.adapter.okgo;
+package com.youcii.mvplearn.encap.OkGoCallBack;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

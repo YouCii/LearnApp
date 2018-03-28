@@ -20,7 +20,7 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.IMainView;
 import com.youcii.mvplearn.adapter.MainPagerAdapter;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.diyview.GuideView;
+import com.youcii.mvplearn.widget.GuideView;
 import com.youcii.mvplearn.fragment.BlockFragment;
 import com.youcii.mvplearn.fragment.ChangeFragment;
 import com.youcii.mvplearn.fragment.ItemFragment;

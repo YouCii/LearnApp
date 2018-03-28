@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.adapter.MyItemAdapter;
 import com.youcii.mvplearn.base.BaseFragment;
-import com.youcii.mvplearn.diyview.RecyclerItemDecoration;
+import com.youcii.mvplearn.widget.RecyclerItemDecoration;
 import com.youcii.mvplearn.model.RecyclerBean;
 import com.youcii.mvplearn.fragment.interfaces.IFragItemView;
 

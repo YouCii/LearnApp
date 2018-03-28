@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.diyview;
+package com.youcii.mvplearn.widget;
 
 import android.content.Context;
 import android.graphics.Color;

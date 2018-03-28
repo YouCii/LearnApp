@@ -13,14 +13,13 @@ import java.util.Observer;
 public class HttpTestPresenter implements Observer {
 
     private IHttpTestView iHttpTestView;
-    private HttpTestNetWork httpTestNetWork;
 
     public HttpTestPresenter(IHttpTestView iHttpTestView) {
         this.iHttpTestView = iHttpTestView;
     }
 
     public void startRequest() {
-        httpTestNetWork = new HttpTestNetWork(iHttpTestView.getUrl(), iHttpTestView.getParams(), iHttpTestView.isPostRequest());
+        HttpTestNetWork httpTestNetWork = new HttpTestNetWork(iHttpTestView.getUrl(), iHttpTestView.getParams(), iHttpTestView.isPostRequest());
         httpTestNetWork.addObserver(this);
         for (int i = 0; i < iHttpTestView.getRequestTime(); i++) {
             httpTestNetWork.doExecute();
@@ -31,7 +30,6 @@ public class HttpTestPresenter implements Observer {
     public void update(Observable observable, Object data) {
         if (observable instanceof HttpTestNetWork) {
             iHttpTestView.doOnCallBack((String) data);
-            httpTestNetWork.deleteObserver(this);
         }
     }
 

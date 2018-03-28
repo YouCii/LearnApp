@@ -3,10 +3,10 @@ package com.youcii.mvplearn.presenter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.youcii.mvplearn.activity.interfaces.ILoginView;
-import com.youcii.mvplearn.adapter.okgo.CallBackAdapter;
-import com.youcii.mvplearn.adapter.okgo.JsonConverter;
+import com.youcii.mvplearn.encap.OkGoCallBack.CallBackAdapter;
+import com.youcii.mvplearn.encap.OkGoCallBack.JsonConverter;
 import com.youcii.mvplearn.model.IpQueryResponse;
-import com.youcii.mvplearn.utils.HttpRequestBuilder;
+import com.youcii.mvplearn.encap.OkGoCallBack.HttpRequestBuilder;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,7 +29,7 @@ public class LoginPresenter {
     public void login(String user, String password) {
         iLoginView.turnProgress(true);
 
-        callBackRequest(user, password);
+        rxRequest(user, password);
     }
 
     private void saveUser(String user, String password) {
@@ -38,6 +38,8 @@ public class LoginPresenter {
 
     /**
      * 使用CallBack方式请求
+     *
+     * 注: 此处网络请求比较简单, 所以无需单独抽出
      */
     private void callBackRequest(String user, String password) {
         new HttpRequestBuilder<IpQueryResponse>()
@@ -61,7 +63,7 @@ public class LoginPresenter {
     /**
      * 使用RxJava方式请求
      */
-    private void observableRequest(String user, String password) {
+    private void rxRequest(String user, String password) {
         Observable<IpQueryResponse> observable = OkGo.<IpQueryResponse>get("http://iploc.market.alicloudapi.com/v3/ip")
                 .headers("Authorization", "APPCODE e791ada94bd74182aaab249e51128ad3")
                 .params("ip", "114.247.50.2")

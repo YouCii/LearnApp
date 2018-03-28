@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.diyview;
+package com.youcii.mvplearn.widget;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,9 +1,8 @@
-package com.youcii.mvplearn.utils;
+package com.youcii.mvplearn.encap.OkGoCallBack;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PostRequest;
-import com.youcii.mvplearn.adapter.okgo.CallBackAdapter;
 
 /**
  * Created by YouCii on 2016/12/29.

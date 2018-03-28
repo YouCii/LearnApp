@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.diyview.SubStateView;
+import com.youcii.mvplearn.widget.SubStateView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
