@@ -4,6 +4,7 @@
     <!-- 常用 -->
     <string name="success">success</string>
     <string name="error">error</string>
+    <string name="network_error">网络中断，请检查您的网络状态</string>
 
     <!-- LoginActivity -->
     <string name="prompt_user">User</string>
@@ -18,6 +19,5 @@
     <string name="change_fragment_one">列表</string>
     <string name="change_fragment_two">模块</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

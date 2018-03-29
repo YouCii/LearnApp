@@ -2,12 +2,12 @@ package com.youcii.mvplearn.encap.OkGoCallBack;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.FileConvert;
 import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 import com.youcii.mvplearn.utils.GsonUtils;
 
 import java.io.File;
@@ -55,9 +55,9 @@ public class CallBackAdapter<T> extends AbsCallback<T> {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG, e.toString());
+            Logger.e(TAG, e.toString());
         } catch (Throwable throwable) {
-            Log.e(TAG, throwable.toString());
+            Logger.e(TAG, throwable.toString());
         }
         response.close();
         return t;

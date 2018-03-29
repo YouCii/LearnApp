@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 
 import com.orhanobut.logger.Logger;
 
@@ -81,7 +80,7 @@ class CrashHandler implements UncaughtExceptionHandler {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            Log.e(TAG, "error : ", e);
+            Logger.e(TAG, "error : ", e);
         }
 
         mDefaultHandler.uncaughtException(thread, ex);
@@ -101,7 +100,7 @@ class CrashHandler implements UncaughtExceptionHandler {
                 infos.put("versionCode", versionCode);
             }
         } catch (NameNotFoundException e) {
-            Log.e(TAG, "an error occured when collect package info", e);
+            Logger.e(TAG, "an error occured when collect package info", e);
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
@@ -109,7 +108,7 @@ class CrashHandler implements UncaughtExceptionHandler {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
             } catch (Exception e) {
-                Log.e(TAG, "an error occured when collect crash info", e);
+                Logger.e(TAG, "an error occured when collect crash info", e);
             }
         }
     }
@@ -159,7 +158,7 @@ class CrashHandler implements UncaughtExceptionHandler {
             }
             return fileName;
         } catch (Exception e) {
-            Log.e(TAG, "an error occured while writing file...", e);
+            Logger.e(TAG, "an error occured while writing file...", e);
         }
 
         return null;

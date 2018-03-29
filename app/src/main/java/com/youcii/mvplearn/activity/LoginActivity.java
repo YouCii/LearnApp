@@ -62,7 +62,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 		qxjd.setFocusableInTouchMode(true);
 		qxjd.requestFocus();
 
-		turnLogin(PhoneUtils.isOnLine(this) != 0);
+		turnLogin(PhoneUtils.isOnLine());
 
 		PermissionUtils.examinePermission(this);
 	}

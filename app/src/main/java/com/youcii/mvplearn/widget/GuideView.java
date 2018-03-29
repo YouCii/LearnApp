@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.youcii.mvplearn.R;
 
 /**
@@ -102,7 +102,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
     private OnClickCallback onclickListener;
 
     public void restoreState() {
-        Log.v(TAG, "restoreState");
+        Logger.v(TAG, "restoreState");
         offsetX = offsetY = 0;
         radius = 0;
         mCirclePaint = null;
@@ -225,7 +225,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
      * 在屏幕窗口，添加蒙层，蒙层绘制总背景和透明圆形，圆形下边绘制说明文字
      */
     private void createGuideView() {
-        Log.v(TAG, "createGuideView");
+        Logger.v(TAG, "createGuideView");
 
         // Tips布局参数
         LayoutParams guideViewParams;
@@ -315,7 +315,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.v(TAG, "onDraw");
+        Logger.v(TAG, "onDraw");
 
         if (!isMeasured) {
             return;
@@ -329,7 +329,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
     }
 
     private void drawBackground(Canvas canvas) {
-        Log.v(TAG, "drawBackground");
+        Logger.v(TAG, "drawBackground");
         needDraw = false;
         // 先绘制bitmap，再将bitmap绘制到屏幕
         bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);

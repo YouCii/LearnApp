@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda' /* lambda */
 apply plugin: 'kotlin-android' /* kotlin */
 apply plugin: 'kotlin-android-extensions' /* kotlin */
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.youcii.mvplearn"
@@ -14,7 +13,15 @@ android {
         versionCode 1
         versionName "1.0"
 
-        generatedDensities = [] /* 解决真机可运行虚拟机xml崩溃的问题 */
+        /* 解决真机可运行虚拟机xml崩溃的问题 */
+        generatedDensities = []
+
+        /* 解决ButterKnife要求添加annotation导包的问题 */
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     /** 解决真机可运行虚拟机xml崩溃的问题 */

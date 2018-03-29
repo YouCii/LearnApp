@@ -1,11 +1,10 @@
 package com.youcii.mvplearn.app;
 
-import android.content.Context;
-
 import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.youcii.mvplearn.constant.ConnectConfig;
 
 import org.litepal.LitePalApplication;
 
@@ -19,13 +18,9 @@ import okhttp3.OkHttpClient;
  */
 public class App extends LitePalApplication {
 
-    private static Context context;
-
     @Override
     public void onCreate() {
         super.onCreate();
-
-        context = getApplicationContext();
 
         CrashHandler.getInstance().init(this);
         LeakCanary.install(this);  // 启用LeakCanary, 正式发布时会自动失效
@@ -34,15 +29,11 @@ public class App extends LitePalApplication {
         initOkGo();
     }
 
-    public static Context getInstance() {
-        return context;
-    }
-
     private void initOkGo() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(10 * 1000, TimeUnit.MILLISECONDS)
-                .readTimeout(10 * 1000, TimeUnit.MILLISECONDS)
-                .writeTimeout(10 * 1000, TimeUnit.MILLISECONDS);
+        builder.connectTimeout(ConnectConfig.CONNECT_TIME_OUT, TimeUnit.SECONDS)
+                .readTimeout(ConnectConfig.READ_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(ConnectConfig.WRITE_TIME_OUT, TimeUnit.SECONDS);
         OkGo.getInstance().init(this)
                 .setOkHttpClient(builder.build());
     }
