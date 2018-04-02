@@ -39,11 +39,12 @@ public class ListRefreshActivity extends BaseActivity implements IListRefreshVie
 		ButterKnife.bind(this);
 
 		initList(deviceList);
+		deviceListAdapter = new DeviceListAdapter(ListRefreshActivity.this, deviceList);
+		listview.setAdapter(deviceListAdapter);
+
 		listRefreshPresenter = new ListRefreshPresenter(this);
 		listRefreshPresenter.addObserver(this);
 		listRefreshPresenter.startRefresh(deviceList);
-		deviceListAdapter = new DeviceListAdapter(ListRefreshActivity.this, deviceList);
-		listview.setAdapter(deviceListAdapter);
 	}
 
 	@Override
@@ -70,7 +71,13 @@ public class ListRefreshActivity extends BaseActivity implements IListRefreshVie
 
 	@Override
 	public void doOnFinish() {
-		ToastUtils.showShortToast(this, "结束");
+		ToastUtils.showShortToast("结束");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		listRefreshPresenter.stopRefresh();
 	}
 
 	public static void startActivity(Context context) {

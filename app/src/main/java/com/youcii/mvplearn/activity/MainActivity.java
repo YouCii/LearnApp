@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 
     @Override
     public void showToast(String content) {
-        ToastUtils.showShortToast(this, content);
+        ToastUtils.showShortToast(content);
     }
 
     @Override

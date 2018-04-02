@@ -48,7 +48,7 @@ public class CollapsingActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fab) {
-            ToastUtils.showShortToast(this, "click fab");
+            ToastUtils.showShortToast("click fab");
         } else {
             onBackPressed();
         }

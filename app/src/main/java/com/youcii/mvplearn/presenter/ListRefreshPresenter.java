@@ -14,38 +14,42 @@ import java.util.Observable;
  */
 public class ListRefreshPresenter extends Observable {
 
-	private IListRefreshView iListRefreshView;
+    private IListRefreshView iListRefreshView;
+    private CountDownTimer countDownTimer;
 
-	public ListRefreshPresenter(IListRefreshView iListRefreshView) {
-		this.iListRefreshView = iListRefreshView;
-	}
+    public ListRefreshPresenter(IListRefreshView iListRefreshView) {
+        this.iListRefreshView = iListRefreshView;
+    }
 
-	public void startRefresh(List<DeviceListAdapter.Device> list) {
-		new CountDownTimer(1000000, 200) {
-			@Override
-			public void onTick(long millisUntilFinished) {
-				list.get(0).distance = Math.random() * 100;
-				list.get(1).distance = Math.random() * 100;
-				list.get(2).distance = Math.random() * 100;
-				list.get(3).distance = Math.random() * 100;
-				list.get(4).distance = Math.random() * 100;
-				list.get(5).distance = Math.random() * 100;
-				list.get(6).distance = Math.random() * 100;
-				list.get(7).distance = Math.random() * 100;
-				list.get(8).distance = Math.random() * 100;
-				list.get(9).distance = Math.random() * 100;
+    public void startRefresh(List<DeviceListAdapter.Device> list) {
+        countDownTimer = new CountDownTimer(1000000, 200) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                list.get(0).distance = Math.random() * 100;
+                list.get(1).distance = Math.random() * 100;
+                list.get(2).distance = Math.random() * 100;
+                list.get(3).distance = Math.random() * 100;
+                list.get(4).distance = Math.random() * 100;
+                list.get(5).distance = Math.random() * 100;
+                list.get(6).distance = Math.random() * 100;
+                list.get(7).distance = Math.random() * 100;
+                list.get(8).distance = Math.random() * 100;
+                list.get(9).distance = Math.random() * 100;
 
-				setChanged();
-				notifyObservers();
-			}
+                setChanged();
+                notifyObservers();
+            }
 
-			@Override
-			public void onFinish() {
-				iListRefreshView.doOnFinish();
-			}
-		}.start();
+            @Override
+            public void onFinish() {
+                iListRefreshView.doOnFinish();
+            }
+        };
+        countDownTimer.start();
+    }
 
-	}
-
+    public void stopRefresh() {
+        countDownTimer.cancel();
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.model
+package com.youcii.mvplearn.response
 
 import com.youcii.mvplearn.base.BaseResponse
 
@@ -25,7 +25,7 @@ class IpQueryResponse : BaseResponse() {
     var rectangle = ""
 
     override fun toString(): String {
-        return "IpQueryResponse\n\ninfo='$info', \ninfocode='$infocode', \nprovince='$province', \ncity='$city', \nadcode='$adcode', \nrectangle='$rectangle'"
+        return "IpQueryResponse: city=$city"
     }
 
 }

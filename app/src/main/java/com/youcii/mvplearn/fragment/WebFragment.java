@@ -67,7 +67,7 @@ public class WebFragment extends BaseFragment implements IFragWebView, View.OnCl
 				if (data.contains("啊啊")) {
                     nativeNum.setText((Integer.parseInt(nativeNum.getText().toString()) - 1) + "");
                 } else {
-                    ToastUtils.showShortToast(activity, data);
+                    ToastUtils.showShortToast(data);
                 }
 				function.onCallBack(data);
 			}
@@ -100,7 +100,7 @@ public class WebFragment extends BaseFragment implements IFragWebView, View.OnCl
 				webView.callHandler("decHtmlNum", "哦哦", new CallBackFunction() {
 					@Override
 					public void onCallBack(String data) {
-						ToastUtils.showShortToast(activity, data);
+						ToastUtils.showShortToast(data);
 					}
 				});
 				break;

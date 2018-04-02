@@ -1,6 +1,5 @@
 package com.youcii.mvplearn.utils;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.youcii.mvplearn.R;
+import com.youcii.mvplearn.app.App;
 
 /**
  * Created by YouCii on 2016/7/15.
@@ -35,11 +35,11 @@ public class ToastUtils {
         snackbar.show();
     }
 
-    public static void showShortToast(Context context, String text) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    public static void showShortToast(String text) {
+        Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showLongToast(Context context, String text) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    public static void showLongToast(String text) {
+        Toast.makeText(App.getContext(), text, Toast.LENGTH_LONG).show();
     }
 }

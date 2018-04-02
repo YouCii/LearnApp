@@ -5,7 +5,7 @@ import com.lzy.okrx2.adapter.ObservableBody;
 import com.youcii.mvplearn.activity.interfaces.ILoginView;
 import com.youcii.mvplearn.encap.OkGoCallBack.CallBackAdapter;
 import com.youcii.mvplearn.encap.OkGoCallBack.JsonConverter;
-import com.youcii.mvplearn.model.IpQueryResponse;
+import com.youcii.mvplearn.response.IpQueryResponse;
 import com.youcii.mvplearn.encap.OkGoCallBack.HttpRequestBuilder;
 
 import io.reactivex.Observable;

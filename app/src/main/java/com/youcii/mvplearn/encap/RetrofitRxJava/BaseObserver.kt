@@ -19,48 +19,47 @@ import java.net.SocketTimeoutException
 @SuppressLint("ShowToast")
 open class BaseObserver<T> : Observer<T> {
 
-    private var toast: Toast? = null
     private var disposable: Disposable? = null
-
-    init {
-        toast = Toast.makeText(App.getContext(), "", Toast.LENGTH_SHORT)
-    }
 
     override fun onSubscribe(d: Disposable) {
         Logger.i("onSubscribe: " + Thread.currentThread().name)
         disposable = d
         if (PhoneUtils.isOnLine()) {
-            toast?.setText("开始请求")
-            toast?.show()
+            toast.setText("开始请求")
+            toast.show()
         } else {
             onError(Throwable(App.getContext().getString(R.string.network_error)))
         }
     }
 
     override fun onNext(t: T) {
-        Logger.i("onNext: " + Thread.currentThread().name)
     }
 
     override fun onComplete() {
-        Logger.i("onComplete: " + Thread.currentThread().name)
         disposable?.dispose()
-        toast?.setText("请求完成")
-        toast?.show()
+        toast.setText("请求完成")
+        toast.show()
     }
 
     override fun onError(throwable: Throwable) {
-        Logger.i("onError: " + Thread.currentThread().name)
         disposable?.dispose()
 
         when (throwable) {
             is SocketTimeoutException ->
-                toast?.setText(App.getContext().getString(R.string.network_error))
+                toast.setText(App.getContext().getString(R.string.network_error))
             is ConnectException ->
-                toast?.setText(App.getContext().getString(R.string.network_error))
+                toast.setText(App.getContext().getString(R.string.network_error))
             else ->
-                toast?.setText("请求失败: " + throwable.toString())
+                toast.setText("请求失败: " + throwable.toString())
         }
-        toast?.show()
+        toast.show()
+    }
+
+    companion object {
+        /**
+         * 静态变量可以保证所有的网络请求只能同时弹一个toast, 懒加载可以保证App已经初始化完成
+         */
+        val toast: Toast by lazy { Toast.makeText(App.getContext(), "", Toast.LENGTH_SHORT) }
     }
 
 }
