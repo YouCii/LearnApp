@@ -47,7 +47,7 @@ object RetrofitFactory {
                 builder.removeHeader(authorHeader)
                 val oldFullUrl: HttpUrl = request.url()
                 val newFullUrl: String = oldFullUrl.toString().replace(UrlConstant.BASE_URL_ALI, UrlConstant.BASE_URL_DOU_BAN)
-                return@Interceptor it.proceed(request.newBuilder().url(newFullUrl).build())
+                return@Interceptor it.proceed(builder.url(newFullUrl).build())
             }
         }
         return@Interceptor it.proceed(request)

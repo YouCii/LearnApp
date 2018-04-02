@@ -25,6 +25,9 @@ class IPMovieActivity : BaseActivity() {
                 startRxRetrofit()
             }
         })
+        btnQuery.isFocusable = true
+        btnQuery.isFocusableInTouchMode = true
+        btnQuery.requestFocus()
     }
 
     /**
@@ -42,7 +45,7 @@ class IPMovieActivity : BaseActivity() {
                                 tvResult.text = t.toString()
                             }
                             is TopMovieResponse -> {
-                                ToastUtils.showShortToast("刷新Movie UI")
+                                ToastUtils.showShortToast("刷新Movie UI") // TODO Glide
                             }
                             else -> {
                                 onError(Throwable("类型错误"))
