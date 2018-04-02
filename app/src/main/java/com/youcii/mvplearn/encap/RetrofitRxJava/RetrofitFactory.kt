@@ -6,7 +6,6 @@ import com.youcii.mvplearn.constant.UrlConstant
 import com.youcii.mvplearn.response.IpQueryResponse
 import com.youcii.mvplearn.response.TopMovieResponse
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -75,7 +74,6 @@ object RetrofitFactory {
         return retrofitService.getRxIpInfo(ip)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io()) // 有些 Observable 会依赖一些资源，当该 Observable 完成后释放这些资源。
-                .observeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -85,7 +83,6 @@ object RetrofitFactory {
         return retrofitService.getTOP250(count)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io()) // 有些 Observable 会依赖一些资源，当该 Observable 完成后释放这些资源。
-                .observeOn(AndroidSchedulers.mainThread())
     }
 
 }
