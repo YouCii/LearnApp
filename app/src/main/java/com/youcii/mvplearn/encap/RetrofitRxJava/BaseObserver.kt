@@ -1,11 +1,13 @@
 package com.youcii.mvplearn.encap.RetrofitRxJava
 
-import android.annotation.SuppressLint
-import android.widget.Toast
-import com.orhanobut.logger.Logger
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import com.youcii.mvplearn.R
 import com.youcii.mvplearn.app.App
 import com.youcii.mvplearn.utils.PhoneUtils
+import com.youcii.mvplearn.utils.ToastUtils
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.net.ConnectException
@@ -16,19 +18,24 @@ import java.net.SocketTimeoutException
  *
  * 用于封装公共回调, 并且隔离了第三方库
  */
-@SuppressLint("ShowToast")
-open class BaseObserver<T> : Observer<T> {
+open class BaseObserver<T>(context: Context) : Observer<T> {
 
     private var disposable: Disposable? = null
+    private var loadingDialog: Dialog? = null
+
+    init {
+        loadingDialog = Dialog(context)
+        loadingDialog!!.setContentView(R.layout.dialog_loading)
+        loadingDialog!!.setCanceledOnTouchOutside(false)
+        loadingDialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.argb(0, 0, 0, 0)))
+    }
 
     override fun onSubscribe(d: Disposable) {
-        Logger.i("onSubscribe: " + Thread.currentThread().name)
         disposable = d
         if (PhoneUtils.isOnLine()) {
-            toast.setText("开始请求")
-            toast.show()
+            loadingDialog!!.show()
         } else {
-            onError(Throwable(App.getContext().getString(R.string.network_error)))
+            throw ConnectException(App.getContext().getString(R.string.network_error))
         }
     }
 
@@ -37,29 +44,21 @@ open class BaseObserver<T> : Observer<T> {
 
     override fun onComplete() {
         disposable?.dispose()
-        toast.setText("请求完成")
-        toast.show()
+        loadingDialog!!.dismiss()
     }
 
     override fun onError(throwable: Throwable) {
         disposable?.dispose()
+        loadingDialog!!.dismiss()
 
         when (throwable) {
             is SocketTimeoutException ->
-                toast.setText(App.getContext().getString(R.string.network_error))
+                ToastUtils.showShortToast(App.getContext().getString(R.string.network_error))
             is ConnectException ->
-                toast.setText(App.getContext().getString(R.string.network_error))
+                ToastUtils.showShortToast(App.getContext().getString(R.string.network_error))
             else ->
-                toast.setText("请求失败: " + throwable.toString())
+                ToastUtils.showShortToast("请求失败: " + throwable.toString())
         }
-        toast.show()
-    }
-
-    companion object {
-        /**
-         * 静态变量可以保证所有的网络请求只能同时弹一个toast, 懒加载可以保证App已经初始化完成
-         */
-        val toast: Toast by lazy { Toast.makeText(App.getContext(), "", Toast.LENGTH_SHORT) }
     }
 
 }

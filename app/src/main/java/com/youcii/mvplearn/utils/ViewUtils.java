@@ -13,16 +13,19 @@ import android.widget.ListView;
  */
 public class ViewUtils {
 
-    /* 隐藏输入法 */
-    public static void hideInput(Context context) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        View view = ((Activity) context).getCurrentFocus();
-        if (imm.isActive() && view != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    /**
+     * 隐藏输入法
+     */
+    public static void hideInput(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && activity.getCurrentFocus() != null) {
+            imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
         }
     }
 
-    /* 设置listview高度 */
+    /**
+     * 设置ListView高度
+     */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         if (listView == null) {
             return;

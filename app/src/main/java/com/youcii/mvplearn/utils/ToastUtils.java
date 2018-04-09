@@ -1,5 +1,6 @@
 package com.youcii.mvplearn.utils;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -10,8 +11,10 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.app.App;
 
 /**
- * Created by YouCii on 2016/7/15.
+ * @author YouCii
+ * @date 2016/7/15
  */
+@SuppressLint("ShowToast")
 public class ToastUtils {
 
     public static void showShortSnack(View rootView, String content) {
@@ -35,11 +38,25 @@ public class ToastUtils {
         snackbar.show();
     }
 
+    private static Toast toast;
+
     public static void showShortToast(String text) {
-        Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT).show();
+        if (toast == null) {
+            toast = Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT);
+        } else {
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setText("text");
+        }
+        toast.show();
     }
 
     public static void showLongToast(String text) {
-        Toast.makeText(App.getContext(), text, Toast.LENGTH_LONG).show();
+        if (toast == null) {
+            toast = Toast.makeText(App.getContext(), text, Toast.LENGTH_LONG);
+        } else {
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setText("text");
+        }
+        toast.show();
     }
 }

@@ -3,14 +3,18 @@ package com.youcii.mvplearn.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
 import com.google.gson.JsonSyntaxException
 import com.youcii.mvplearn.R
+import com.youcii.mvplearn.adapter.MovieAdapter
 import com.youcii.mvplearn.base.BaseActivity
 import com.youcii.mvplearn.encap.RetrofitRxJava.BaseObserver
 import com.youcii.mvplearn.encap.RetrofitRxJava.RetrofitFactory
+import com.youcii.mvplearn.model.MovieSubject
 import com.youcii.mvplearn.response.IpQueryResponse
 import com.youcii.mvplearn.response.TopMovieResponse
-import com.youcii.mvplearn.utils.ToastUtils
+import com.youcii.mvplearn.utils.ViewUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -22,18 +26,25 @@ import kotlinx.android.synthetic.main.activity_ip_movie.*
  */
 class IPMovieActivity : BaseActivity() {
 
+    private val dataList: ArrayList<MovieSubject> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ip_movie)
 
-        btnQuery.setOnClickListener({ view ->
-            if (view.id == R.id.btnQuery) {
-                startRxRetrofit2()
-            }
-        })
         btnQuery.isFocusable = true
         btnQuery.isFocusableInTouchMode = true
         btnQuery.requestFocus()
+
+        btnQuery.setOnClickListener({ view ->
+            if (view.id == R.id.btnQuery) {
+                ViewUtils.hideInput(this@IPMovieActivity)
+                startRxRetrofit1()
+            }
+        })
+        rvMovie.itemAnimator = DefaultItemAnimator(); // 设置Item增加、移除动画
+        rvMovie.layoutManager = GridLayoutManager(this, 4)
+        rvMovie.adapter = MovieAdapter(this, dataList)
     }
 
     /**
@@ -52,11 +63,14 @@ class IPMovieActivity : BaseActivity() {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        object : BaseObserver<ArrayList<Any>>() {
+                        object : BaseObserver<ArrayList<Any>>(this) {
                             override fun onNext(t: ArrayList<Any>) {
                                 super.onNext(t)
                                 tvResult.text = t[1].toString()
-                                ToastUtils.showShortToast("刷新Movie UI") // TODO Glide
+
+                                dataList.clear()
+                                dataList.addAll((t[0] as TopMovieResponse).subjects)
+                                rvMovie.adapter.notifyDataSetChanged()
                             }
 
                             override fun onError(throwable: Throwable) {
@@ -80,10 +94,12 @@ class IPMovieActivity : BaseActivity() {
                 .observeOn(Schedulers.io())
                 .flatMap({ movieObservable })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : BaseObserver<TopMovieResponse>() {
+                .subscribe(object : BaseObserver<TopMovieResponse>(this) {
                     override fun onNext(t: TopMovieResponse) {
                         super.onNext(t)
-                        ToastUtils.showShortToast("刷新Movie UI") // TODO Glide
+                        dataList.clear()
+                        dataList.addAll(t.subjects)
+                        rvMovie.adapter.notifyDataSetChanged()
                     }
 
                     override fun onError(throwable: Throwable) {

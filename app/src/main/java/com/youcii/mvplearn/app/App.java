@@ -1,5 +1,7 @@
 package com.youcii.mvplearn.app;
 
+import android.util.DisplayMetrics;
+
 import com.lzy.okgo.OkGo;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -18,6 +20,8 @@ import okhttp3.OkHttpClient;
  */
 public class App extends LitePalApplication {
 
+    private static int screenHeight, screenWidth;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,6 +30,7 @@ public class App extends LitePalApplication {
         LeakCanary.install(this);  // 启用LeakCanary, 正式发布时会自动失效
         Logger.addLogAdapter(new AndroidLogAdapter());
 
+        initScreenSize();
         initOkGo();
     }
 
@@ -34,7 +39,20 @@ public class App extends LitePalApplication {
         builder.connectTimeout(ConnectConfig.CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(ConnectConfig.READ_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(ConnectConfig.WRITE_TIME_OUT, TimeUnit.SECONDS);
-        OkGo.getInstance().init(this)
-                .setOkHttpClient(builder.build());
+        OkGo.getInstance().init(this).setOkHttpClient(builder.build());
+    }
+
+    private void initScreenSize() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        screenWidth = displayMetrics.widthPixels;
+        screenHeight = displayMetrics.heightPixels;
+    }
+
+    public static int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public static int getScreenWidth() {
+        return screenWidth;
     }
 }

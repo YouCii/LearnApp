@@ -20,3 +20,4 @@
 15. 两个主流网络请求: OkGo2/Retrofit2, 模拟生产环境封装, 隔离业务和第三方库:
     1. OkGo + CallBack;
     2. Retrofit + RxJava;
+16. Glide
