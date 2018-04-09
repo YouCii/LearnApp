@@ -17,6 +17,7 @@ import com.youcii.mvplearn.response.TopMovieResponse
 import com.youcii.mvplearn.utils.ViewUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_ip_movie.*
@@ -27,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_ip_movie.*
 class IPMovieActivity : BaseActivity() {
 
     private val dataList: ArrayList<MovieSubject> = ArrayList()
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,22 @@ class IPMovieActivity : BaseActivity() {
     private fun startRxRetrofit1() {
         val ipObservable: Observable<IpQueryResponse> = RetrofitFactory.getRxIpInfo(etIp.text.toString())
         val movieObservable: Observable<TopMovieResponse> = RetrofitFactory.getTopMovie(Integer.parseInt(etMovieCount.text.toString()))
+        val observable = object : BaseObserver<ArrayList<Any>>(this) {
+            override fun onNext(t: ArrayList<Any>) {
+                super.onNext(t)
+                tvResult.text = t[1].toString()
+
+                dataList.clear()
+                dataList.addAll((t[0] as TopMovieResponse).subjects)
+                rvMovie.adapter.notifyDataSetChanged()
+            }
+
+            override fun onError(throwable: Throwable) {
+                super.onError(throwable)
+                tvResult.text = if (throwable is JsonSyntaxException) "数据转化错误" else throwable.toString()
+            }
+        }
+        compositeDisposable.add(observable)
         Observable.zip(movieObservable, ipObservable,
                 BiFunction<TopMovieResponse, IpQueryResponse, ArrayList<Any>> { t1, t2 ->
                     ArrayList<Any>().apply {
@@ -62,23 +81,7 @@ class IPMovieActivity : BaseActivity() {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        object : BaseObserver<ArrayList<Any>>(this) {
-                            override fun onNext(t: ArrayList<Any>) {
-                                super.onNext(t)
-                                tvResult.text = t[1].toString()
-
-                                dataList.clear()
-                                dataList.addAll((t[0] as TopMovieResponse).subjects)
-                                rvMovie.adapter.notifyDataSetChanged()
-                            }
-
-                            override fun onError(throwable: Throwable) {
-                                super.onError(throwable)
-                                tvResult.text = if (throwable is JsonSyntaxException) "数据转化错误" else throwable.toString()
-                            }
-                        }
-                )
+                .subscribe(observable)
     }
 
     /**
@@ -88,25 +91,32 @@ class IPMovieActivity : BaseActivity() {
     private fun startRxRetrofit2() {
         val ipObservable: Observable<IpQueryResponse> = RetrofitFactory.getRxIpInfo(etIp.text.toString())
         val movieObservable: Observable<TopMovieResponse> = RetrofitFactory.getTopMovie(Integer.parseInt(etMovieCount.text.toString()))
+        val observable2 = object : BaseObserver<TopMovieResponse>(this) {
+            override fun onNext(t: TopMovieResponse) {
+                super.onNext(t)
+                dataList.clear()
+                dataList.addAll(t.subjects)
+                rvMovie.adapter.notifyDataSetChanged()
+            }
+
+            override fun onError(throwable: Throwable) {
+                super.onError(throwable)
+                tvResult.text = if (throwable is JsonSyntaxException) "数据转化错误" else throwable.toString()
+            }
+        }
+        compositeDisposable.add(observable2)
         ipObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { tvResult.text = it.toString() }
                 .observeOn(Schedulers.io())
                 .flatMap({ movieObservable })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : BaseObserver<TopMovieResponse>(this) {
-                    override fun onNext(t: TopMovieResponse) {
-                        super.onNext(t)
-                        dataList.clear()
-                        dataList.addAll(t.subjects)
-                        rvMovie.adapter.notifyDataSetChanged()
-                    }
+                .subscribe(observable2)
+    }
 
-                    override fun onError(throwable: Throwable) {
-                        super.onError(throwable)
-                        tvResult.text = if (throwable is JsonSyntaxException) "数据转化错误" else throwable.toString()
-                    }
-                })
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
     }
 
     companion object {

@@ -8,8 +8,7 @@ import com.youcii.mvplearn.R
 import com.youcii.mvplearn.app.App
 import com.youcii.mvplearn.utils.PhoneUtils
 import com.youcii.mvplearn.utils.ToastUtils
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
@@ -17,23 +16,22 @@ import java.net.SocketTimeoutException
  * Created by jdw on 2018/3/29.
  *
  * 用于封装公共回调, 并且隔离了第三方库
+ * open使其可以被继承, 目前仅用在了匿名内部类里
  */
-open class BaseObserver<T>(context: Context) : Observer<T> {
+open class BaseObserver<T>(context: Context) : DisposableObserver<T>() {
 
-    private var disposable: Disposable? = null
-    private var loadingDialog: Dialog? = null
+    private val loadingDialog: Dialog = Dialog(context)
 
     init {
-        loadingDialog = Dialog(context)
-        loadingDialog!!.setContentView(R.layout.dialog_loading)
-        loadingDialog!!.setCanceledOnTouchOutside(false)
-        loadingDialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.argb(0, 0, 0, 0)))
+        loadingDialog.setContentView(R.layout.dialog_loading)
+        loadingDialog.setCanceledOnTouchOutside(false)
+        loadingDialog.window?.setBackgroundDrawable(ColorDrawable(Color.argb(0, 0, 0, 0)))
     }
 
-    override fun onSubscribe(d: Disposable) {
-        disposable = d
+    override fun onStart() {
+        super.onStart()
         if (PhoneUtils.isOnLine()) {
-            loadingDialog!!.show()
+            loadingDialog.show()
         } else {
             throw ConnectException(App.getContext().getString(R.string.network_error))
         }
@@ -43,13 +41,11 @@ open class BaseObserver<T>(context: Context) : Observer<T> {
     }
 
     override fun onComplete() {
-        disposable?.dispose()
-        loadingDialog!!.dismiss()
+        loadingDialog.dismiss()
     }
 
     override fun onError(throwable: Throwable) {
-        disposable?.dispose()
-        loadingDialog!!.dismiss()
+        loadingDialog.dismiss()
 
         when (throwable) {
             is SocketTimeoutException ->
