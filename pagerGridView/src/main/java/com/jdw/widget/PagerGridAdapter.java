@@ -35,7 +35,7 @@ class PagerGridAdapter extends PagerAdapter {
         for (PagerGridBean pagerGridBean : dataList) {
             RecyclerView recyclerView = new RecyclerView(context);
             recyclerView.setLayoutManager(new GridLayoutManager(context, pagerGridBean.lineSize)); // 列数
-            recyclerView.addItemDecoration(new SpacesItemDecoration(15));
+            recyclerView.addItemDecoration(new SpacesItemDecoration(0, 15));
             recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER); // 去掉滑动到顶部底部时的水波纹效果
             recyclerView.setHasFixedSize(true); // 如果item大小固定时可加此句, 提高绘制效率
             recyclerView.setAdapter(new SwitchAdapter(context, pagerGridBean));

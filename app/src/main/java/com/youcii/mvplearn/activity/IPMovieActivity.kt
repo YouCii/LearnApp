@@ -45,7 +45,7 @@ class IPMovieActivity : BaseActivity() {
                 startRxRetrofit1()
             }
         })
-        rvMovie.itemAnimator = DefaultItemAnimator(); // 设置Item增加、移除动画
+        rvMovie.itemAnimator = DefaultItemAnimator() // 设置Item增加、移除动画
         rvMovie.layoutManager = GridLayoutManager(this, 4)
         rvMovie.adapter = MovieAdapter(this, dataList)
     }
