@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.youcii.mvplearn.app.App
-import com.youcii.mvplearn.model.MovieSubject
+import com.youcii.mvplearn.model.MovieEntity
 import com.youcii.mvplearn.utils.ToastUtils
 
 /**
  * Created by jdw on 2018/4/8.
  */
-class MovieAdapter(private val activity: Activity, private val dataList: ArrayList<MovieSubject>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(private val activity: Activity, private val dataList: ArrayList<MovieEntity>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val imageView = ImageView(activity)
@@ -28,7 +28,7 @@ class MovieAdapter(private val activity: Activity, private val dataList: ArrayLi
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         Glide.with(activity)
-                .load(dataList[position].images.large)
+                .load(dataList[position].getImages().large)
                 .into(holder?.itemView as ImageView)
 
         holder.itemView.setOnClickListener({ ToastUtils.showShortToast(dataList[position].title) })

@@ -1,10 +1,23 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android' /* kotlin */
-apply plugin: 'kotlin-android-extensions' /* kotlin */
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 23
     buildToolsVersion '26.0.2'
+
+    greendao {
+        schemaVersion 3
+        /**
+         * greenDao实体类包文件夹
+         */
+        targetGenDir 'src/main/java'
+        /**
+         * 输出dao的数据库操作实体类文件夹（相对路径 包名+自定义路径名称，包将创建于包名的直接路径下）
+         */
+        daoPackage 'com.youcii.mvplearn.greendao'
+    }
 
     defaultConfig {
         applicationId "com.youcii.mvplearn"
@@ -66,6 +79,7 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.2"
     implementation "org.litepal.android:core:1.6.1"
     implementation "com.orhanobut:logger:2.1.0"
+    implementation "org.greenrobot:greendao:3.2.2"
     /* Glide */
     implementation("com.github.bumptech.glide:glide:4.6.1") {
         exclude group: "com.android.support"
