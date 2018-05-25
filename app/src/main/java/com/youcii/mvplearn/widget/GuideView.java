@@ -112,6 +112,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
         bitmap = null;
         needDraw = true;
         temp = null;
+        mContent = null;
     }
 
     public int[] getLocation() {
@@ -460,19 +461,18 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
     }
 
     public static class Builder {
-        static GuideView guiderView;
-        static Builder instance = new Builder();
-        Context mContext;
+        private GuideView guiderView;
+        private static Builder instance;
 
         private Builder() {
         }
 
-        public Builder(Context ctx) {
-            mContext = ctx;
+        private Builder(Context ctx) {
+            guiderView = new GuideView(ctx);
         }
 
         public static Builder newInstance(Context ctx) {
-            guiderView = new GuideView(ctx);
+            instance = new Builder(ctx);
             return instance;
         }
 

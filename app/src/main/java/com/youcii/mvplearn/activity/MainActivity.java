@@ -20,7 +20,6 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.IMainView;
 import com.youcii.mvplearn.adapter.MainPagerAdapter;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.widget.GuideView;
 import com.youcii.mvplearn.fragment.BlockFragment;
 import com.youcii.mvplearn.fragment.ChangeFragment;
 import com.youcii.mvplearn.fragment.ItemFragment;
@@ -30,6 +29,7 @@ import com.youcii.mvplearn.fragment.WebFragment;
 import com.youcii.mvplearn.model.MainMenuID;
 import com.youcii.mvplearn.model.RecyclerBean;
 import com.youcii.mvplearn.utils.ToastUtils;
+import com.youcii.mvplearn.widget.GuideView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,6 +196,14 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
             TestListActivity.startActivity(this);
         } else {
             onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (isFinishing()) {
+            // 不在onDestroy里处理停止thread等释放资源的处理, 因为onDestroy执行较晚
         }
     }
 

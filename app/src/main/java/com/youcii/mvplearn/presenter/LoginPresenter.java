@@ -38,7 +38,7 @@ public class LoginPresenter {
 
     /**
      * 使用CallBack方式请求
-     *
+     * <p>
      * 注: 此处网络请求比较简单, 所以无需单独抽出
      */
     private void callBackRequest(String user, String password) {
