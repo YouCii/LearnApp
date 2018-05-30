@@ -49,6 +49,7 @@
         <activity android:name=".activity.PagerGridActivity" />
         <activity android:name=".activity.IntDefActivity" />
         <activity android:name=".activity.ImmersiveActivity" />
+        <activity android:name=".activity.LockSynchronizedActivity" />
     </application>
 
 </manifest>

@@ -50,7 +50,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("PagerGridView")
         testArray.add("IntDef替代Enum")
         testArray.add("沉浸式效果")
-        testArray.add("111")
+        testArray.add("Lock/Synchronized")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -79,6 +79,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             8 -> PagerGridActivity.startActivity(this)
             9 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
             10 -> ImmersiveActivity.startActivity(this)
+            11 -> LockSynchronizedActivity.startActivity(this)
             else -> {
             }
         }

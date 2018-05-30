@@ -5,7 +5,7 @@ import com.youcii.mvplearn.greendao.BaseBeanConverter;
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * @author jdw
@@ -14,7 +14,7 @@ import org.greenrobot.greendao.annotation.Index;
 @Entity
 public class MovieEntity {
 
-    @Index(unique = true)
+    @Id
     private String id;                   // 条目id
     private String title;                // 中文名
     private String original_title;       // 原名
