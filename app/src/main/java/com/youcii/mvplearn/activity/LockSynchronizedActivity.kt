@@ -17,6 +17,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
+import java.util.concurrent.locks.ReentrantReadWriteLock
 
 /**
  * Created by jdw on 2018/5/28.
@@ -31,7 +32,8 @@ class LockSynchronizedActivity : BaseActivity() {
     private enum class ObservableKind {
         Synchronized,
         WaitNotify,
-        ReentrantLock
+        ReentrantLock,
+        ReadWrite
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +48,10 @@ class LockSynchronizedActivity : BaseActivity() {
                 .map { ReentrantLock }
         val waitNotifyObservable = RxView.clicks(btn_wait_notify)
                 .map { WaitNotify }
+        val readWriteObservable = RxView.clicks(btn_read_write)
+                .map { ReadWrite }
 
-        Observable.merge(synchronizedObservable, waitNotifyObservable, reentrantLockObservable)
+        Observable.merge(synchronizedObservable, waitNotifyObservable, reentrantLockObservable, readWriteObservable)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .filter({
                     threadList.isEmpty()
@@ -80,17 +84,27 @@ class LockSynchronizedActivity : BaseActivity() {
                         ObservableKind.WaitNotify -> {
                             tv_log.append("\nWaitNotifySynchronized\n")
                             for (i in 1..THREAD_NUM) {
-                                myHandler.postDelayed({
-                                    thread = Thread(runnableWait, "Wait$i")
-                                    threadList.add(thread)
-                                    thread.start()
-                                }, 20L * i)
-                            }
-                            myHandler.postDelayed({
-                                thread = Thread(runnableNotify, "Notify")
-                                thread.start()
+                                thread = Thread(runnableWait, "Wait$i")
                                 threadList.add(thread)
-                            }, 20L * THREAD_NUM + 20)
+                                thread.start()
+                            }
+                            thread = Thread(runnableNotify, "Notify")
+                            thread.start()
+                            threadList.add(thread)
+                        }
+                        LockSynchronizedActivity.ObservableKind.ReadWrite -> {
+                            tv_log.append("\nReentrantReadWriteLock\n")
+                            thread = Thread(writeRunnable, "Write1")
+                            thread.start()
+                            threadList.add(thread)
+                            for (i in 1..THREAD_NUM) {
+                                thread = Thread(readRunnable, "Read$i")
+                                threadList.add(thread)
+                                thread.start()
+                            }
+                            thread = Thread(writeRunnable, "Write2")
+                            thread.start()
+                            threadList.add(thread)
                         }
                         null -> {
                         }
@@ -150,9 +164,37 @@ class LockSynchronizedActivity : BaseActivity() {
         threadList.remove(Thread.currentThread())
     }
 
+    /**
+     * 读写锁 ReadWriteLock
+     */
+    private val readWriteLock = ReentrantReadWriteLock(false)
+    private val readRunnable = Runnable {
+        sendMessage(Thread.currentThread().name + "等待读锁")
+        readWriteLock.readLock().lock()
+        try {
+            sendMessage(Thread.currentThread().name + "获得读锁")
+            Thread.sleep(THREAD_DELAY)
+        } finally {
+            sendMessage(Thread.currentThread().name + "释放读锁")
+            readWriteLock.readLock().unlock()
+        }
+        threadList.remove(Thread.currentThread())
+    }
+    private val writeRunnable = Runnable {
+        sendMessage(Thread.currentThread().name + "等待写锁")
+        readWriteLock.writeLock().lock()
+        try {
+            sendMessage(Thread.currentThread().name + "获得写锁")
+            Thread.sleep(THREAD_DELAY)
+        } finally {
+            sendMessage(Thread.currentThread().name + "释放写锁")
+            readWriteLock.writeLock().unlock()
+        }
+        threadList.remove(Thread.currentThread())
+    }
+
     private val myHandler = MyHandler(this)
     private fun sendMessage(obj: String) {
-        System.out.print(obj + "\n")
         val message = myHandler.obtainMessage()
         message.obj = obj
         message.sendToTarget()
@@ -164,15 +206,33 @@ class LockSynchronizedActivity : BaseActivity() {
     }
 
     companion object {
+        /**
+         * 线程内的模拟耗时延迟, 要保证>1000, 否则标识等待的省略号不会显示了
+         */
         private const val THREAD_DELAY = 2000L
+        /**
+         * 等待的线程数量, 要保证>2, 否则看不出锁是否公平
+         */
         private const val THREAD_NUM = 3
 
         private class MyHandler constructor(lockSynchronizedActivity: LockSynchronizedActivity) : Handler() {
             var weakReference: WeakReference<LockSynchronizedActivity> = WeakReference(lockSynchronizedActivity)
+            /**
+             * 距离上次打印超过1s时, 添加省略号以便查看
+             */
+            var lastLogTime: Long = 0
 
             override fun handleMessage(msg: Message?) {
                 super.handleMessage(msg)
-                weakReference.get()?.tv_log?.append(msg?.obj as String + "\n")
+                var logString = ""
+                if (lastLogTime != 0L && System.currentTimeMillis() - lastLogTime > 1000) {
+                    logString += "..."
+                }
+                logString += ("\n" + msg?.obj as String)
+
+                System.out.print(logString)
+                weakReference.get()?.tv_log?.append(logString)
+                lastLogTime = System.currentTimeMillis()
 
                 // TextView自动滚动到底部
                 val offset = (weakReference.get()?.tv_log?.lineCount ?: 0) * (weakReference.get()?.tv_log?.lineHeight ?: 0)

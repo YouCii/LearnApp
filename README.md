@@ -22,3 +22,4 @@
     2. Retrofit + RxJava;
 16. Glide;
 17. GreenDao, 封装自定义数据类型的转换器(当前GreenDao版本暂未支持RxJava2);
+18. Synchronized/wait/notifyAll, ReentrantLock, ReentrantReadWriteLock;
