@@ -60,9 +60,9 @@ class LockSynchronizedActivity : BaseActivity() {
                     var thread: Thread
                     when (it) {
                         ObservableKind.Synchronized -> {
-                            tv_log.append("\nSynchronized\n")
+                            tv_log.append("\n\nSynchronized")
                             // 不是公平锁, 可能不是先到先得, 但是因为目前逻辑太简单, 所以测试的一般都是123
-                            for (i in 1..THREAD_NUM) {
+                            for (i in 0 until THREAD_NUM) {
                                 myHandler.postDelayed({
                                     thread = Thread(runnableSynchronized, "Synchronized$i")
                                     thread.start()
@@ -71,19 +71,24 @@ class LockSynchronizedActivity : BaseActivity() {
                             }
                         }
                         ObservableKind.ReentrantLock -> {
-                            tv_log.append("\nReentrant\n")
+                            tv_log.append("\n\nReentrant")
                             // 公平锁, 永远先到先得
-                            for (i in 1..THREAD_NUM) {
+                            for (i in 0 until THREAD_NUM) {
                                 myHandler.postDelayed({
                                     thread = Thread(runnableLock, "ReentrantLock$i")
                                     thread.start()
                                     threadList.add(thread)
                                 }, 20L * i)
                             }
+                            myHandler.postDelayed({
+                                thread = Thread(runnableTryLock, "TryLock")
+                                thread.start()
+                                threadList.add(thread)
+                            }, 30L)
                         }
                         ObservableKind.WaitNotify -> {
-                            tv_log.append("\nWaitNotifySynchronized\n")
-                            for (i in 1..THREAD_NUM) {
+                            tv_log.append("\n\nWaitNotifySynchronized")
+                            for (i in 0 until THREAD_NUM) {
                                 thread = Thread(runnableWait, "Wait$i")
                                 threadList.add(thread)
                                 thread.start()
@@ -93,11 +98,11 @@ class LockSynchronizedActivity : BaseActivity() {
                             threadList.add(thread)
                         }
                         LockSynchronizedActivity.ObservableKind.ReadWrite -> {
-                            tv_log.append("\nReentrantReadWriteLock\n")
+                            tv_log.append("\n\nReentrantReadWriteLock")
                             thread = Thread(writeRunnable, "Write1")
                             thread.start()
                             threadList.add(thread)
-                            for (i in 1..THREAD_NUM) {
+                            for (i in 0 until THREAD_NUM) {
                                 thread = Thread(readRunnable, "Read$i")
                                 threadList.add(thread)
                                 thread.start()
@@ -160,6 +165,21 @@ class LockSynchronizedActivity : BaseActivity() {
         } finally {
             sendMessage(Thread.currentThread().name + "释放锁")
             lock.unlock()
+        }
+        threadList.remove(Thread.currentThread())
+    }
+    private val runnableTryLock = Runnable {
+        sendMessage(Thread.currentThread().name + "尝试获取")
+        if (lock.tryLock(20, TimeUnit.MILLISECONDS)) {
+            try {
+                sendMessage(Thread.currentThread().name + "获得锁")
+                Thread.sleep(THREAD_DELAY)
+            } finally {
+                sendMessage(Thread.currentThread().name + "释放锁")
+                lock.unlock()
+            }
+        } else {
+            sendMessage(Thread.currentThread().name + "未能获取到")
         }
         threadList.remove(Thread.currentThread())
     }

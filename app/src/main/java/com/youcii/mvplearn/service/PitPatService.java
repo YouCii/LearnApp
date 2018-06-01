@@ -1,7 +1,6 @@
 package com.youcii.mvplearn.service;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -23,8 +22,6 @@ import java.net.Socket;
  * 服务是主线程
  */
 public class PitPatService extends Service {
-	protected Context context;
-
 	private String ip = "";
 	private int port = 0;
 

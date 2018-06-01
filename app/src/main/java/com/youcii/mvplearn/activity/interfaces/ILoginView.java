@@ -1,10 +1,12 @@
 package com.youcii.mvplearn.activity.interfaces;
 
+import com.youcii.mvplearn.base.BaseView;
+
 /**
  * @author YouCii
  * @date 2016/7/14
  */
-public interface ILoginView {
+public interface ILoginView extends BaseView {
 
     void clearPass();
 

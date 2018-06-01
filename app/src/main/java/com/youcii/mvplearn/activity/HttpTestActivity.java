@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
-import com.youcii.mvplearn.base.BaseActivity;
+import com.youcii.mvplearn.base.BasePresenterActivity;
 import com.youcii.mvplearn.presenter.HttpTestPresenter;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +29,7 @@ import butterknife.OnClick;
 /**
  * 目前此处横竖屏切换导致了一个内存泄漏问题, 暂没有找到解决办法.
  */
-public class HttpTestActivity extends BaseActivity implements IHttpTestView {
+public class HttpTestActivity extends BasePresenterActivity<IHttpTestView, HttpTestPresenter> implements IHttpTestView {
 
     @Bind(R.id.request_path)
     EditText requestPath;
@@ -49,7 +51,6 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
     @Bind(R.id.setting_frequency)
     EditText settingFrequency;
 
-    private HttpTestPresenter httpTestPresenter;
     private List<View> keyView = new ArrayList<>(), valueView = new ArrayList<>();
 
     @Override
@@ -59,8 +60,6 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_http_test);
         ButterKnife.bind(this);
-
-        httpTestPresenter = new HttpTestPresenter(this);
     }
 
     @Override
@@ -68,9 +67,10 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
         return true;
     }
 
-    public static void startActivity(Context context) {
-        Intent intent = new Intent(context, HttpTestActivity.class);
-        context.startActivity(intent);
+    @NotNull
+    @Override
+    public HttpTestPresenter initPresenter() {
+        return new HttpTestPresenter(this);
     }
 
     @OnClick({R.id.http_add_param, R.id.test_start})
@@ -80,7 +80,7 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
                 addParam();
                 break;
             case R.id.test_start:
-                httpTestPresenter.startRequest();
+                presenter.startRequest();
                 break;
             default:
                 break;
@@ -141,4 +141,8 @@ public class HttpTestActivity extends BaseActivity implements IHttpTestView {
         return Integer.parseInt(settingFrequency.getText().toString());
     }
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, HttpTestActivity.class);
+        context.startActivity(intent);
+    }
 }

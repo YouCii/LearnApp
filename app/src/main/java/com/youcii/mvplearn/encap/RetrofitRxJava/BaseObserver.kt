@@ -17,6 +17,11 @@ import java.net.SocketTimeoutException
  *
  * 用于封装公共回调, 并且隔离了第三方库
  * open使其可以被继承, 目前仅用在了匿名内部类里
+ *
+ * 其他方案:
+ * 1. 继承 LambdaObserver: 可另subscribe返回dispose对象, 仿佛不如这个方便
+ * 2. 继承 DisposableSingleObserver: 使用onSuccess替代了onNext/onComplete
+ *      但是考虑zip/merge等操作符的话就不能用single了
  */
 open class BaseObserver<T>(context: Context) : DisposableObserver<T>() {
 

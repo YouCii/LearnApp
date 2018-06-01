@@ -42,11 +42,11 @@ public class HttpTestNetWork extends BaseNetWork<String> {
     /**
      * 发起请求
      */
-    public void doExecute() {
+    public void doExecute(int tag) {
         if (isPost) {
-            postNetWork();
+            postNetWork(tag);
         } else {
-            getNetWork();
+            getNetWork(tag);
         }
     }
 

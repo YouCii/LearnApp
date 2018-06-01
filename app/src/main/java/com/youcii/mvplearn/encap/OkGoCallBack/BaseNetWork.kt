@@ -9,6 +9,8 @@ import kotlin.collections.component2
  * Created by Administrator on 2017/6/21.
  *
  *  用于封装各网络请求共同的部分, 如: 继承Observable, add共同的header/params等
+ *
+ *  注: 如果http相关逻辑不是很多的话, 也可以把这一层放在HttpRequestBuilder里面
  */
 abstract class BaseNetWork<T> : Observable() { // 主构造方法在这写：abstract class BaseNetWork(val paramsMap: HashMap<String, String>)
 
@@ -44,7 +46,7 @@ abstract class BaseNetWork<T> : Observable() { // 主构造方法在这写：abs
     /**
      * 初始化, 并发起请求
      */
-    fun postNetWork() {
+    fun postNetWork(tag: Int) {
         if (request == null) {
             initUrl()
             initParams()
@@ -56,13 +58,13 @@ abstract class BaseNetWork<T> : Observable() { // 主构造方法在这写：abs
                 request!!.addParams(key, value)
             }
         }
-        request!!.execute(callBack)
+        request!!.execute(callBack, tag)
     }
 
     /**
      * 如果让子类可以重写的话需要加 open 关键字
      */
-    fun getNetWork() {
+    fun getNetWork(tag: Int) {
         if (request == null) {
             initUrl()
             initParams()
@@ -74,7 +76,7 @@ abstract class BaseNetWork<T> : Observable() { // 主构造方法在这写：abs
                 request!!.addParams(key, value)
             }
         }
-        request!!.execute(callBack)
+        request!!.execute(callBack, tag)
     }
 
 }

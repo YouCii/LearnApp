@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
-import com.youcii.mvplearn.base.BaseFragment;
+import com.youcii.mvplearn.base.BasePresenterFragment;
+import com.youcii.mvplearn.fragment.interfaces.IFragRxView;
 import com.youcii.mvplearn.model.EasyEvent;
 import com.youcii.mvplearn.presenter.FragRxPresenter;
-import com.youcii.mvplearn.fragment.interfaces.IFragRxView;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,55 +21,58 @@ import butterknife.ButterKnife;
 /**
  * Created by YouCii on 2016/12/17.
  */
-public class RxFragment extends BaseFragment implements IFragRxView {
+public class RxFragment extends BasePresenterFragment<IFragRxView, FragRxPresenter> implements IFragRxView {
 
-	@Bind(R.id.rx_text)
-	TextView rxText;
+    @Bind(R.id.rx_text)
+    TextView rxText;
 
-	FragRxPresenter fragRxPresenter;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_rx, container, false);
+        ButterKnife.bind(this, view);
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_rx, container, false);
-		ButterKnife.bind(this, view);
+        rxText.setMovementMethod(ScrollingMovementMethod.getInstance());
 
-		rxText.setMovementMethod(ScrollingMovementMethod.getInstance());
-		fragRxPresenter = new FragRxPresenter(this);
+        return view;
+    }
 
-		return view;
-	}
+    @Override
+    public void onStart() {
+        super.onStart();
 
-	@Override
-	public void onStart() {
-		super.onStart();
+        EasyEvent[] events = new EasyEvent[]{new EasyEvent(), new EasyEvent()};
+        presenter.rxTest(events);
+    }
 
-		EasyEvent[] events = new EasyEvent[]{new EasyEvent(), new EasyEvent()};
-		fragRxPresenter.rxTest(events);
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-	}
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		ButterKnife.unbind(this);
-	}
+    @NotNull
+    @Override
+    public FragRxPresenter initPresenter() {
+        return new FragRxPresenter(this);
+    }
 
-	@Override
-	public void setText(String string) {
-		rxText.setText(string);
-	}
+    @Override
+    public void setText(String string) {
+        rxText.setText(string);
+    }
 
-	@Override
-	public String getText() {
-		return rxText.getText().toString();
-	}
+    @Override
+    public String getText() {
+        return rxText.getText().toString();
+    }
 
-	@Override
-	public void addText(String string) {
-		rxText.append(string);
-	}
+    @Override
+    public void addText(String string) {
+        rxText.append(string);
+    }
 }

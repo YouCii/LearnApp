@@ -30,6 +30,10 @@ class IPMovieActivity : BaseActivity() {
 
     private val dataList: ArrayList<MovieEntity> = ArrayList()
 
+    /**
+     * 这里使用了disposable集合来统一管理disposable, 其他的方式见
+     * @see com.youcii.mvplearn.presenter.FragRxPresenter
+     */
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {

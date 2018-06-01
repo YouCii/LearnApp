@@ -60,11 +60,11 @@ public class HttpRequestBuilder<T> {
     /**
      * 发起请求
      */
-    public void execute(CallBackAdapter<T> callback) {
+    public void execute(CallBackAdapter<T> callback, int tag) {
         if (getRequest != null) {
-            getRequest.execute(callback);
+            getRequest.tag(tag).execute(callback);
         } else {
-            postRequest.execute(callback);
+            postRequest.tag(tag).execute(callback);
         }
     }
 }

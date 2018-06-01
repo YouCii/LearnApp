@@ -13,12 +13,14 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.ILoginView;
-import com.youcii.mvplearn.base.BaseActivity;
+import com.youcii.mvplearn.base.BasePresenterActivity;
 import com.youcii.mvplearn.presenter.LoginPresenter;
 import com.youcii.mvplearn.utils.PermissionUtils;
 import com.youcii.mvplearn.utils.PhoneUtils;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.utils.ViewUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,9 +31,7 @@ import io.reactivex.Observable;
 /**
  * @author Administrator
  */
-public class LoginActivity extends BaseActivity implements ILoginView, TextView.OnEditorActionListener {
-
-    private LoginPresenter loginPresenter;
+public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresenter> implements ILoginView, TextView.OnEditorActionListener {
 
     @Bind(R.id.qxjd)
     TextView qxjd;
@@ -51,7 +51,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextView.
 
         ButterKnife.bind(this);
 
-        loginPresenter = new LoginPresenter(this);
         etUser.setOnEditorActionListener(this);
         etPassword.setOnEditorActionListener(this);
 
@@ -63,10 +62,15 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextView.
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe((v) -> {
                     ViewUtils.hideInput(this);
-                    loginPresenter.login(etUser.getText().toString(), etPassword.getText().toString());
+                    presenter.login(etUser.getText().toString(), etPassword.getText().toString());
                 });
     }
 
+    @NotNull
+    @Override
+    public LoginPresenter initPresenter() {
+        return new LoginPresenter(this);
+    }
 
     @Override
     protected void onResume() {

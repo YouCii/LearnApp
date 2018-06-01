@@ -1,36 +1,48 @@
 package com.youcii.mvplearn.presenter;
 
+import com.lzy.okgo.OkGo;
 import com.youcii.mvplearn.activity.interfaces.IHttpTestView;
+import com.youcii.mvplearn.base.BasePresenter;
 import com.youcii.mvplearn.network.HttpTestNetWork;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 /**
  * @author YouCii
  * @date 2017/1/17
  */
-public class HttpTestPresenter implements Observer {
+public class HttpTestPresenter extends BasePresenter<IHttpTestView> implements Observer {
 
-    private IHttpTestView iHttpTestView;
+    private int requestTag;
 
     public HttpTestPresenter(IHttpTestView iHttpTestView) {
-        this.iHttpTestView = iHttpTestView;
+        super(iHttpTestView);
     }
 
     public void startRequest() {
-        HttpTestNetWork httpTestNetWork = new HttpTestNetWork(iHttpTestView.getUrl(), iHttpTestView.getParams(), iHttpTestView.isPostRequest());
-        httpTestNetWork.addObserver(this);
-        for (int i = 0; i < iHttpTestView.getRequestTime(); i++) {
-            httpTestNetWork.doExecute();
+        if (getView() != null) {
+            requestTag = new Random().nextInt();
+            HttpTestNetWork httpTestNetWork = new HttpTestNetWork(getView().getUrl(), getView().getParams(), getView().isPostRequest());
+            httpTestNetWork.addObserver(this);
+            for (int i = 0; i < getView().getRequestTime(); i++) {
+                httpTestNetWork.doExecute(requestTag);
+            }
         }
     }
 
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof HttpTestNetWork) {
-            iHttpTestView.doOnCallBack((String) data);
+            if (getView() != null) {
+                getView().doOnCallBack((String) data);
+            }
         }
     }
 
+    @Override
+    public void detach() {
+        OkGo.getInstance().cancelTag(requestTag);
+    }
 }

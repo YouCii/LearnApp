@@ -2,23 +2,22 @@ package com.youcii.mvplearn.presenter;
 
 import android.os.CountDownTimer;
 
-import com.youcii.mvplearn.adapter.DeviceListAdapter;
 import com.youcii.mvplearn.activity.interfaces.IListRefreshView;
+import com.youcii.mvplearn.adapter.DeviceListAdapter;
+import com.youcii.mvplearn.base.BasePresenter;
 
 import java.util.List;
-import java.util.Observable;
 
 /**
  * @author YouCii
  * @date 2017/1/17
  */
-public class ListRefreshPresenter extends Observable {
+public class ListRefreshPresenter extends BasePresenter<IListRefreshView> {
 
-    private IListRefreshView iListRefreshView;
     private CountDownTimer countDownTimer;
 
     public ListRefreshPresenter(IListRefreshView iListRefreshView) {
-        this.iListRefreshView = iListRefreshView;
+        super(iListRefreshView);
     }
 
     public void startRefresh(List<DeviceListAdapter.Device> list) {
@@ -42,13 +41,16 @@ public class ListRefreshPresenter extends Observable {
 
             @Override
             public void onFinish() {
-                iListRefreshView.doOnFinish();
+                if (getView() != null) {
+                    getView().doOnFinish();
+                }
             }
         };
         countDownTimer.start();
     }
 
-    public void stopRefresh() {
+    @Override
+    public void detach() {
         countDownTimer.cancel();
     }
 
