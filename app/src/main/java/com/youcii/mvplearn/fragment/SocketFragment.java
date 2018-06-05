@@ -2,11 +2,11 @@ package com.youcii.mvplearn.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.youcii.mvplearn.R;
@@ -28,8 +28,6 @@ import butterknife.OnClick;
 
 public class SocketFragment extends BasePresenterFragment<IFragSocketView, FragSocketPresenter> implements IFragSocketView {
 
-    @Bind(R.id.sv_message)
-    ScrollView svMessage;
     @Bind(R.id.socket_message_window)
     TextView socketMessageWindow;
     @Bind(R.id.etServerIp)
@@ -45,6 +43,8 @@ public class SocketFragment extends BasePresenterFragment<IFragSocketView, FragS
 		/* 取消下方EditText焦点 */
         socketMessageWindow.setFocusableInTouchMode(true);
         socketMessageWindow.requestFocus();
+
+        socketMessageWindow.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         return view;
     }
@@ -110,7 +110,12 @@ public class SocketFragment extends BasePresenterFragment<IFragSocketView, FragS
                 e.printStackTrace();
             }
             // 滚到底部
-            activity.runOnUiThread(() -> svMessage.fullScroll(ScrollView.FOCUS_DOWN));
+            activity.runOnUiThread(() -> {
+                int offset = socketMessageWindow.getLineCount() * socketMessageWindow.getLineHeight();
+                if (offset > socketMessageWindow.getHeight()) {
+                    socketMessageWindow.scrollTo(0, offset - socketMessageWindow.getHeight());
+                }
+            });
         });
     }
 

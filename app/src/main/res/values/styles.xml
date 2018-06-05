@@ -27,38 +27,30 @@
         <item name="android:layout_margin">10dp</item>
     </style>
 
-    <style name="MyCardView.MainLinear">
+    <style name="MyCardView.MainLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="MyCardView.Title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">1dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
     </style>
 
     <style name="MyCardView.ModuleLinear">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">1dp</item>
     </style>
 
     <style name="MyCardView.Key">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center_vertical|right</item>
     </style>
 
     <style name="MyCardView.Value">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">2.5</item>
-        <item name="android:gravity">center_vertical|left</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
     </style>
 
