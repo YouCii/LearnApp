@@ -2,10 +2,13 @@ package com.youcii.mvplearn.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteException;
 
 import com.orhanobut.logger.Logger;
+import com.youcii.mvplearn.IPitPatAidlInterface;
+import com.youcii.mvplearn.ISocketStateListener;
+import com.youcii.mvplearn.model.ServiceData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +20,11 @@ import java.net.Socket;
 
 /**
  * @author YouCii
- * @date 2016/5/11
+ * @date 2018/6/7
  * <p>
- * 同一线程内的服务
+ * 使用aidl的跨线程服务
  */
-public class PitPatService extends Service {
+public class PitPatAidlService extends Service {
     private String ip = "";
     private int port = 0;
 
@@ -33,7 +36,7 @@ public class PitPatService extends Service {
     private ReceiveThread receiveThread;
     private DetectionThread detectionThread;
 
-    private SocketStateListener socketStateListener;
+    private ISocketStateListener iSocketStateListener;
 
     @Override
     public void onCreate() {
@@ -51,7 +54,7 @@ public class PitPatService extends Service {
 
         // 生命周期：第二步
         Logger.i("service: " + "onBind");
-        return new ServiceBinder();
+        return pitPatAidlStub;
     }
 
     @Override
@@ -87,20 +90,22 @@ public class PitPatService extends Service {
         Logger.i("service: " + "onDestroy");
     }
 
-    public class ServiceBinder extends Binder {
-
-        public void sendMessage(String string) {
-            PitPatService.this.sendMessage(string);
+    public IPitPatAidlInterface.Stub pitPatAidlStub = new IPitPatAidlInterface.Stub() {
+        @Override
+        public void sendMessage(ServiceData serviceData) throws RemoteException {
+            PitPatAidlService.this.sendMessage(serviceData.getIp());
         }
 
-        public void setSocketStateListener(SocketStateListener socketStateListener) {
-            PitPatService.this.socketStateListener = socketStateListener;
+        @Override
+        public void onDestroy() throws RemoteException {
+            PitPatAidlService.this.onDestroy();
         }
 
-        public void onDestroy() {
-            PitPatService.this.onDestroy();
+        @Override
+        public void setSocketStateListener(ISocketStateListener iSocketStateListener) throws RemoteException {
+            PitPatAidlService.this.iSocketStateListener = iSocketStateListener;
         }
-    }
+    };
 
     /**
      * 进行网络的连接,在线程中进行的网络的建立
@@ -139,8 +144,8 @@ public class PitPatService extends Service {
                 /* socket = new Socket(ip, port);
                 socket.setSoTimeout(20000); // 用这种方式的话会出现卡机现象 */
 
-                if (socketStateListener != null) {
-                    socketStateListener.onConnect();
+                if (iSocketStateListener != null) {
+                    iSocketStateListener.onConnect();
                 }
 
                 // 开启数据读取
@@ -158,6 +163,9 @@ public class PitPatService extends Service {
             } catch (IOException e) {
                 e.printStackTrace();
                 Logger.e("socket: " + "连接失败：" + e.toString());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                Logger.e("iSocketStateListener: " + "onConnect调用失败：" + e.toString());
             }
         }
     }
@@ -166,14 +174,16 @@ public class PitPatService extends Service {
         try {
             out.write((string + "\n").getBytes());
             out.flush();
-            if (socketStateListener != null) {
-                socketStateListener.onSend(string);
+            if (iSocketStateListener != null) {
+                iSocketStateListener.onSend(string);
             }
-
             Logger.i("socket: " + "发送成功");
-        } catch (Exception e) {
+        } catch (IOException e) {
             Logger.e("socket: " + "发送失败");
             e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            Logger.e("iSocketStateListener: " + "onSend调用失败：" + e.toString());
         }
     }
 
@@ -192,8 +202,8 @@ public class PitPatService extends Service {
                             read = bff.readLine();
                             if (read != null) {
                                 Logger.i("socket: " + "接收到数据: " + read);
-                                if (socketStateListener != null) {
-                                    socketStateListener.onReceive(read);
+                                if (iSocketStateListener != null) {
+                                    iSocketStateListener.onReceive(read);
                                 }
                             } else {
                                 sleep(5000);
@@ -203,6 +213,9 @@ public class PitPatService extends Service {
                         sleep(5000);
                         Logger.e("socket接收失败：" + e);
                         e.printStackTrace();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                        Logger.e("iSocketStateListener: " + "onReceive调用失败：" + e.toString());
                     }
                 }
             } catch (InterruptedException e1) {
@@ -284,8 +297,13 @@ public class PitPatService extends Service {
             connectThread = null;
         }
 
-        if (socketStateListener != null) {
-            socketStateListener.onBreak();
+        if (iSocketStateListener != null) {
+            try {
+                iSocketStateListener.onBreak();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                Logger.e("iSocketStateListener: " + "onBreak调用失败：" + e.toString());
+            }
         }
     }
 

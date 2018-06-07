@@ -52,7 +52,7 @@ public class SocketFragment extends BasePresenterFragment<IFragSocketView, FragS
     @NotNull
     @Override
     public FragSocketPresenter initPresenter() {
-        return new FragSocketPresenter(this);
+        return new FragSocketPresenter(this, true);
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.youcii.mvplearn">
 
     <!-- 硬件需求：必须有手控触摸屏 -->
@@ -31,6 +32,11 @@
         </activity>
 
         <service android:name=".service.PitPatService" />
+
+        <service
+            android:name=".service.PitPatAidlService"
+            android:exported="true"
+            android:process=":socket" />
 
         <activity
             android:name=".activity.MainActivity"

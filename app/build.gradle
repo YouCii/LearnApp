@@ -59,6 +59,11 @@ android {
     }
 }
 
+/** 允许kotlin的Parcelize注解, 但是使用aidl的时候有bug, 提示不能转化createFromParcel为对应参数, 所以没有再用 */
+androidExtensions {
+    experimental = true
+}
+
 repositories {
     mavenCentral()
     flatDir { dirs 'libs' }
