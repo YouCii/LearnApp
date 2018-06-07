@@ -1,5 +1,5 @@
 // ISocketStateListener.aidl
-package com.youcii.mvplearn;
+package com.youcii.mvplearn.service;
 
 // 默认生成的模板类的对象只支持为 in 的定向 tag
 

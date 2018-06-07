@@ -8,8 +8,8 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import com.orhanobut.logger.Logger;
-import com.youcii.mvplearn.IPitPatAidlInterface;
-import com.youcii.mvplearn.ISocketStateListener;
+import com.youcii.mvplearn.service.IPitPatAidlInterface;
+import com.youcii.mvplearn.service.ISocketStateListener;
 import com.youcii.mvplearn.base.BasePresenter;
 import com.youcii.mvplearn.fragment.interfaces.IFragSocketView;
 import com.youcii.mvplearn.model.ServiceData;
@@ -180,12 +180,7 @@ public class FragSocketPresenter extends BasePresenter<IFragSocketView> {
     /**
      * 跨进程的SocketState监听
      */
-    private ISocketStateListener iSocketStateListener = new ISocketStateListener() {
-
-        @Override
-        public IBinder asBinder() {
-            return aidlBinder.asBinder();
-        }
+    private ISocketStateListener.Stub iSocketStateListener = new ISocketStateListener.Stub() {
 
         @Override
         public void onBreak() throws RemoteException {

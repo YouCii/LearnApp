@@ -6,8 +6,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import com.orhanobut.logger.Logger;
-import com.youcii.mvplearn.IPitPatAidlInterface;
-import com.youcii.mvplearn.ISocketStateListener;
 import com.youcii.mvplearn.model.ServiceData;
 
 import java.io.BufferedReader;
@@ -307,15 +305,4 @@ public class PitPatAidlService extends Service {
         }
     }
 
-    public interface SocketStateListener {
-
-        void onBreak();
-
-        void onConnect();
-
-        void onReceive(String string);
-
-        void onSend(String string);
-
-    }
 }

@@ -35,7 +35,6 @@
 
         <service
             android:name=".service.PitPatAidlService"
-            android:exported="true"
             android:process=":socket" />
 
         <activity
