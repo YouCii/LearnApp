@@ -1,4 +1,4 @@
-// UserInfo.aidl.aidl
+// UserInfo.aidl
 package com.youcii.mvplearn.model;
 
 parcelable ServiceData;

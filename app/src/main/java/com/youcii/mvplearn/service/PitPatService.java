@@ -6,6 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.orhanobut.logger.Logger;
+import com.youcii.mvplearn.utils.ThreadPool;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,10 +47,9 @@ public class PitPatService extends Service {
     public IBinder onBind(Intent intent) {
         ip = intent.getStringExtra("IP");
         port = Integer.parseInt(intent.getStringExtra("PORT"));
-
         socketConnected(ip, port);
 
-        // 生命周期：第二步
+        // 生命周期：bindService时第二步
         Logger.i("service: " + "onBind");
         return new ServiceBinder();
     }
@@ -67,6 +67,13 @@ public class PitPatService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (socket == null || !socket.isConnected()) {
+            ip = intent.getStringExtra("IP");
+            port = Integer.parseInt(intent.getStringExtra("PORT"));
+            socketConnected(ip, port);
+        }
+
+        // 生命周期：startService时第二步
         Logger.i("service: " + "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
@@ -162,19 +169,24 @@ public class PitPatService extends Service {
         }
     }
 
+    /**
+     * Service是主线程, 需要从子线程发送
+     */
     private void sendMessage(String string) {
-        try {
-            out.write((string + "\n").getBytes());
-            out.flush();
-            if (socketStateListener != null) {
-                socketStateListener.onSend(string);
-            }
+        ThreadPool.getThreadPool().submit(() -> {
+            try {
+                out.write((string + "\n").getBytes());
+                out.flush();
+                if (socketStateListener != null) {
+                    socketStateListener.onSend(string);
+                }
 
-            Logger.i("socket: " + "发送成功");
-        } catch (Exception e) {
-            Logger.e("socket: " + "发送失败");
-            e.printStackTrace();
-        }
+                Logger.i("socket: " + "发送成功");
+            } catch (Exception e) {
+                Logger.e("socket: " + "发送失败");
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -219,10 +231,10 @@ public class PitPatService extends Service {
         @Override
         public void run() {
             try {
+                Logger.i("断线重连进程" + this.getId() + "已运行");
                 while (!Thread.interrupted()) {
                     sleep(5000);
                     try {
-                        Logger.i("断线重连进程" + this.getId() + "在运行");
                         if (socket != null) {
                             socket.sendUrgentData(0xFF);
                         }

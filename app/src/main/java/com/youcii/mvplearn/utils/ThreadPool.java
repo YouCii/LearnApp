@@ -28,7 +28,7 @@ public class ThreadPool {
 	 */
 	private static int KEEP_ALIVE_TIME = 60;
 	/**
-	 * 阻塞队列。当核心线程都被占用，且阻塞队列已满的情况下，才会开启额外线程
+	 * 阻塞队列。当核心线程都被占用，且阻塞队列已满的情况下，才会开启额外线程W
 	 * SynchronousQueue 类似于一个缓存值为1的阻塞队列, 但它内部没有任何容量
 	 */
 	private static SynchronousQueue<Runnable> workQueue = new SynchronousQueue<>();

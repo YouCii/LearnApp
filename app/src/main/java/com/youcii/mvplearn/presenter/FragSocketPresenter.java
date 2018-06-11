@@ -131,8 +131,10 @@ public class FragSocketPresenter extends BasePresenter<IFragSocketView> {
                 Intent intent = new Intent(getView().getContext(), PitPatService.class);
                 intent.putExtra("IP", getView().getIp());
                 intent.putExtra("PORT", getView().getPort());
-                // 会触发onCreate()和onBind()，不触发onStartCommand； 多次点击不会多次触发
+                // bindService 会触发onBind，不触发onStartCommand； 多次点击不会多次触发onBind
                 getView().getContext().bindService(intent, normalConnection, Context.BIND_AUTO_CREATE);
+                // startService 会触发onStartCommand, 不触发onBind(), 多次点击触发多次onStartCommand
+                // getView().getContext().startService(intent);
             }
         }
     }
