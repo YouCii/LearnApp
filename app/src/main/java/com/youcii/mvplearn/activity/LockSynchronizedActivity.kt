@@ -85,8 +85,8 @@ class LockSynchronizedActivity : BaseActivity() {
                             for (i in 0 until THREAD_NUM) {
                                 myHandler.postDelayed({
                                     thread = Thread(runnableSynchronized, "Synchronized$i")
-                                    thread.start()
                                     threadList.add(thread)
+                                    thread.start()
                                 }, 20L * i)
                             }
                         }
@@ -96,14 +96,14 @@ class LockSynchronizedActivity : BaseActivity() {
                             for (i in 0 until THREAD_NUM) {
                                 myHandler.postDelayed({
                                     thread = Thread(runnableLock, "ReentrantLock$i")
-                                    thread.start()
                                     threadList.add(thread)
+                                    thread.start()
                                 }, 20L * i)
                             }
                             myHandler.postDelayed({
                                 thread = Thread(runnableTryLock, "TryLock")
-                                thread.start()
                                 threadList.add(thread)
+                                thread.start()
                             }, 30L)
                         }
                         ObservableKind.WaitNotify -> {
@@ -114,22 +114,22 @@ class LockSynchronizedActivity : BaseActivity() {
                                 thread.start()
                             }
                             thread = Thread(runnableNotify, "Notify")
-                            thread.start()
                             threadList.add(thread)
+                            thread.start()
                         }
                         LockSynchronizedActivity.ObservableKind.ReadWrite -> {
                             tv_log.append("\n\nReentrantReadWriteLock")
                             thread = Thread(writeRunnable, "Write1")
-                            thread.start()
                             threadList.add(thread)
+                            thread.start()
                             for (i in 0 until THREAD_NUM) {
                                 thread = Thread(readRunnable, "Read$i")
                                 threadList.add(thread)
                                 thread.start()
                             }
                             thread = Thread(writeRunnable, "Write2")
-                            thread.start()
                             threadList.add(thread)
+                            thread.start()
                         }
                         null -> {
                         }

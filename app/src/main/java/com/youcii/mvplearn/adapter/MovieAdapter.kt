@@ -28,7 +28,7 @@ class MovieAdapter(private val activity: Activity, private val dataList: ArrayLi
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         Glide.with(activity)
-                .load(dataList[position].getImages().large)
+                .load(dataList[position].images.large)
                 .into(holder?.itemView as ImageView)
 
         holder.itemView.setOnClickListener({ ToastUtils.showShortToast(dataList[position].title) })
