@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.IMainView;
 import com.youcii.mvplearn.adapter.MainPagerAdapter;
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Logger.i("Main--onCreate");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -200,11 +202,36 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Logger.i("Main--onResume");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Logger.i("Main--onStart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Logger.i("Main--onPause");
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+        Logger.i("Main--onStop");
         if (isFinishing()) {
             // 不在onDestroy里处理停止thread等释放资源的处理, 因为onDestroy执行较晚
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Logger.i("Main--onDestroy");
     }
 
     @Override

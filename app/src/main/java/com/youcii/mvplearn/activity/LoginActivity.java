@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.view.RxView;
+import com.orhanobut.logger.Logger;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.ILoginView;
 import com.youcii.mvplearn.base.BasePresenterActivity;
@@ -48,6 +49,7 @@ public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresen
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_login);
+        Logger.i("Login--onCreate");
 
         ButterKnife.bind(this);
 
@@ -75,6 +77,7 @@ public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresen
     @Override
     protected void onResume() {
         super.onResume();
+        Logger.i("Login--onResume");
 
         // 取消焦点
         qxjd.setFocusable(true);
@@ -143,6 +146,44 @@ public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresen
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Logger.i("Login--onStart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Logger.i("Login--onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logger.i("Login--onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Logger.i("Login--onDestroy");
+
+        // A > B
+        // Login--onPause
+        // Main--onCreate
+        // Main--onStart
+        // Main--onResume
+        // Login--onStop
+
+        // B > A
+        // Main--onPause
+        // Login--onStart
+        // Login--onResume
+        // Main--onStop
+        // Main--onDestroy
     }
 }
 

@@ -39,7 +39,6 @@ public class PitPatAidlService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        // 生命周期：第一步
         Logger.i("service: " + "onCreate");
     }
 
@@ -50,7 +49,6 @@ public class PitPatAidlService extends Service {
 
         socketConnected(ip, port);
 
-        // 生命周期：第二步
         Logger.i("service: " + "onBind");
         return pitPatAidlStub;
     }
@@ -76,7 +74,6 @@ public class PitPatAidlService extends Service {
     public boolean onUnbind(Intent intent) {
         closeAll();
 
-        // 生命周期：倒数第二步
         Logger.i("service: " + "onUnbind");
         return super.onUnbind(intent);
     }
@@ -84,7 +81,6 @@ public class PitPatAidlService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 生命周期：最后一步
         Logger.i("service: " + "onDestroy");
     }
 
