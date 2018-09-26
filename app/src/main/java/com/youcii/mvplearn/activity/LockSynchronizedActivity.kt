@@ -117,7 +117,7 @@ class LockSynchronizedActivity : BaseActivity() {
                             threadList.add(thread)
                             thread.start()
                         }
-                        LockSynchronizedActivity.ObservableKind.ReadWrite -> {
+                        ObservableKind.ReadWrite -> {
                             tv_log.append("\n\nReentrantReadWriteLock")
                             thread = Thread(writeRunnable, "Write1")
                             threadList.add(thread)
