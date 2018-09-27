@@ -1,6 +1,5 @@
 package com.youcii.mvplearn.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,17 +12,14 @@ import android.view.ViewGroup;
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.adapter.MyItemAdapter;
 import com.youcii.mvplearn.base.BaseFragment;
-import com.youcii.mvplearn.widget.RecyclerItemDecoration;
-import com.youcii.mvplearn.model.RecyclerBean;
 import com.youcii.mvplearn.fragment.interfaces.IFragItemView;
+import com.youcii.mvplearn.model.RecyclerBean;
+import com.youcii.mvplearn.widget.RecyclerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFragment extends BaseFragment implements IFragItemView {
-
-    private OnListFragmentInteractionListener mListener;
-    private int mColumnCount = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,24 +30,11 @@ public class ItemFragment extends BaseFragment implements IFragItemView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_item, container, false);
 
-        setRecyclerView(recyclerView, mColumnCount);
+        setRecyclerView(recyclerView, 1);
 
-        recyclerView.setAdapter(new MyItemAdapter(getShowDate(), mListener));
+        recyclerView.setAdapter(new MyItemAdapter(getShowDate()));
 
         return recyclerView;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mListener = context instanceof OnListFragmentInteractionListener ? (OnListFragmentInteractionListener) context : null;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -70,15 +53,11 @@ public class ItemFragment extends BaseFragment implements IFragItemView {
     @Override
     public List<RecyclerBean> getShowDate() {
         List<RecyclerBean> map = new ArrayList<>();
-        map.add(new RecyclerBean("1", "一"));
-        map.add(new RecyclerBean("2", "二"));
-        map.add(new RecyclerBean("3", "三"));
-        map.add(new RecyclerBean("4", "四"));
+        map.add(new RecyclerBean("1", "一", RecyclerBean.BeanType.TEXT));
+        map.add(new RecyclerBean("2", "https://avatars0.githubusercontent.com/u/17899073?s=40&v=4", RecyclerBean.BeanType.IMAGE));
+        map.add(new RecyclerBean("3", "三", RecyclerBean.BeanType.TEXT));
+        map.add(new RecyclerBean("4", "https://upload.jianshu.io/users/upload_avatars/3103396/b7dee070-e665-487f-ac91-42faf20d2147.png?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120", RecyclerBean.BeanType.IMAGE));
         return map;
-    }
-
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(RecyclerBean recyclerBean);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.youcii.mvplearn.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -21,14 +20,11 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.IMainView;
 import com.youcii.mvplearn.adapter.MainPagerAdapter;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.fragment.BlockFragment;
 import com.youcii.mvplearn.fragment.ChangeFragment;
-import com.youcii.mvplearn.fragment.ItemFragment;
 import com.youcii.mvplearn.fragment.RxFragment;
 import com.youcii.mvplearn.fragment.SocketFragment;
 import com.youcii.mvplearn.fragment.WebFragment;
 import com.youcii.mvplearn.model.MainMenuID;
-import com.youcii.mvplearn.model.RecyclerBean;
 import com.youcii.mvplearn.utils.ToastUtils;
 import com.youcii.mvplearn.widget.GuideView;
 
@@ -41,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * 个人理解: MVP中的view层主要是提供给presenter使用, 如果没有presenter, 没有必要创建View层
  */
-public class MainActivity extends BaseActivity implements IMainView, View.OnClickListener, ViewPager.OnPageChangeListener, ItemFragment.OnListFragmentInteractionListener, BlockFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements IMainView, View.OnClickListener, ViewPager.OnPageChangeListener {
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> titleList = new ArrayList<>();
 
@@ -235,18 +231,7 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
     }
 
     @Override
-    public void onListFragmentInteraction(RecyclerBean recyclerBean) {
-        showToast("点击了 " + recyclerBean.getId() + "：" + recyclerBean.getContent());
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
@@ -256,7 +241,6 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
 }

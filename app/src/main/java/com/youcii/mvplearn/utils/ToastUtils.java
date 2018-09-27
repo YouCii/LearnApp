@@ -45,7 +45,7 @@ public class ToastUtils {
             toast = Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT);
         } else {
             toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setText("text");
+            toast.setText(text);
         }
         toast.show();
     }
@@ -55,7 +55,7 @@ public class ToastUtils {
             toast = Toast.makeText(App.getContext(), text, Toast.LENGTH_LONG);
         } else {
             toast.setDuration(Toast.LENGTH_LONG);
-            toast.setText("text");
+            toast.setText(text);
         }
         toast.show();
     }
