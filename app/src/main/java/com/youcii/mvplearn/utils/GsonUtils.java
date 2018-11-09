@@ -1,15 +1,12 @@
 package com.youcii.mvplearn.utils;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Created by YouCii on 2016/7/18.
+ * Created by jdw on 2016/7/18.
  */
 public class GsonUtils {
 
@@ -35,29 +32,18 @@ public class GsonUtils {
     }
 
     /**
-     * 把json字符串转化为 List
+     * 把json字符串转化为List或Map
+     * <p>
+     * List<R>
+     * Map<String, R>
+     * List<Map<String, R>>
+     * <p>
+     * 多次尝试, 只能传入TypeToken的匿名子类
+     * new TypeToken<List<R>>() {
+     * }.getType()
      */
-    public static <T> List<T> json2List(String json) {
-        Type type = new TypeToken<List<T>>() {
-        }.getType();
-        return new Gson().fromJson(json, type);
-    }
-
-    /**
-     * 把json字符串转化为 Map
-     */
-    public static <T> Map<String, T> json2Map(String json) {
-        Type type = new TypeToken<Map<String, T>>() {
-        }.getType();
-        return new Gson().fromJson(json, type);
-    }
-
-    /**
-     * 把json字符串转化为 List<Map>
-     */
-    public static <T> List<Map<String, T>> json2ListMap(String json) {
-        Type type = new TypeToken<List<Map<String, T>>>() {
-        }.getType();
+    public static <T> T json2Collection(String json, Type type) {
         return new Gson().fromJson(json, type);
     }
 }
+

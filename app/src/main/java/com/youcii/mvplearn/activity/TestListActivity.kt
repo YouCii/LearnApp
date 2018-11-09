@@ -43,7 +43,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
     private fun initArray() {
         testArray.add("列表刷新") // ? 代表自动检测空，如果为空则跳过，不抛出异常
         testArray.add("接口压力测试")
-        testArray.add("diyView测试")
+        testArray.add("自定义View测试")
         testArray.add("仿Native网页")
         testArray.add("可滑动的大图ToolBar")
         testArray.add("Retrofit+RxJava")
@@ -51,7 +51,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("IntDef替代Enum")
         testArray.add("沉浸式效果")
         testArray.add("Lock/Synchronized")
-        testArray.add("111")
+        testArray.add("露边动画ViewPager")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -80,6 +80,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             9 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
             10 -> ImmersiveActivity.startActivity(this)
             11 -> LockSynchronizedActivity.startActivity(this)
+            12 -> TransformerViewPagerActivity.startActivity(this)
             else -> {
             }
         }

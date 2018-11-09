@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentFrameLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <com.youcii.mvplearn.widget.SubStateView
-        android:id="@+id/sv_sub_state"
+        android:id="@+id/subStateView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_gravity="center"
         android:background="@color/bright_blue"
-        app:layout_heightPercent="10%w"
-        app:layout_widthPercent="10%w" />
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.1" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/bt_change"
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.youcii.mvplearn.widget.DownLoadButton
+        android:id="@+id/downloadButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:text="change State"
-        app:layout_heightPercent="20%w"
-        app:layout_marginBottomPercent="10%w"
-        app:layout_textSizePercent="5%w"
-        app:layout_widthPercent="40%w" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="8:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:layout_constraintWidth_percent="0.66" />
 
-</com.zhy.android.percent.support.PercentFrameLayout >
+</android.support.constraint.ConstraintLayout>

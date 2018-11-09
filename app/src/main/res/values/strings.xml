@@ -15,9 +15,4 @@
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
 
-    <!-- ChangeFragment -->
-    <string name="change_fragment_one">列表</string>
-    <string name="change_fragment_two">模块</string>
-
-
 </resources>

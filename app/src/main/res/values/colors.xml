@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources >
+<resources>
 
-    <color name="colorPrimaryDark" >@color/dark_blue</color >
-    <color name="colorPrimary" >@color/blue</color >
-    <color name="colorAccent" >@color/pink</color >
+    <color name="colorPrimaryDark">@color/dark_blue</color>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorAccent">@color/pink</color>
 
-    <color name="bottom_tap_dark" >@color/blue</color >
-    <color name="bottom_tap_bright" >@color/bright_blue</color >
-    <color name="back_top_tap" >@color/bright_blue</color >
+    <color name="bottom_tap_dark">@color/blue</color>
+    <color name="bottom_tap_bright">@color/bright_blue</color>
+    <color name="back_top_tap">@color/bright_blue</color>
 
-    <color name="top_tap_select" >@color/pink</color >
-    <color name="top_tap_normal" >@color/bright_silver</color >
+    <color name="top_tap_select">@color/pink</color>
+    <color name="top_tap_normal">@color/bright_silver</color>
 
 
     <!-- 颜色库 -->
-    <color name="transparent" >#00000000</color >
-    <color name="white" >#FFFFFF</color >
-    <color name="black" >#000000</color >
-    <color name="gray" >#AAAAAA</color >
-    <color name="pink" >#FF4081</color >
-    <color name="bright_silver" >#DDDDDD</color >
-    <color name="dark_blue" >#1976D2</color >
-    <color name="blue" >#2196F3</color >
-    <color name="bright_blue" >#37ABF9</color >
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#AAAAAA</color>
+    <color name="pink">#FF4081</color>
+    <color name="bright_silver">#DDDDDD</color>
+    <color name="dark_blue">#1976D2</color>
+    <color name="blue">#2196F3</color>
+    <color name="bright_blue">#37ABF9</color>
+    <color name="red">#FF4444</color>
 
-</resources >
+</resources>

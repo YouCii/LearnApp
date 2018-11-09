@@ -184,6 +184,8 @@ public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresen
         // Login--onResume
         // Main--onStop
         // Main--onDestroy
+
+        // Activity会在onResume后显示
     }
 }
 

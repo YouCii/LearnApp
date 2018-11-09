@@ -24,3 +24,7 @@
 - MVP的内存泄漏问题, RxJava的取消订阅方式
 - Synchronized/wait/notifyAll, ReentrantLock, ReentrantReadWriteLock
 - 梳理了普通Service, 使用AIDL创建跨进程Service的情景
+- 几个特殊UI样式:
+    - 多样式多spanSize的RecyclerView
+    - 带有下载动画按钮
+    - 露边动画ViewPager

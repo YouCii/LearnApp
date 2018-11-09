@@ -71,12 +71,12 @@ class LockSynchronizedActivity : BaseActivity() {
         val readWriteObservable = RxView.clicks(btn_read_write)
                 .map { ReadWrite }
 
-        Observable.merge(synchronizedObservable, waitNotifyObservable, reentrantLockObservable, readWriteObservable)
+        val s = Observable.merge(synchronizedObservable, waitNotifyObservable, reentrantLockObservable, readWriteObservable)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .filter({
+                .filter {
                     threadList.isEmpty()
-                })
-                .subscribe({
+                }
+                .subscribe {
                     var thread: Thread
                     when (it) {
                         ObservableKind.Synchronized -> {
@@ -134,7 +134,7 @@ class LockSynchronizedActivity : BaseActivity() {
                         null -> {
                         }
                     }
-                })
+                }
     }
 
     /**

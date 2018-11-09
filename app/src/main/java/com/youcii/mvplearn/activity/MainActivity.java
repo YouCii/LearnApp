@@ -20,7 +20,7 @@ import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.activity.interfaces.IMainView;
 import com.youcii.mvplearn.adapter.MainPagerAdapter;
 import com.youcii.mvplearn.base.BaseActivity;
-import com.youcii.mvplearn.fragment.ChangeFragment;
+import com.youcii.mvplearn.fragment.ItemFragment;
 import com.youcii.mvplearn.fragment.RxFragment;
 import com.youcii.mvplearn.fragment.SocketFragment;
 import com.youcii.mvplearn.fragment.WebFragment;
@@ -136,12 +136,12 @@ public class MainActivity extends BaseActivity implements IMainView, View.OnClic
     public void initFragmentList() {
         fragmentList.add(new SocketFragment());
         fragmentList.add(new RxFragment());
-        fragmentList.add(new ChangeFragment());
+        fragmentList.add(new ItemFragment());
         fragmentList.add(new WebFragment());
 
         titleList.add("Socket通信");
         titleList.add("RxJava示例");
-        titleList.add("切换示例");
+        titleList.add("多样式RecyclerView");
         titleList.add("原生与html互相调用");
     }
 
