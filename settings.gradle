@@ -1,1 +1,1 @@
-include ':app', ':pagerGridView'
+include ':app', ':pagerGridView', ':javaTest'

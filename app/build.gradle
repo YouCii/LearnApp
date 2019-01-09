@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '26.0.3'
 
     greendao {
         schemaVersion 3
@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId "com.youcii.mvplearn"
         minSdkVersion 21 /* 5.0 */
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -102,8 +102,8 @@ dependencies {
     implementation 'com.lzy.net:okgo:3.0.1'
     implementation 'com.lzy.net:okrx2:2.0.1'
     implementation 'com.lzy.net:okserver:2.0.1'
-    /* kotlin */
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    /* kotlin 如果是针对 JDK 7 或 JDK 8，那么可以使用扩展版本的 Kotlin 标准库(即 kotlin-stdlib-jdk8)，其中包含为新版 JDK 增加的额外的扩展函数 */
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     /* LeakCanary */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'

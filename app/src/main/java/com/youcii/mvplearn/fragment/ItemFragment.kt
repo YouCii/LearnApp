@@ -15,13 +15,13 @@ import java.util.*
 
 class ItemFragment : BaseFragment(), IFragItemView {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_item, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_item, container, false)
     }
 
     override fun onResume() {
         super.onResume()
-        val adapter = MultiTypeAdapter(context, showDate)
+        val adapter = MultiTypeAdapter(context!!, showDate)
         val layoutManager = GridLayoutManager(context, 2)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

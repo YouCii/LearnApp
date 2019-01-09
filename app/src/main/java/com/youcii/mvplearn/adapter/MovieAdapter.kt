@@ -15,7 +15,7 @@ import com.youcii.mvplearn.utils.ToastUtils
  */
 class MovieAdapter(private val activity: Activity, private val dataList: ArrayList<MovieEntity>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val imageView = ImageView(activity)
         imageView.layoutParams = ViewGroup.LayoutParams(App.getScreenWidth() / 4, App.getScreenWidth() / 4 / 27 * 40)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -26,12 +26,12 @@ class MovieAdapter(private val activity: Activity, private val dataList: ArrayLi
         return dataList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(activity)
                 .load(dataList[position].images.large)
-                .into(holder?.itemView as ImageView)
+                .into(holder.itemView as ImageView)
 
-        holder.itemView.setOnClickListener({ ToastUtils.showShortToast(dataList[position].title) })
+        holder.itemView.setOnClickListener { ToastUtils.showShortToast(dataList[position].title) }
     }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)

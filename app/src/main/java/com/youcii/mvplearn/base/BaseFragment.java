@@ -12,25 +12,25 @@ import com.youcii.mvplearn.app.App;
 
 public class BaseFragment extends Fragment {
 
-	protected Activity activity;
+    protected Activity activity;
 
-	@Override
-	public Context getContext() {
-		if (activity == null) {
+    @Override
+    public Context getContext() {
+        if (activity == null) {
             return App.getContext();
         }
-		return activity;
-	}
+        return activity;
+    }
 
-	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-		activity = (Activity) context;
-	}
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (Activity) context;
+    }
 
-	@Override
-	public void onDetach() {
-		super.onDetach();
-		activity = null;
-	}
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activity = null;
+    }
 }

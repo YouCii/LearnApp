@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author Administrator
+ * @author jdw
  * @date 2017/11/21
  */
 public class ThreadPool {
@@ -48,7 +48,7 @@ public class ThreadPool {
 		return threadPool;
 	}
 
-	private static ThreadFactory threadFactory = new ThreadFactory() {
+	public static ThreadFactory threadFactory = new ThreadFactory() {
 		/**
 		 * 线程安全的int
 		 */

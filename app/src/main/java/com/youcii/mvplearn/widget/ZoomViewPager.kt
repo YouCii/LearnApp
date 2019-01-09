@@ -17,18 +17,10 @@ import android.view.View
 class ZoomViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
 
     init {
-        initView()
         setPageTransformer(true, CustomPagerTransformer())
 
         offscreenPageLimit = 3
         currentItem = 0
-    }
-
-    /**
-     * 调整UI
-     */
-    private fun initView() {
-        clipChildren = false
     }
 
     /**

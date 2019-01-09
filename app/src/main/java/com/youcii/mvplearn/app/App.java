@@ -26,7 +26,7 @@ public class App extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
 
-        CrashHandler.getInstance().init(this);
+        // CrashHandler.getInstance().init(this);
         LeakCanary.install(this);  // 启用LeakCanary, 正式发布时会自动失效
         Logger.addLogAdapter(new AndroidLogAdapter());
 

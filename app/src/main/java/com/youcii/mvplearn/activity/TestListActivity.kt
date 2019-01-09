@@ -52,7 +52,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("沉浸式效果")
         testArray.add("Lock/Synchronized")
         testArray.add("露边动画ViewPager")
-        testArray.add("111")
+        testArray.add("Timer和ExecutorService比较")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -81,6 +81,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             10 -> ImmersiveActivity.startActivity(this)
             11 -> LockSynchronizedActivity.startActivity(this)
             12 -> TransformerViewPagerActivity.startActivity(this)
+            13 -> TimerExecutorServiceActivity.startActivity(this)
             else -> {
             }
         }
