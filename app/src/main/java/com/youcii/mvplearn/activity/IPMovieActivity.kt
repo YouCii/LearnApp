@@ -67,7 +67,7 @@ class IPMovieActivity : BaseActivity() {
 
                 dataList.clear()
                 dataList.addAll((t[0] as TopMovieResponse).subjects)
-                rvMovie.adapter.notifyDataSetChanged()
+                rvMovie.adapter?.notifyDataSetChanged()
             }
 
             override fun onError(throwable: Throwable) {
@@ -103,7 +103,7 @@ class IPMovieActivity : BaseActivity() {
                 super.onNext(t)
                 dataList.clear()
                 dataList.addAll(t)
-                rvMovie.adapter.notifyDataSetChanged()
+                rvMovie.adapter?.notifyDataSetChanged()
             }
 
             override fun onError(throwable: Throwable) {

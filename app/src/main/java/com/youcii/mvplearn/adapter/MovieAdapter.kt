@@ -65,7 +65,7 @@ class MovieAdapter(private val activity: Activity, private val dataList: ArrayLi
         holder.itemView.setOnClickListener { ToastUtils.showShortToast(dataList[position].title) }
     }
 
-    class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     fun release() {
         diskLruCache.release()
