@@ -11,26 +11,24 @@ import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.InputStream
-import java.security.MessageDigest
 
 /**
  * Created by jdw on 2019/1/28.
  */
-object DiskLruCacheUtils {
-    private const val MAX_SIZE = 1024 * 1024 * 100L
+class DiskLruCacheUtils {
     private val diskLruCache = DiskLruCache.open(getSaveDir(), 1, 1, MAX_SIZE)
 
     fun save(saveName: String, inputStream: InputStream) {
         var editor: DiskLruCache.Editor? = null
         var bufferIn: BufferedInputStream? = null
         var bufferOut: BufferedOutputStream? = null
-        Observable.just(getMD5(saveName))
+        Observable.just(SafeKeyGenerator.getSafeKey(saveName))
                 .observeOn(Schedulers.io())
                 .map {
                     synchronized(it) {
-                        editor = diskLruCache.edit(it)
+                        editor = diskLruCache!!.edit(it)
                         bufferIn = BufferedInputStream(inputStream)
-                        bufferOut = BufferedOutputStream(editor?.newOutputStream(0))
+                        bufferOut = BufferedOutputStream(editor!!.newOutputStream(0))
                         var b = 0
                         while (b != -1) {
                             b = bufferIn?.read() ?: -1
@@ -51,24 +49,32 @@ object DiskLruCacheUtils {
                     override fun onError(e: Throwable) {
                         editor?.abort()
                         ToastUtils.showShortToast(e.toString())
+                        onComplete()
                     }
 
                     override fun onComplete() {
                         bufferIn?.close()
                         bufferOut?.close()
-                        diskLruCache.flush()
                     }
                 })
     }
 
-    private fun getSaveDir(): File {
-        return App.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+    fun get(name: String): InputStream? {
+        return diskLruCache.get(SafeKeyGenerator.getSafeKey(name))?.getInputStream(0)
     }
 
-    private fun getMD5(oldString: String): String {
-        val messageDigest = MessageDigest.getInstance("MD5")
-        messageDigest.update(oldString.toByteArray())
-        return messageDigest.digest().toString()
+    fun release() {
+        // flush方法用于刷新日志文件, 建议在onPause中调用
+        diskLruCache?.flush()
+        diskLruCache?.close()
+    }
+
+    companion object {
+        private const val MAX_SIZE = 1024 * 1024 * 100L
+
+        private fun getSaveDir(): File {
+            return App.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        }
     }
 
 }

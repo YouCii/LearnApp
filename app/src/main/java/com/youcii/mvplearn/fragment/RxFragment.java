@@ -1,6 +1,7 @@
 package com.youcii.mvplearn.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,16 @@ import butterknife.ButterKnife;
  */
 public class RxFragment extends BasePresenterFragment<IFragRxView, FragRxPresenter> implements IFragRxView {
 
+    // 优先加载父类
+    private static int k = j;
+    private int l = i;
+    private int m = j;
+
     @Bind(R.id.rx_text)
     TextView rxText;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rx, container, false);
         ButterKnife.bind(this, view);
 

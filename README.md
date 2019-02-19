@@ -20,6 +20,7 @@
     - OkGo + CallBack
     - Retrofit + RxJava
 - Glide
+- DiskLruCache
 - GreenDao, 封装自定义数据类型的转换器(当前GreenDao版本暂未支持RxJava2)
 - MVP的内存泄漏问题, RxJava的取消订阅方式
 - Synchronized/wait/notifyAll, ReentrantLock, ReentrantReadWriteLock

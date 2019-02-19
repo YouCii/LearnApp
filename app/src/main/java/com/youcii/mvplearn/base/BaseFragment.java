@@ -12,6 +12,11 @@ import com.youcii.mvplearn.app.App;
 
 public class BaseFragment extends Fragment {
 
+    // 首先顺序加载static
+    // 然后顺序加载非静态变量
+    protected static int j = 0;
+    protected int i = j;
+
     protected Activity activity;
 
     @Override
