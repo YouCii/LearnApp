@@ -16,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * @author Administrator
+ * @author YouCii
  */
 public class CollapsingActivity extends BaseActivity implements View.OnClickListener {
 
