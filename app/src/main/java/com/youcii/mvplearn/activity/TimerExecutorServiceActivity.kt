@@ -53,7 +53,7 @@ class TimerExecutorServiceActivity : BaseActivity() {
         // TimerTask 不能复用
         timer.schedule(object : TimerTask() {
             override fun run() {
-                handler.sendMessage(handler.obtainMessage(0, 0, 0, "\n" + dateFormat.format(Date())))
+                handler.sendMessage(handler.obtainMessage(0, 0, 0, "\n" + Thread.currentThread().name + ":" +  dateFormat.format(Date())))
             }
         }, 1000, 1000)
     }
@@ -64,7 +64,7 @@ class TimerExecutorServiceActivity : BaseActivity() {
     }
 
     private val executorTask = Runnable {
-        handler.sendMessage(handler.obtainMessage(1, 0, 0, "\n" + dateFormat.format(Date())))
+        handler.sendMessage(handler.obtainMessage(1, 0, 0, "\n" + Thread.currentThread().name + ":" +  dateFormat.format(Date())))
     }
 
     override fun onDestroy() {

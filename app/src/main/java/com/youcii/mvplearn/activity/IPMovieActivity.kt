@@ -44,12 +44,12 @@ class IPMovieActivity : BaseActivity() {
         btnQuery.isFocusableInTouchMode = true
         btnQuery.requestFocus()
 
-        btnQuery.setOnClickListener({ view ->
+        btnQuery.setOnClickListener { view ->
             if (view.id == R.id.btnQuery) {
                 ViewUtils.hideInput(this@IPMovieActivity)
                 startRxRetrofit2()
             }
-        })
+        }
         rvMovie.itemAnimator = DefaultItemAnimator() // 设置Item增加、移除动画
         rvMovie.layoutManager = GridLayoutManager(this, 4)
         rvMovie.adapter = MovieAdapter(this, dataList)
