@@ -9,18 +9,25 @@ import java.util.Map;
  * 用于LeetCode的测试
  */
 public class MyClass {
-    public static void main(String[] args) {
-        // 无重复字符的最长子串的长度
-        System.out.println(lengthOfLongestSubstring("pwwkew"));
 
-        // 两数之和
-        ListNode root1 = new ListNode(2);
-        root1.next = new ListNode(4);
-        root1.next.next = new ListNode(3);
-        ListNode root2 = new ListNode(5);
-        root2.next = new ListNode(6);
-        root2.next.next = new ListNode(4);
-        System.out.println(addTwoNumbers(root1, root2));
+    /**
+     * 单独打印"\n"是为了防止算法方法在回调String之前在内部打印了日志
+     */
+    public static void main(String[] args) {
+        System.out.println("\n");
+        System.out.println("无重复字符的最长子串的长度: " + lengthOfLongestSubstring("pwwkew"));
+
+        System.out.println("\n");
+        LinkedNode root1 = new LinkedNode(2);
+        root1.next = new LinkedNode(4);
+        root1.next.next = new LinkedNode(3);
+        LinkedNode root2 = new LinkedNode(5);
+        root2.next = new LinkedNode(6);
+        root2.next.next = new LinkedNode(4);
+        System.out.println("两数之和: " + addTwoNumbers(root1, root2));
+
+        System.out.println("\n");
+        System.out.println(traverseTree());
     }
 
     /**
@@ -51,19 +58,19 @@ public class MyClass {
      * 输出：7 -> 0 -> 8
      * 原因：342 + 465 = 807
      */
-    private static String addTwoNumbers(ListNode link1, ListNode link2) {
+    private static String addTwoNumbers(LinkedNode link1, LinkedNode link2) {
         // 可以在链表根节点放置一个0, 简化很多非空判断
         // ListNode rootNode = new ListNode(0), currentNode = new ListNode(0);
 
         // 进一步简化: 此时 currentNode 和 rootNode 本是一个, 后面又可以节省一步rootNode.next=currentNode
-        ListNode rootNode = new ListNode(0), currentNode = rootNode;
+        LinkedNode rootNode = new LinkedNode(0), currentNode = rootNode;
 
         int carry = 0, singleNum;
         while (link1 != null || link2 != null) {
             singleNum = (link1 == null ? 0 : link1.val) + (link2 == null ? 0 : link2.val) + carry;
             carry = singleNum / 10;
 
-            currentNode.next = new ListNode(singleNum % 10);
+            currentNode.next = new LinkedNode(singleNum % 10);
             currentNode = currentNode.next;
 
             link1 = link1 != null ? link1.next : null;
@@ -71,47 +78,37 @@ public class MyClass {
         }
 
         if (carry != 0) {
-            currentNode.next = new ListNode(carry);
+            currentNode.next = new LinkedNode(carry);
         }
         return rootNode.next.toString();
     }
 
-    public static class ListNode {
-        int val;
-        ListNode next;
+    /**
+     * 树遍历 :
+     * 1.         1
+     * 2.      2      3
+     * 3.    4   5     6
+     * 4.       7 8
+     * <p>
+     * 前序遍历：1  2  4  5  7  8  3  6
+     * 中序遍历：4  2  7  5  8  1  3  6
+     * 后序遍历：4  7  8  5  2  6  3  1
+     * 层次遍历：1  2  3  4  5  6  7  8
+     */
+    private static String traverseTree() {
+        BinarySearchTreeNode seven = new BinarySearchTreeNode(7, null, null),
+                eight = new BinarySearchTreeNode(8, null, null),
+                five = new BinarySearchTreeNode(5, seven, eight),
+                four = new BinarySearchTreeNode(4, null, null),
+                two = new BinarySearchTreeNode(2, four, five),
+                six = new BinarySearchTreeNode(6, null, null),
+                three = new BinarySearchTreeNode(3, null, six),
+                root = new BinarySearchTreeNode(1, two, three);
 
-        ListNode(int x) {
-            val = x;
-        }
-
-        // 遍历链表返回拼接字符串
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder(val);
-            ListNode current = next;
-            while (current != null) {
-                builder.append("->").append(next.val);
-                current = next.next;
-            }
-            return builder.toString();
-        }
-    }
-
-    private static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-
-        /**
-         * 前序遍历树
-         */
-        public int dlr() {
-            return val;
-        }
+        return "前序递归: " + root.preOrderTraversingWithRecursive() +
+                "\n中序递归: " + root.midOrderTraversingWithRecursive() +
+                "\n后序递归: " + root.postOrderTraversingWithRecursive() +
+                "\n层级遍历: " + root.levelOrderTraversingWithRecursive();
     }
 
 }
