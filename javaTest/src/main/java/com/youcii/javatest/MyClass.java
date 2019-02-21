@@ -1,5 +1,7 @@
 package com.youcii.javatest;
 
+import com.youcii.javatest.tree.BinaryTreeNode;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +89,7 @@ public class MyClass {
      * 树遍历 :
      * 1.         1
      * 2.      2      3
-     * 3.    4   5     6
+     * 3.   4    5      6
      * 4.       7 8
      * <p>
      * 前序遍历：1  2  4  5  7  8  3  6
@@ -96,19 +98,19 @@ public class MyClass {
      * 层次遍历：1  2  3  4  5  6  7  8
      */
     private static String traverseTree() {
-        BinarySearchTreeNode seven = new BinarySearchTreeNode(7, null, null),
-                eight = new BinarySearchTreeNode(8, null, null),
-                five = new BinarySearchTreeNode(5, seven, eight),
-                four = new BinarySearchTreeNode(4, null, null),
-                two = new BinarySearchTreeNode(2, four, five),
-                six = new BinarySearchTreeNode(6, null, null),
-                three = new BinarySearchTreeNode(3, null, six),
-                root = new BinarySearchTreeNode(1, two, three);
+        BinaryTreeNode<Integer> seven = new BinaryTreeNode<>(7, null, null),
+                eight = new BinaryTreeNode<>(8, null, null),
+                five = new BinaryTreeNode<>(5, seven, eight),
+                four = new BinaryTreeNode<>(4, null, null),
+                two = new BinaryTreeNode<>(2, four, five),
+                six = new BinaryTreeNode<>(6, null, null),
+                three = new BinaryTreeNode<>(3, null, six),
+                root = new BinaryTreeNode<>(1, two, three);
 
-        return "前序递归: " + root.preOrderTraversingWithRecursive() +
-                "\n中序递归: " + root.midOrderTraversingWithRecursive() +
-                "\n后序递归: " + root.postOrderTraversingWithRecursive() +
-                "\n层级遍历: " + root.levelOrderTraversingWithRecursive();
+        return "前序递归: " + root.preOrderRecursive() +
+                "\n中序递归: " + root.inOrderRecursive() +
+                "\n后序递归: " + root.postOrderRecursive() +
+                "\n层级遍历: " + root.levelOrder();
     }
 
 }
