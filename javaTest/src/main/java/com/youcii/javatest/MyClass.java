@@ -8,16 +8,16 @@ import java.util.Map;
 /**
  * Created by jdw on 2018/12/20.
  * <p>
- * ç”¨äºLeetCodeçš„æµ‹è¯•
+ * ÓÃÓÚLeetCodeµÄ²âÊÔ
  */
 public class MyClass {
 
     /**
-     * å•ç‹¬æ‰“å°"\n"æ˜¯ä¸ºäº†é˜²æ­¢ç®—æ³•æ–¹æ³•åœ¨å›è°ƒStringä¹‹å‰åœ¨å†…éƒ¨æ‰“å°äº†æ—¥å¿—
+     * µ¥¶À´òÓ¡"\n"ÊÇÎªÁË·ÀÖ¹Ëã·¨·½·¨ÔÚ»Øµ÷StringÖ®Ç°ÔÚÄÚ²¿´òÓ¡ÁËÈÕÖ¾
      */
     public static void main(String[] args) {
         System.out.println("\n");
-        System.out.println("æ— é‡å¤å­—ç¬¦çš„æœ€é•¿å­ä¸²çš„é•¿åº¦: " + lengthOfLongestSubstring("pwwkew"));
+        System.out.println("ÎŞÖØ¸´×Ö·ûµÄ×î³¤×Ó´®µÄ³¤¶È: " + lengthOfLongestSubstring("pwwkew"));
 
         System.out.println("\n");
         LinkedNode root1 = new LinkedNode(2);
@@ -26,16 +26,16 @@ public class MyClass {
         LinkedNode root2 = new LinkedNode(5);
         root2.next = new LinkedNode(6);
         root2.next.next = new LinkedNode(4);
-        System.out.println("ä¸¤æ•°ä¹‹å’Œ: " + addTwoNumbers(root1, root2));
+        System.out.println("Á½ÊıÖ®ºÍ: " + addTwoNumbers(root1, root2));
 
         System.out.println("\n");
         System.out.println(traverseTree());
     }
 
     /**
-     * æ— é‡å¤å­—ç¬¦çš„æœ€é•¿å­ä¸²çš„é•¿åº¦
-     * æ€è·¯: æ»‘åŠ¨çª—å£, ä»¥begin/endä¸ºä¸¤ç«¯è¿›è¡Œæ£€æµ‹, å½“endå­—ç¬¦åœ¨çª—å£ä¸­å·²å­˜åœ¨æ—¶, æŠŠbeginè·³è½¬åˆ°å‰è€…+1çš„ä½ç½®, endç»§ç»­å‘å, ç›´åˆ°endåˆ°è¾¾stringæœ€åä¸€ä½.
-     * åœ¨æ­¤è¿‡ç¨‹ä¸­, è®°å½•endæ¯æ¬¡ä½ç§»åçš„çª—å£é•¿åº¦ä¸­çš„æœ€å¤§å€¼, å¾ªç¯å®Œæˆæ—¶, æ­¤å€¼å°±æ˜¯æ— é‡å¤å­—ç¬¦çš„æœ€é•¿å­ä¸²çš„é•¿åº¦
+     * ÎŞÖØ¸´×Ö·ûµÄ×î³¤×Ó´®µÄ³¤¶È
+     * Ë¼Â·: »¬¶¯´°¿Ú, ÒÔbegin/endÎªÁ½¶Ë½øĞĞ¼ì²â, µ±end×Ö·ûÔÚ´°¿ÚÖĞÒÑ´æÔÚÊ±, °ÑbeginÌø×ªµ½Ç°Õß+1µÄÎ»ÖÃ, end¼ÌĞøÏòºó, Ö±µ½endµ½´ïstring×îºóÒ»Î».
+     * ÔÚ´Ë¹ı³ÌÖĞ, ¼ÇÂ¼endÃ¿´ÎÎ»ÒÆºóµÄ´°¿Ú³¤¶ÈÖĞµÄ×î´óÖµ, Ñ­»·Íê³ÉÊ±, ´ËÖµ¾ÍÊÇÎŞÖØ¸´×Ö·ûµÄ×î³¤×Ó´®µÄ³¤¶È
      */
     private static int lengthOfLongestSubstring(String string) {
         int maxLength = 0, length = string.length();
@@ -43,11 +43,11 @@ public class MyClass {
         for (int begin = 0, end = 0; end < length; end++) {
             char endChar = string.charAt(end);
             if (map.containsKey(endChar)) {
-                // begin = map.get(endChar) + 1; // è¿™ç§æ–¹å¼æœ‰å¯èƒ½ä¼šå¯¼è‡´beginå›ç§»
-                begin = Math.max(begin, map.get(endChar) + 1); // æŠŠå°¾éƒ¨ç§»åˆ°é‡å¤å­—ç¬¦å‰è€…çš„åä¸€ä½, ä»è¿™é‡Œç»§ç»­
+                // begin = map.get(endChar) + 1; // ÕâÖÖ·½Ê½ÓĞ¿ÉÄÜ»áµ¼ÖÂbegin»ØÒÆ
+                begin = Math.max(begin, map.get(endChar) + 1); // °ÑÎ²²¿ÒÆµ½ÖØ¸´×Ö·ûÇ°ÕßµÄºóÒ»Î», ´ÓÕâÀï¼ÌĞø
             }
-            // æ¯æ¬¡éƒ½è¦è®¡ç®—, è€Œä¸æ˜¯åœ¨!map.containsKey(endChar)æ—¶æ‰æ‰§è¡Œ,
-            // é¿å…å‡ºç°åœ¨beginå‰å­˜åœ¨é‡å¤å­—ç¬¦è¿›å…¥äº†map.containsKey(endChar)åˆ†æ”¯å¯¼è‡´å½“å‰å­—ç¬¦ç»Ÿè®¡ä¸åˆ°çš„é—®é¢˜
+            // Ã¿´Î¶¼Òª¼ÆËã, ¶ø²»ÊÇÔÚ!map.containsKey(endChar)Ê±²ÅÖ´ĞĞ,
+            // ±ÜÃâ³öÏÖÔÚbeginÇ°´æÔÚÖØ¸´×Ö·û½øÈëÁËmap.containsKey(endChar)·ÖÖ§µ¼ÖÂµ±Ç°×Ö·ûÍ³¼Æ²»µ½µÄÎÊÌâ
             maxLength = Math.max(maxLength, end - begin + 1);
             map.put(endChar, end);
         }
@@ -55,16 +55,16 @@ public class MyClass {
     }
 
     /**
-     * ä¸¤æ•°ä¹‹å’Œ, è¦æ±‚:
-     * è¾“å…¥ï¼š(2 -> 4 -> 3) + (5 -> 6 -> 4)
-     * è¾“å‡ºï¼š7 -> 0 -> 8
-     * åŸå› ï¼š342 + 465 = 807
+     * Á½ÊıÖ®ºÍ, ÒªÇó:
+     * ÊäÈë£º(2 -> 4 -> 3) + (5 -> 6 -> 4)
+     * Êä³ö£º7 -> 0 -> 8
+     * Ô­Òò£º342 + 465 = 807
      */
     private static String addTwoNumbers(LinkedNode link1, LinkedNode link2) {
-        // å¯ä»¥åœ¨é“¾è¡¨æ ¹èŠ‚ç‚¹æ”¾ç½®ä¸€ä¸ª0, ç®€åŒ–å¾ˆå¤šéç©ºåˆ¤æ–­
+        // ¿ÉÒÔÔÚÁ´±í¸ù½Úµã·ÅÖÃÒ»¸ö0, ¼ò»¯ºÜ¶à·Ç¿ÕÅĞ¶Ï
         // ListNode rootNode = new ListNode(0), currentNode = new ListNode(0);
 
-        // è¿›ä¸€æ­¥ç®€åŒ–: æ­¤æ—¶ currentNode å’Œ rootNode æœ¬æ˜¯ä¸€ä¸ª, åé¢åˆå¯ä»¥èŠ‚çœä¸€æ­¥rootNode.next=currentNode
+        // ½øÒ»²½¼ò»¯: ´ËÊ± currentNode ºÍ rootNode ±¾ÊÇÒ»¸ö, ºóÃæÓÖ¿ÉÒÔ½ÚÊ¡Ò»²½rootNode.next=currentNode
         LinkedNode rootNode = new LinkedNode(0), currentNode = rootNode;
 
         int carry = 0, singleNum;
@@ -86,31 +86,41 @@ public class MyClass {
     }
 
     /**
-     * æ ‘éå† :
+     * Ê÷±éÀú :
      * 1.         1
      * 2.      2      3
      * 3.   4    5      6
      * 4.       7 8
      * <p>
-     * å‰åºéå†ï¼š1  2  4  5  7  8  3  6
-     * ä¸­åºéå†ï¼š4  2  7  5  8  1  3  6
-     * ååºéå†ï¼š4  7  8  5  2  6  3  1
-     * å±‚æ¬¡éå†ï¼š1  2  3  4  5  6  7  8
+     * Ç°Ğò±éÀú£º1  2  4  5  7  8  3  6
+     * ÖĞĞò±éÀú£º4  2  7  5  8  1  3  6
+     * ºóĞò±éÀú£º4  7  8  5  2  6  3  1
+     * ²ã´Î±éÀú£º1  2  3  4  5  6  7  8
      */
     private static String traverseTree() {
-        BinaryTreeNode<Integer> seven = new BinaryTreeNode<>(7, null, null),
-                eight = new BinaryTreeNode<>(8, null, null),
-                five = new BinaryTreeNode<>(5, seven, eight),
-                four = new BinaryTreeNode<>(4, null, null),
-                two = new BinaryTreeNode<>(2, four, five),
-                six = new BinaryTreeNode<>(6, null, null),
-                three = new BinaryTreeNode<>(3, null, six),
-                root = new BinaryTreeNode<>(1, two, three);
+        String result = "ÆÕÍ¨¶ş²æÊ÷µÄ¸÷¸ö²Ù×÷: ";
 
-        return "å‰åºé€’å½’: " + root.preOrderRecursive() +
-                "\nä¸­åºé€’å½’: " + root.inOrderRecursive() +
-                "\nååºé€’å½’: " + root.postOrderRecursive() +
-                "\nå±‚çº§éå†: " + root.levelOrder();
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(1, null, null);
+        for (int i = 2; i < 9; i++) {
+            root.insert(i);
+        }
+
+        result += "\nÇ°Ğòµİ¹é: " + root.preOrderRecursive();
+        result += "\nÖĞĞòµİ¹é: " + root.inOrderRecursive();
+        result += "\nºóĞòµİ¹é: " + root.postOrderRecursive();
+        result += "\n²ã¼¶±éÀú: " + root.levelOrder();
+        result += "\n×îĞ¡Öµ: " + root.findMin();
+        result += "\n×î´óÖµ: " + root.findMax();
+        result += "\nÈİÁ¿: " + root.size();
+        result += "\n¸ß¶È: " + root.height();
+        result += "\nÊÇ·ñ°üº¬: " + root.contains(5);
+        result += "\n¶ÔÓ¦½Úµã: size=" + root.findNodeByVal(5).size();
+        root.remove(5);
+        result += "\nÒÆ³ı5Ö®ºóµÄ²ã¼¶±éÀú: " + root.levelOrder();
+        root.clear();
+        result += "\nÇå³ıÖ®ºóµÄ²ã¼¶±éÀú: " + root.levelOrder();
+
+        return result;
     }
 
 }

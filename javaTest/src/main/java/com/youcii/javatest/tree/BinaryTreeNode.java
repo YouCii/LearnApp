@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     public T val;
-    public BinaryTreeNode left;
-    public BinaryTreeNode right;
+    public BinaryTreeNode<T> left;
+    public BinaryTreeNode<T> right;
 
     public BinaryTreeNode(T val, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
         this.val = val;
@@ -20,52 +20,168 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
         this.right = right;
     }
 
+    /**
+     * 按照层级方向, 第一个没有左右子节点的节点就是目标节点
+     */
     @Override
     public boolean insert(@NotNull T t) {
+        LinkedList<BinaryTreeNode> queue = new LinkedList<>();
+        queue.offer(this);
+        while (queue.size() != 0) {
+            BinaryTreeNode node = queue.poll();
+            assert node != null;
+            if (node.left == null) {
+                node.left = new BinaryTreeNode<>(t, null, null);
+                return true;
+            } else {
+                queue.offer(node.left);
+            }
+            if (node.right == null) {
+                node.right = new BinaryTreeNode<>(t, null, null);
+                return true;
+            } else {
+                queue.offer(node.right);
+            }
+        }
         return false;
     }
 
+    /**
+     * 使用层次遍历的方式获取最后一位
+     */
+    @NotNull
+    private BinaryTreeNode findLast() {
+        LinkedList<BinaryTreeNode> queue = new LinkedList<>();
+        queue.offer(this);
+        while (queue.size() != 0) {
+            BinaryTreeNode node = queue.poll();
+            assert node != null;
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+            if (queue.size() == 0) {
+                return node;
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 按层次遍历记录所有非t点, 按层次顺序重新构建
+     */
     @Override
     public boolean remove(@NotNull T t) {
-        return false;
+        LinkedList<BinaryTreeNode<T>> queue = new LinkedList<>();
+        LinkedList<T> postNodes = new LinkedList<>();
+        queue.offer(this);
+        while (queue.size() != 0) {
+            BinaryTreeNode<T> node = queue.poll();
+            assert node != null;
+
+            if (!node.val.equals(t)) {
+                postNodes.add(node.val);
+            }
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+
+        clear();
+        while (postNodes.size() != 0) {
+            T v = postNodes.poll();
+            assert v != null;
+            if (val == null) {
+                val = v;
+            } else {
+                insert(v);
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean contains(@NotNull T t) {
-        return false;
+        if (val.equals(t)) {
+            return true;
+        } else if (left != null && left.contains(t)) {
+            return true;
+        } else return right != null && right.contains(t);
     }
 
     @NotNull
     @Override
     public List<TreeNode<T>> findNodeByVal(@NotNull T t) {
-        return null;
+        List<TreeNode<T>> result = new LinkedList<>();
+        if (val.equals(t)) {
+            result.add(this);
+        }
+        if (left != null) {
+            result.addAll(left.findNodeByVal(t));
+        }
+        if (right != null) {
+            result.addAll(right.findNodeByVal(t));
+        }
+        return result;
     }
 
     @NotNull
     @Override
     public T findMin() {
-        return null;
+        T min = val;
+        if (left != null) {
+            T minInLeft = left.findMin();
+            min = min.compareTo(minInLeft) < 0 ? min : minInLeft;
+        }
+        if (right != null) {
+            T minInRight = right.findMin();
+            min = min.compareTo(minInRight) < 0 ? min : minInRight;
+        }
+        return min;
     }
 
     @NotNull
     @Override
     public T findMax() {
-        return null;
+        T max = val;
+        if (left != null) {
+            T maxInLeft = left.findMax();
+            max = max.compareTo(maxInLeft) > 0 ? max : maxInLeft;
+        }
+        if (right != null) {
+            T maxInRight = right.findMax();
+            max = max.compareTo(maxInRight) > 0 ? max : maxInRight;
+        }
+        return max;
     }
 
     @Override
     public int size() {
-        return 0;
+        return levelOrder().length();
     }
 
     @Override
     public int height() {
-        return 0;
+        int l = 0, r = 0;
+        if (left != null) {
+            l = left.height();
+        }
+        if (right != null) {
+            r = right.height();
+        }
+        return 1 + Math.max(l, r);
     }
 
     @Override
     public void clear() {
-
+        this.left = this.right = null;
+        val = null;
     }
 
     /**
@@ -120,7 +236,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     }
 
     /**
-     * 层次遍历
+     * 层次遍历, 使用队列方式缓存
      */
     @NotNull
     @Override
@@ -130,6 +246,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
         queue.offer(this);
         while (queue.size() != 0) {
             BinaryTreeNode node = queue.poll();
+            assert node != null;
             builder.append(node.val);
             if (node.left != null) {
                 queue.offer(node.left);
