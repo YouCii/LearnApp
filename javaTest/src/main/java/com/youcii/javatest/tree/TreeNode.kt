@@ -9,34 +9,34 @@ interface TreeNode<T : Comparable<T>> {
      * 插入(可能会有重复值)
      * @return true if sccess
      */
-    fun insert(t: T): Boolean
+    fun insert(t: T?): Boolean
 
     /**
      * 移除所有值为t的节点
      * @return true if success
      */
-    fun remove(t: T): Boolean
+    fun remove(t: T?): Boolean
 
     /**
      * 是否包含
      * @return true if contains
      */
-    fun contains(t: T): Boolean
+    fun contains(t: T?): Boolean
 
     /**
      * 根据值查找节点
      */
-    fun findNodeByVal(t: T): List<TreeNode<T>>
+    fun findNodeByVal(t: T?): List<TreeNode<T>>
 
     /**
      * 查找最小值
      */
-    fun findMin(): T
+    fun findMin(): TreeNode<T>
 
     /**
      * 查找最大值
      */
-    fun findMax(): T
+    fun findMax(): TreeNode<T>
 
     /**
      * 以此node为根节点的tree的节点总数目
@@ -49,7 +49,7 @@ interface TreeNode<T : Comparable<T>> {
     fun height(): Int
 
     /**
-     * 清空所有子节点
+     * 因为不能销毁自己, 把value置为空
      */
     fun clear()
 

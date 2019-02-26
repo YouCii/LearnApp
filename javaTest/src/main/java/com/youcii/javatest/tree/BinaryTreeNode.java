@@ -15,6 +15,9 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     public BinaryTreeNode<T> right;
 
     public BinaryTreeNode(T val, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
+        if (val == null){
+            throw new NullPointerException("Cannot insert null");
+        }
         this.val = val;
         this.left = left;
         this.right = right;
@@ -24,7 +27,14 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
      * 按照层级方向, 第一个没有左右子节点的节点就是目标节点
      */
     @Override
-    public boolean insert(@NotNull T t) {
+    public boolean insert(T t) {
+        if (t == null) {
+            throw new NullPointerException("Cannot insert null");
+        }
+        if (val == null) {
+            val = t;
+            return true;
+        }
         LinkedList<BinaryTreeNode> queue = new LinkedList<>();
         queue.offer(this);
         while (queue.size() != 0) {
@@ -73,7 +83,10 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
      * 按层次遍历记录所有非t点, 按层次顺序重新构建
      */
     @Override
-    public boolean remove(@NotNull T t) {
+    public boolean remove(T t) {
+        if (t == null) {
+            throw new NullPointerException("Cannot remove null");
+        }
         LinkedList<BinaryTreeNode<T>> queue = new LinkedList<>();
         LinkedList<T> postNodes = new LinkedList<>();
         queue.offer(this);
@@ -107,8 +120,10 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     }
 
     @Override
-    public boolean contains(@NotNull T t) {
-        if (val.equals(t)) {
+    public boolean contains(T t) {
+        if (t == null) {
+            return false;
+        } else if (val.equals(t)) {
             return true;
         } else if (left != null && left.contains(t)) {
             return true;
@@ -117,8 +132,11 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 
     @NotNull
     @Override
-    public List<TreeNode<T>> findNodeByVal(@NotNull T t) {
+    public List<TreeNode<T>> findNodeByVal(T t) {
         List<TreeNode<T>> result = new LinkedList<>();
+        if (t == null) {
+            return result;
+        }
         if (val.equals(t)) {
             result.add(this);
         }
@@ -133,30 +151,30 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
 
     @NotNull
     @Override
-    public T findMin() {
-        T min = val;
+    public BinaryTreeNode<T> findMin() {
+        BinaryTreeNode<T> min = this;
         if (left != null) {
-            T minInLeft = left.findMin();
-            min = min.compareTo(minInLeft) < 0 ? min : minInLeft;
+            BinaryTreeNode<T> minInLeft = left.findMin();
+            min = min.val.compareTo(minInLeft.val) < 0 ? min : minInLeft;
         }
         if (right != null) {
-            T minInRight = right.findMin();
-            min = min.compareTo(minInRight) < 0 ? min : minInRight;
+            BinaryTreeNode<T> minInRight = right.findMin();
+            min = min.val.compareTo(minInRight.val) < 0 ? min : minInRight;
         }
         return min;
     }
 
     @NotNull
     @Override
-    public T findMax() {
-        T max = val;
+    public BinaryTreeNode<T> findMax() {
+        BinaryTreeNode<T> max = this;
         if (left != null) {
-            T maxInLeft = left.findMax();
-            max = max.compareTo(maxInLeft) > 0 ? max : maxInLeft;
+            BinaryTreeNode<T> maxInLeft = left.findMax();
+            max = max.val.compareTo(maxInLeft.val) > 0 ? max : maxInLeft;
         }
         if (right != null) {
-            T maxInRight = right.findMax();
-            max = max.compareTo(maxInRight) > 0 ? max : maxInRight;
+            BinaryTreeNode<T> maxInRight = right.findMax();
+            max = max.val.compareTo(maxInRight.val) > 0 ? max : maxInRight;
         }
         return max;
     }

@@ -6,6 +6,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
+/**
+ * 解决控件台中文乱码问题
+ */
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 compileKotlin {
     kotlinOptions {
         // 生成的 JVM 字节码的目标版本（1.6 或 1.8），默认为 1.6
