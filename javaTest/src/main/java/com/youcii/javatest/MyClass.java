@@ -30,7 +30,8 @@ public class MyClass {
         System.out.println("两数之和: " + addTwoNumbers(root1, root2));
 
         System.out.println("\n");
-        System.out.println(normalTreeOperation());
+        BinaryTreeNode<Integer> node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
+        System.out.println(normalTreeOperation(node));
 
         System.out.println("\n");
         System.out.println(searchTreeOperation());
@@ -90,6 +91,47 @@ public class MyClass {
     }
 
     /**
+     * 根据前序遍历和中序遍历重建二叉树
+     */
+    @SuppressWarnings("unchecked")
+    private static <T extends Comparable<T>> BinaryTreeNode<T> rebuildTree(T[] fore, T[] mid) {
+        if (fore == null || mid == null || fore.length == 0 || mid.length == 0 || fore.length != mid.length) {
+            return null;
+        }
+        T rootValue = fore[0];
+        int rootIndex;
+        BinaryTreeNode<T> root = null;
+        for (rootIndex = 0; rootIndex < mid.length; rootIndex++) {
+            if (mid[rootIndex].equals(rootValue)) {
+                root = new BinaryTreeNode<>(rootValue, null, null);
+                break;
+            }
+        }
+        // 说明中序遍历中没有相等的点
+        if (root == null) {
+            return null;
+        }
+
+        int nextLeftLength = rootIndex;
+        if (nextLeftLength > 0) {
+            T[] nextLeftFore = (T[]) new Comparable[nextLeftLength], nextLeftMid = (T[]) new Comparable[nextLeftLength];
+            System.arraycopy(fore, 1, nextLeftFore, 0, nextLeftLength);
+            System.arraycopy(mid, 0, nextLeftMid, 0, nextLeftLength);
+            root.left = rebuildTree(nextLeftFore, nextLeftMid);
+        }
+
+        int nextRightLength = fore.length - nextLeftLength - 1;
+        if (nextRightLength > 0) {
+            T[] nextRightFore = (T[]) new Comparable[nextRightLength], nextRightMid = (T[]) new Comparable[nextRightLength];
+            System.arraycopy(fore, rootIndex + 1, nextRightFore, 0, nextRightLength);
+            System.arraycopy(mid, rootIndex + 1, nextRightMid, 0, nextRightLength);
+            root.right = rebuildTree(nextRightFore, nextRightMid);
+        }
+
+        return root;
+    }
+
+    /**
      * 普通树遍历 :
      * 1.         1
      * 2.      2      3
@@ -101,13 +143,8 @@ public class MyClass {
      * 后序遍历：4  7  8  5  2  6  3  1
      * 层次遍历：1  2  3  4  5  6  7  8
      */
-    private static String normalTreeOperation() {
-        String result = "普通二叉树的各个操作: ";
-
-        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(1, null, null);
-        for (int i = 2; i < 9; i++) {
-            root.insert(i);
-        }
+    private static String normalTreeOperation(BinaryTreeNode<Integer> root) {
+        String result = "重建出的普通二叉树的各个操作: ";
 
         result += "\n前序递归: " + root.preOrderRecursive();
         result += "\n中序递归: " + root.inOrderRecursive();
@@ -126,7 +163,6 @@ public class MyClass {
 
         return result;
     }
-
 
     /**
      * 搜索树遍历 :
