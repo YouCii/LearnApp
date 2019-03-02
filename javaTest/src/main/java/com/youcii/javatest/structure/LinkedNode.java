@@ -1,10 +1,10 @@
-package com.youcii.javatest;
+package com.youcii.javatest.structure;
 
-class LinkedNode {
-    int val;
-    LinkedNode next;
+public class LinkedNode {
+    public int val;
+    public LinkedNode next;
 
-    LinkedNode(int x) {
+    public LinkedNode(int x) {
         val = x;
     }
 

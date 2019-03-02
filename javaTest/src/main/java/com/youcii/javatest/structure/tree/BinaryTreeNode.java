@@ -1,4 +1,4 @@
-package com.youcii.javatest.tree;
+package com.youcii.javatest.structure.tree;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +15,9 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     public BinaryTreeNode<T> left;
     public BinaryTreeNode<T> right;
 
+    // 为了"查找二叉树的下一个节点"题目创建, 遍历等操作均未利用此参数
+    public BinaryTreeNode<T> parent;
+
     public BinaryTreeNode(T val, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
         if (val == null) {
             throw new NullPointerException("Cannot insert null");
@@ -22,6 +25,11 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
         this.val = val;
         this.left = left;
         this.right = right;
+    }
+
+    public BinaryTreeNode(T val, BinaryTreeNode<T> parent) {
+        this(val, null, null);
+        this.parent = parent;
     }
 
     /**
@@ -36,19 +44,19 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
             val = t;
             return true;
         }
-        LinkedList<BinaryTreeNode> queue = new LinkedList<>();
+        LinkedList<BinaryTreeNode<T>> queue = new LinkedList<>();
         queue.offer(this);
         while (queue.size() != 0) {
-            BinaryTreeNode node = queue.poll();
+            BinaryTreeNode<T> node = queue.poll();
             assert node != null;
             if (node.left == null) {
-                node.left = new BinaryTreeNode<>(t, null, null);
+                node.left = new BinaryTreeNode<>(t, node);
                 return true;
             } else {
                 queue.offer(node.left);
             }
             if (node.right == null) {
-                node.right = new BinaryTreeNode<>(t, null, null);
+                node.right = new BinaryTreeNode<>(t, node);
                 return true;
             } else {
                 queue.offer(node.right);

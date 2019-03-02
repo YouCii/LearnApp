@@ -1,9 +1,12 @@
 package com.youcii.javatest;
 
-import com.youcii.javatest.tree.BinaryTreeNode;
-import com.youcii.javatest.tree.SearchTreeNode;
+import com.youcii.javatest.structure.LinkedNode;
+import com.youcii.javatest.structure.tree.BinaryTreeNode;
+import com.youcii.javatest.structure.tree.SearchTreeNode;
+import com.youcii.javatest.structure.tree.TreeNode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,64 +38,58 @@ public class MyClass {
 
         System.out.println("\n");
         System.out.println(searchTreeOperation());
+
+        System.out.println("\n");
+        node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
+        List<TreeNode<Integer>> nodes = node.findNodeByVal(7);
+        BinaryTreeNode<Integer> target = null;
+        if (nodes.size() > 0) {
+            target = (BinaryTreeNode<Integer>) nodes.get(0);
+        }
+        System.out.println("查找中序遍历顺序的下一个节点: " + findNextFollowInOrder(target));
     }
 
     /**
-     * 无重复字符的最长子串的长度
-     * 思路: 滑动窗口, 以begin/end为两端进行检测, 当end字符在窗口中已存在时, 把begin跳转到前者+1的位置, end继续向后, 直到end到达string最后一位.
-     * 在此过程中, 记录end每次位移后的窗口长度中的最大值, 循环完成时, 此值就是无重复字符的最长子串的长度
+     * 查找树的中序遍历顺序的下一个节点
+     * 1.           1
+     * 2.      2        3
+     * 3.   4    5        6
+     * 4.       7 8
      */
-    private static int lengthOfLongestSubstring(String string) {
-        int maxLength = 0, length = string.length();
-        Map<Character, Integer> map = new HashMap<>(length);
-        for (int begin = 0, end = 0; end < length; end++) {
-            char endChar = string.charAt(end);
-            if (map.containsKey(endChar)) {
-                // begin = map.get(endChar) + 1; // 这种方式有可能会导致begin回移
-                begin = Math.max(begin, map.get(endChar) + 1); // 把尾部移到重复字符前者的后一位, 从这里继续
+    private static <T extends Comparable<T>> T findNextFollowInOrder(BinaryTreeNode<T> target) {
+        if (target == null) {
+            return null;
+        }
+        // 如果有右子节点, 下一个就是其右子节点的最左叶子节点
+        if (target.right != null) {
+            BinaryTreeNode<T> current = target.right;
+            while (current.left != null) {
+                current = current.left;
             }
-            // 每次都要计算, 而不是在!map.containsKey(endChar)时才执行,
-            // 避免出现在begin前存在重复字符进入了map.containsKey(endChar)分支导致当前字符统计不到的问题
-            maxLength = Math.max(maxLength, end - begin + 1);
-            map.put(endChar, end);
+            return current.val;
         }
-        return maxLength;
-    }
-
-    /**
-     * 两数之和, 要求:
-     * 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
-     * 输出：7 -> 0 -> 8
-     * 原因：342 + 465 = 807
-     */
-    private static String addTwoNumbers(LinkedNode link1, LinkedNode link2) {
-        // 可以在链表根节点放置一个0, 简化很多非空判断
-        // ListNode rootNode = new ListNode(0), currentNode = new ListNode(0);
-
-        // 进一步简化: 此时 currentNode 和 rootNode 本是一个, 后面又可以节省一步rootNode.next=currentNode
-        LinkedNode rootNode = new LinkedNode(0), currentNode = rootNode;
-
-        int carry = 0, singleNum;
-        while (link1 != null || link2 != null) {
-            singleNum = (link1 == null ? 0 : link1.val) + (link2 == null ? 0 : link2.val) + carry;
-            carry = singleNum / 10;
-
-            currentNode.next = new LinkedNode(singleNum % 10);
-            currentNode = currentNode.next;
-
-            link1 = link1 != null ? link1.next : null;
-            link2 = link2 != null ? link2.next : null;
+        // 如果没有右节点, 又没有父节点, 那就是根节点了, 没有下一个
+        if (target.parent == null) {
+            return null;
         }
-
-        if (carry != 0) {
-            currentNode.next = new LinkedNode(carry);
+        // 如果是父节点的左子节点, 下一个就是其父节点
+        if (target == target.parent.left) {
+            return target.parent.val;
         }
-        return rootNode.next.toString();
+        // 执行到这里说明该节点是父节点的右子节点, 那么其下一个节点就是其前辈节点中第一个是其父节点的左子节点的那一个
+        BinaryTreeNode<T> current = target.parent;
+        while (current.parent != null) {
+            if (current == current.parent.left) {
+                return current.parent.val;
+            }
+            current = current.parent;
+        }
+        return null;
     }
 
     /**
      * 根据前序遍历和中序遍历重建二叉树
-     *
+     * <p>
      * 递归时要注意最后一层递归时的各种情况: 例如只有根节点, 根节点加一个子节点, 三个节点均有的情况
      */
     @SuppressWarnings("unchecked")
@@ -121,7 +118,10 @@ public class MyClass {
             T[] nextLeftFore = (T[]) new Comparable[nextLeftLength], nextLeftMid = (T[]) new Comparable[nextLeftLength];
             System.arraycopy(fore, 1, nextLeftFore, 0, nextLeftLength);
             System.arraycopy(mid, 0, nextLeftMid, 0, nextLeftLength);
-            root.left = rebuildTree(nextLeftFore, nextLeftMid);
+
+            BinaryTreeNode<T> leftRoot = rebuildTree(nextLeftFore, nextLeftMid);
+            leftRoot.parent = root;
+            root.left = leftRoot;
         }
 
         int nextRightLength = fore.length - nextLeftLength - 1;
@@ -129,46 +129,13 @@ public class MyClass {
             T[] nextRightFore = (T[]) new Comparable[nextRightLength], nextRightMid = (T[]) new Comparable[nextRightLength];
             System.arraycopy(fore, rootIndex + 1, nextRightFore, 0, nextRightLength);
             System.arraycopy(mid, rootIndex + 1, nextRightMid, 0, nextRightLength);
-            root.right = rebuildTree(nextRightFore, nextRightMid);
+
+            BinaryTreeNode<T> rightRoot = rebuildTree(nextRightFore, nextRightMid);
+            rightRoot.parent = root;
+            root.right = rightRoot;
         }
 
         return root;
-    }
-
-    /**
-     * 普通树遍历 :
-     * 1.         1
-     * 2.      2      3
-     * 3.   4    5      6
-     * 4.       7 8
-     * <p>
-     * 前序遍历：1  2  4  5  7  8  3  6
-     * 中序遍历：4  2  7  5  8  1  3  6
-     * 后序遍历：4  7  8  5  2  6  3  1
-     * 层次遍历：1  2  3  4  5  6  7  8
-     */
-    private static String normalTreeOperation(BinaryTreeNode<Integer> root) {
-        String result = "重建出的普通二叉树的各个操作: ";
-
-        result += "\n前序递归: " + root.preOrderRecursive();
-        result += "\n前序循环: " + root.preOrderCircle();
-        result += "\n中序递归: " + root.inOrderRecursive();
-        result += "\n中序循环: " + root.inOrderCircle();
-        result += "\n后序递归: " + root.postOrderRecursive();
-        result += "\n后序循环: " + root.postOrderCircle();
-        result += "\n层级遍历: " + root.levelOrder();
-        result += "\n最小值: " + root.findMin().val;
-        result += "\n最大值: " + root.findMax().val;
-        result += "\n容量: " + root.size();
-        result += "\n高度: " + root.height();
-        result += "\n是否包含: " + root.contains(5);
-        result += "\n根据值查找节点: size=" + root.findNodeByVal(5).size();
-        root.remove(5);
-        result += "\n移除5之后的层级遍历: " + root.levelOrder();
-        root.clear();
-        result += "\n清除之后的层级遍历: " + root.levelOrder();
-
-        return result;
     }
 
     /**
@@ -213,5 +180,94 @@ public class MyClass {
         result += "\n清除之后的层级遍历: " + root.levelOrder();
 
         return result;
+    }
+
+    /**
+     * 普通树遍历 :
+     * 1.         1
+     * 2.      2      3
+     * 3.   4    5      6
+     * 4.       7 8
+     * <p>
+     * 前序遍历：1  2  4  5  7  8  3  6
+     * 中序遍历：4  2  7  5  8  1  3  6
+     * 后序遍历：4  7  8  5  2  6  3  1
+     * 层次遍历：1  2  3  4  5  6  7  8
+     */
+    private static String normalTreeOperation(BinaryTreeNode<Integer> root) {
+        String result = "重建出的普通二叉树的各个操作: ";
+
+        result += "\n前序递归: " + root.preOrderRecursive();
+        result += "\n前序循环: " + root.preOrderCircle();
+        result += "\n中序递归: " + root.inOrderRecursive();
+        result += "\n中序循环: " + root.inOrderCircle();
+        result += "\n后序递归: " + root.postOrderRecursive();
+        result += "\n后序循环: " + root.postOrderCircle();
+        result += "\n层级遍历: " + root.levelOrder();
+        result += "\n最小值: " + root.findMin().val;
+        result += "\n最大值: " + root.findMax().val;
+        result += "\n容量: " + root.size();
+        result += "\n高度: " + root.height();
+        result += "\n是否包含: " + root.contains(5);
+        result += "\n根据值查找节点: size=" + root.findNodeByVal(5).size();
+        root.remove(5);
+        result += "\n移除5之后的层级遍历: " + root.levelOrder();
+        root.clear();
+        result += "\n清除之后的层级遍历: " + root.levelOrder();
+
+        return result;
+    }
+
+    /**
+     * 两数之和, 要求:
+     * 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+     * 输出：7 -> 0 -> 8
+     * 原因：342 + 465 = 807
+     */
+    private static String addTwoNumbers(LinkedNode link1, LinkedNode link2) {
+        // 可以在链表根节点放置一个0, 简化很多非空判断
+        // ListNode rootNode = new ListNode(0), currentNode = new ListNode(0);
+
+        // 进一步简化: 此时 currentNode 和 rootNode 本是一个, 后面又可以节省一步rootNode.next=currentNode
+        LinkedNode rootNode = new LinkedNode(0), currentNode = rootNode;
+
+        int carry = 0, singleNum;
+        while (link1 != null || link2 != null) {
+            singleNum = (link1 == null ? 0 : link1.val) + (link2 == null ? 0 : link2.val) + carry;
+            carry = singleNum / 10;
+
+            currentNode.next = new LinkedNode(singleNum % 10);
+            currentNode = currentNode.next;
+
+            link1 = link1 != null ? link1.next : null;
+            link2 = link2 != null ? link2.next : null;
+        }
+
+        if (carry != 0) {
+            currentNode.next = new LinkedNode(carry);
+        }
+        return rootNode.next.toString();
+    }
+
+    /**
+     * 无重复字符的最长子串的长度
+     * 思路: 滑动窗口, 以begin/end为两端进行检测, 当end字符在窗口中已存在时, 把begin跳转到前者+1的位置, end继续向后, 直到end到达string最后一位.
+     * 在此过程中, 记录end每次位移后的窗口长度中的最大值, 循环完成时, 此值就是无重复字符的最长子串的长度
+     */
+    private static int lengthOfLongestSubstring(String string) {
+        int maxLength = 0, length = string.length();
+        Map<Character, Integer> map = new HashMap<>(length);
+        for (int begin = 0, end = 0; end < length; end++) {
+            char endChar = string.charAt(end);
+            if (map.containsKey(endChar)) {
+                // begin = map.get(endChar) + 1; // 这种方式有可能会导致begin回移
+                begin = Math.max(begin, map.get(endChar) + 1); // 把尾部移到重复字符前者的后一位, 从这里继续
+            }
+            // 每次都要计算, 而不是在!map.containsKey(endChar)时才执行,
+            // 避免出现在begin前存在重复字符进入了map.containsKey(endChar)分支导致当前字符统计不到的问题
+            maxLength = Math.max(maxLength, end - begin + 1);
+            map.put(endChar, end);
+        }
+        return maxLength;
     }
 }

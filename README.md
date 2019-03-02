@@ -1,7 +1,7 @@
 # LearnApp
 小程序, 主要包括自己学习的新技术/测试用界面等.
 
-应用内用到的东西:
+# 应用内用到的东西:
 - 语言: java + kotlin
 - 架构: MVP
 - 用到的 MaterialDesign 控件: CardView, FloatingActionButton, ToolBar和CollapsingToolbarLayout, TextInputLayout, AutoCompleteTextView
@@ -30,4 +30,7 @@
     - 带有下载动画按钮
     - 露边动画ViewPager
 - Timer和ScheduledThreadPoolExecutor的比较
-- 用于运行LeetCode测试的单独Module
+
+# 数据结构和算法相关的
+- LeetCode算法题目实现
+- 实现普通二叉树/搜索二叉树的基本方法及几个相关算法题目(详细解释)

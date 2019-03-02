@@ -1,4 +1,4 @@
-package com.youcii.javatest.tree
+package com.youcii.javatest.structure.tree
 
 /**
  * Created by jdw on 2019/2/21.

@@ -1,4 +1,4 @@
-package com.youcii.javatest.tree;
+package com.youcii.javatest.structure.tree;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +33,11 @@ public class SearchTreeNode<T extends Comparable<T>> extends BinaryTreeNode<T> {
         }
     }
 
+    public SearchTreeNode(T val, BinaryTreeNode<T> parent) {
+        this(val, null, null);
+        this.parent = parent;
+    }
+
     /**
      * 排序二叉树不允许重复值
      */
@@ -49,14 +54,14 @@ public class SearchTreeNode<T extends Comparable<T>> extends BinaryTreeNode<T> {
         switch (compare) {
             case 1:
                 if (right == null) {
-                    right = new SearchTreeNode<>(t, null, null);
+                    right = new SearchTreeNode<>(t, this);
                     return true;
                 } else {
                     return right.insert(t);
                 }
             case -1:
                 if (left == null) {
-                    left = new SearchTreeNode<>(t, null, null);
+                    left = new SearchTreeNode<>(t, this);
                     return true;
                 } else {
                     return left.insert(t);
