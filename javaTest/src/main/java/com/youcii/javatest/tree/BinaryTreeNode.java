@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by jdw on 2019/2/20.
@@ -15,7 +16,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     public BinaryTreeNode<T> right;
 
     public BinaryTreeNode(T val, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
-        if (val == null){
+        if (val == null) {
             throw new NullPointerException("Cannot insert null");
         }
         this.val = val;
@@ -254,7 +255,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     }
 
     /**
-     * 层次遍历, 使用队列方式缓存
+     * 层次遍历, 使用先进先出的队列方式缓存
      */
     @NotNull
     @Override
@@ -273,6 +274,101 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
                 queue.offer(node.right);
             }
         }
+        return builder.toString();
+    }
+
+    /**
+     * 非递归前序遍历
+     * 使用后进先出的堆栈
+     */
+    @NotNull
+    @Override
+    public String preOrderCircle() {
+        StringBuilder builder = new StringBuilder();
+
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+        stack.push(this);
+
+        BinaryTreeNode<T> root;
+        while (stack.size() > 0) {
+            root = stack.pop();
+            builder.append(root.val);   // 第一位直接打印
+
+            if (root.right != null) {
+                stack.push(root.right); // 第三位先放进去
+            }
+            if (root.left != null) {
+                stack.push(root.left);  // 第二位后放
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 非递归中序遍历
+     */
+    @NotNull
+    @Override
+    public String inOrderCircle() {
+        StringBuilder builder = new StringBuilder();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+
+        BinaryTreeNode<T> current = this;
+        do {
+            // 找到最左叶子点
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            if (stack.size() > 0) {
+                // 输出最左叶子点
+                current = stack.pop();
+                builder.append(current.val);
+
+                // 指向右子树, 下次循环时把他作为根节点, 类似于递归了
+                current = current.right;
+            }
+
+        } while (current != null || stack.size() > 0);
+
+        return builder.toString();
+    }
+
+    /**
+     * 非递归后序遍历
+     */
+    @NotNull
+    @Override
+    public String postOrderCircle() {
+        StringBuilder builder = new StringBuilder();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+
+        BinaryTreeNode<T> current = this, last = null; // 如果last是当前子树, 说明该子树遍历过了, 可以继续向上层遍历了
+        do {
+            // 找到最左叶子点
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            if (stack.size() > 0) {
+                // 找到最左叶子点
+                current = stack.peek();
+
+                // 没有右子节点或者右子节点已经输出过了, 就输出当前的根节点
+                if (current.right == null || current.right == last) {
+                    builder.append(current.val);
+                    stack.pop();
+                    last = current;
+                    current = null;
+                } else {
+                    // 指向右子树, 下次循环时把他作为根节点, 类似于递归了
+                    current = current.right;
+                }
+            }
+        } while (current != null || stack.size() > 0);
+
         return builder.toString();
     }
 }

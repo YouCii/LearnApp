@@ -92,6 +92,8 @@ public class MyClass {
 
     /**
      * 根据前序遍历和中序遍历重建二叉树
+     *
+     * 递归时要注意最后一层递归时的各种情况: 例如只有根节点, 根节点加一个子节点, 三个节点均有的情况
      */
     @SuppressWarnings("unchecked")
     private static <T extends Comparable<T>> BinaryTreeNode<T> rebuildTree(T[] fore, T[] mid) {
@@ -101,6 +103,7 @@ public class MyClass {
         T rootValue = fore[0];
         int rootIndex;
         BinaryTreeNode<T> root = null;
+        // 前序的第一个点是根节点, 找到中序遍历的该点, 则左边的是左子树, 右边的是右子树;
         for (rootIndex = 0; rootIndex < mid.length; rootIndex++) {
             if (mid[rootIndex].equals(rootValue)) {
                 root = new BinaryTreeNode<>(rootValue, null, null);
@@ -112,6 +115,7 @@ public class MyClass {
             return null;
         }
 
+        // 根据上方找到的根节点位置, 确定在前序/中序中的左右子树, 再采用递归来找到左右子树的根节点
         int nextLeftLength = rootIndex;
         if (nextLeftLength > 0) {
             T[] nextLeftFore = (T[]) new Comparable[nextLeftLength], nextLeftMid = (T[]) new Comparable[nextLeftLength];
@@ -147,8 +151,11 @@ public class MyClass {
         String result = "重建出的普通二叉树的各个操作: ";
 
         result += "\n前序递归: " + root.preOrderRecursive();
+        result += "\n前序循环: " + root.preOrderCircle();
         result += "\n中序递归: " + root.inOrderRecursive();
+        result += "\n中序循环: " + root.inOrderCircle();
         result += "\n后序递归: " + root.postOrderRecursive();
+        result += "\n后序循环: " + root.postOrderCircle();
         result += "\n层级遍历: " + root.levelOrder();
         result += "\n最小值: " + root.findMin().val;
         result += "\n最大值: " + root.findMax().val;
@@ -188,8 +195,11 @@ public class MyClass {
         }
 
         result += "\n前序递归: " + root.preOrderRecursive();
+        result += "\n前序循环: " + root.preOrderCircle();
         result += "\n中序递归: " + root.inOrderRecursive();
+        result += "\n中序循环: " + root.inOrderCircle();
         result += "\n后序递归: " + root.postOrderRecursive();
+        result += "\n后序循环: " + root.postOrderCircle();
         result += "\n层级遍历: " + root.levelOrder();
         result += "\n最小值: " + root.findMin().val;
         result += "\n最大值: " + root.findMax().val;

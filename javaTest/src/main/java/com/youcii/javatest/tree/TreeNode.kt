@@ -76,4 +76,22 @@ interface TreeNode<T : Comparable<T>> {
      * (D, L R, LL LR RL RR )
      */
     fun levelOrder(): String
+
+    /**
+     * 前序遍历, 非递归方式
+     * (DLR)
+     */
+    fun preOrderCircle(): String
+
+    /**
+     * 中序遍历, 非递归方式
+     * (LDR)
+     */
+    fun inOrderCircle(): String
+
+    /**
+     * 后序遍历, 非递归方式
+     * (LRD)
+     */
+    fun postOrderCircle(): String
 }
