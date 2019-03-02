@@ -287,6 +287,89 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
         StringBuilder builder = new StringBuilder();
 
         Stack<BinaryTreeNode<T>> stack = new Stack<>();
+        BinaryTreeNode<T> current = this;
+
+        while (current != null || stack.size() > 0) {
+            while (current != null) {
+                builder.append(current.val);
+                stack.push(current);
+                current = current.left;
+            }
+            current = stack.pop();
+            // 转向右子树处理
+            current = current.right;
+        }
+        return builder.toString() + "++" + otherPreCircle();
+    }
+
+    /**
+     * 非递归中序遍历
+     */
+    @NotNull
+    @Override
+    public String inOrderCircle() {
+        StringBuilder builder = new StringBuilder();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+
+        BinaryTreeNode<T> current = this;
+        while (current != null || stack.size() > 0) {
+            // 找到最左叶子点
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            // 输出最左叶子点
+            current = stack.pop();
+            builder.append(current.val);
+
+            // 转向右子树, 下次循环时把他作为根节点, 类似于递归了
+            current = current.right;
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 非递归后序遍历
+     */
+    @NotNull
+    @Override
+    public String postOrderCircle() {
+        StringBuilder builder = new StringBuilder();
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
+
+        BinaryTreeNode<T> current = this, last = null; // 如果last是当前子树, 说明该子树遍历过了, 可以继续向上层遍历了
+        while (current != null || stack.size() > 0) {
+            // 找到最左叶子点
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            // 找到最左叶子点, 倒是还不输出, 因为要考虑是否要先输出右子节点
+            current = stack.peek();
+
+            // 没有右子节点或者右子节点已经输出过了, 就输出当前节点
+            if (current.right == null || current.right == last) {
+                builder.append(current.val);
+                stack.pop();
+                last = current;
+                current = null;
+            } else {
+                // 转向右子树, 下次循环时把他作为根节点, 类似于递归了
+                current = current.right;
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 另外一种前序循环, 使用后进先出的堆栈
+     */
+    private String otherPreCircle() {
+        StringBuilder builder = new StringBuilder();
+
+        Stack<BinaryTreeNode<T>> stack = new Stack<>();
         stack.push(this);
 
         BinaryTreeNode<T> root;
@@ -304,71 +387,8 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
         return builder.toString();
     }
 
-    /**
-     * 非递归中序遍历
-     */
-    @NotNull
     @Override
-    public String inOrderCircle() {
-        StringBuilder builder = new StringBuilder();
-        Stack<BinaryTreeNode<T>> stack = new Stack<>();
-
-        BinaryTreeNode<T> current = this;
-        do {
-            // 找到最左叶子点
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-
-            if (stack.size() > 0) {
-                // 输出最左叶子点
-                current = stack.pop();
-                builder.append(current.val);
-
-                // 指向右子树, 下次循环时把他作为根节点, 类似于递归了
-                current = current.right;
-            }
-
-        } while (current != null || stack.size() > 0);
-
-        return builder.toString();
-    }
-
-    /**
-     * 非递归后序遍历
-     */
-    @NotNull
-    @Override
-    public String postOrderCircle() {
-        StringBuilder builder = new StringBuilder();
-        Stack<BinaryTreeNode<T>> stack = new Stack<>();
-
-        BinaryTreeNode<T> current = this, last = null; // 如果last是当前子树, 说明该子树遍历过了, 可以继续向上层遍历了
-        do {
-            // 找到最左叶子点
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-
-            if (stack.size() > 0) {
-                // 找到最左叶子点
-                current = stack.peek();
-
-                // 没有右子节点或者右子节点已经输出过了, 就输出当前的根节点
-                if (current.right == null || current.right == last) {
-                    builder.append(current.val);
-                    stack.pop();
-                    last = current;
-                    current = null;
-                } else {
-                    // 指向右子树, 下次循环时把他作为根节点, 类似于递归了
-                    current = current.right;
-                }
-            }
-        } while (current != null || stack.size() > 0);
-
-        return builder.toString();
+    public String toString() {
+        return val.toString();
     }
 }
