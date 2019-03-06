@@ -5,6 +5,7 @@ import com.youcii.javatest.structure.tree.BinaryTreeNode;
 import com.youcii.javatest.structure.tree.SearchTreeNode;
 import com.youcii.javatest.structure.tree.TreeNode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,47 @@ public class MyClass {
             target = (BinaryTreeNode<Integer>) nodes.get(0);
         }
         System.out.println("查找中序遍历顺序的下一个节点: " + findNextFollowInOrder(target));
+
+        System.out.println("\n");
+        int[] array = new int[]{3, 2, 4, 0, 8, 7};
+        quickSort(array, 0, 5);
+        System.out.println("快速排序结果: " + Arrays.toString(array));
+    }
+
+    /**
+     * 快速排序
+     */
+    private static void quickSort(int[] numbers, int low, int high) {
+        if (low < high) {
+            // 将numbers数组进行一分为二
+            int middle = partition(numbers, low, high);
+            // 对前半段进行递归排序
+            quickSort(numbers, low, middle - 1);
+            // 对后半段进行递归排序
+            quickSort(numbers, middle + 1, high);
+        }
+    }
+
+    /**
+     * 查找出关键值在numbers数组排序后所在位置, 两边分段
+     * <p>
+     * 如果选择首位作为关键值, 就要先移动尾端, 以替换首位;
+     * 反之, 则需要移动首端, 以替换尾端;
+     */
+    private static int partition(int[] numbers, int low, int high) {
+        int temp = numbers[low]; // 数组的第一个作为关键值
+        while (low < high) {
+            while (low < high && numbers[high] >= temp) {
+                high--;
+            }
+            numbers[low] = numbers[high]; // 比关键值小的记录移到前端
+            while (low < high && numbers[low] <= temp) {
+                low++;
+            }
+            numbers[high] = numbers[low]; // 比关键值大的记录移到后端
+        }
+        numbers[low] = temp; // 关键值记录到重合位置
+        return low; // 返回关键值的位置
     }
 
     /**
