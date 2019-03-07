@@ -53,6 +53,99 @@ public class MyClass {
         int[] array = new int[]{3, 2, 4, 0, 8, 7};
         quickSort(array, 0, 5);
         System.out.println("快速排序结果: " + Arrays.toString(array));
+
+        System.out.println("\n");
+        array = new int[]{7, 8, 9, 4, 5, 6, 7};
+        System.out.println("二分法查找自增旋转数组中的最小值: " + findMin1(array, 0, 6) + ":" + findMin2(array));
+    }
+
+    /**
+     * 二分法差找自增数组的某旋转数组中的最小值
+     * 旋转数组: 数组内元素平移后的数组, 例如{456123}是{123456}的一个旋转数组
+     * <p>
+     * 注意: 如果array比较小, 可用递归; 反之则要用效率较高的循环
+     */
+    private static int findMin(int[] array, int low, int height) {
+        if (array.length < 10) {
+            return findMin1(array, low, height);
+        } else {
+            return findMin2(array);
+        }
+    }
+
+    /**
+     * 循环方式
+     */
+    private static int findMin2(int[] array) {
+        if (array == null || array.length == 0) {
+            throw new NullPointerException();
+        }
+        if (array.length == 1) {
+            return array[0];
+        }
+        // 旋转了0个元素的情况
+        if (array[0] < array[array.length - 1]) {
+            return array[0];
+        }
+        int min = 0;
+        int low = 0, height = array.length - 1, middle = (height + low) / 2;
+        while (height - low > 1) {
+            if (array[low] == array[height] && array[low] == array[middle]) {
+                min = array[low];
+                for (int i = low + 1; i <= height; i++) {
+                    if (array[i] < min) {
+                        min = array[i];
+                    }
+                }
+                break;
+            }
+            if (array[middle] <= array[low] && array[middle] <= array[height]) {
+                height = middle;
+                min = array[middle];
+            }
+            if (array[middle] >= array[low] && array[middle] >= array[height]) {
+                low = middle;
+                min = array[height];
+            }
+            middle = (low + height) / 2;
+        }
+        return min;
+    }
+
+    /**
+     * 递归方式
+     */
+    private static int findMin1(int[] array, int low, int height) {
+        if (array == null || array.length == 0 || low < 0 || height >= array.length || low > height) {
+            throw new NullPointerException();
+        }
+        if (array.length == 1) {
+            return array[0];
+        }
+        // 旋转了0个元素的情况
+        if (array[low] < array[height]) {
+            return array[low];
+        }
+        // 终止循环的条件
+        if (height - low == 1) {
+            return array[low] > array[height] ? array[height] : array[low];
+        }
+        int middle = (height + low) / 2;
+        // 如果中间值与左右两端值都相等时, 采用顺序遍历
+        if (array[low] == array[middle] && array[low] == array[height]) {
+            int min = array[low];
+            for (int i = low + 1; i <= height; i++) {
+                if (array[i] < min) {
+                    min = array[i];
+                }
+            }
+            return min;
+        } else if (array[middle] >= array[low] && array[middle] >= array[height]) {
+            return findMin1(array, middle, height);
+        } else if (array[middle] <= array[low] && array[middle] <= array[height]) {
+            return findMin1(array, low, middle);
+        }
+        return array[middle];
     }
 
     /**
@@ -76,7 +169,16 @@ public class MyClass {
      * 反之, 则需要移动首端, 以替换尾端;
      */
     private static int partition(int[] numbers, int low, int high) {
-        int temp = numbers[low]; // 数组的第一个作为关键值
+        if (numbers == null || numbers.length < 1 || low > high) {
+            throw new NullPointerException();
+        }
+
+        // 数组的随机值作为关键值
+        int i = Double.valueOf(Math.random() * (high - low)).intValue() + low;
+        int temp = numbers[i];
+        numbers[i] = numbers[low];
+        numbers[low] = temp;
+
         while (low < high) {
             while (low < high && numbers[high] >= temp) {
                 high--;
