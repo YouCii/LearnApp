@@ -43,11 +43,11 @@ public class MyClass {
         System.out.println("\n");
         node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
         List<TreeNode<Integer>> nodes = node.findNodeByVal(7);
-        BinaryTreeNode<Integer> target = null;
+        BinaryTreeNode<Integer> target1 = null;
         if (nodes.size() > 0) {
-            target = (BinaryTreeNode<Integer>) nodes.get(0);
+            target1 = (BinaryTreeNode<Integer>) nodes.get(0);
         }
-        System.out.println("查找中序遍历顺序的下一个节点: " + findNextFollowInOrder(target));
+        System.out.println("查找中序遍历顺序的下一个节点: " + findNextFollowInOrder(target1));
 
         System.out.println("\n");
         int[] array = new int[]{3, 2, 4, 0, 8, 7};
@@ -57,6 +57,68 @@ public class MyClass {
         System.out.println("\n");
         array = new int[]{7, 8, 9, 4, 5, 6, 7};
         System.out.println("二分法查找自增旋转数组中的最小值: " + findMin1(array, 0, 6) + ":" + findMin2(array));
+
+        System.out.println("\n");
+        char[][] data = {
+                {'a', 'b', 't', 'g'},
+                {'c', 'f', 'c', 's'},
+                {'j', 'd', 'e', 'h'}};
+        char[] target2 = {'a', 'c', 'j', 'd', 'e', 'h', 's', 'g', 't', 'b', 'f', 'c'};
+        System.out.println("回溯法判断矩阵中是否存在某路径: " + containsPath(data, target2));
+    }
+
+    /**
+     * 回溯法, 矩阵中是否存在路径
+     * 剑指offer p89
+     */
+    private static boolean containsPath(char[][] matrix, char[] str) {
+        if (matrix == null || str == null || matrix.length < 1 || str.length < 1 || matrix[0].length < 1) {
+            return false;
+        }
+
+        boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int column = 0; column < matrix[row].length; column++) {
+                // 找到str第一个点在数组的位置
+                if (str[0] == matrix[row][column]) {
+                    if (containsPathCore(matrix, str, row, column, 0, visited)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 校验row/column当前点, 并递归判断其四个方位的点
+     *
+     * @param row    定位当前要判断的点
+     * @param column 定位当前要判断的点
+     */
+    private static boolean containsPathCore(char[][] matrix, char[] str, int row, int column, int current, boolean[][] visited) {
+        // 结束
+        if (current >= str.length) {
+            return true;
+        }
+        // 排除边界/已访问的点/不匹配的点
+        if (row < 0 || row >= matrix.length || column < 0 || column >= matrix[row].length || current < 0
+                || visited[row][column] || matrix[row][column] != str[current]) {
+            return false;
+        }
+        current++;
+        visited[row][column] = true;
+        if (containsPathCore(matrix, str, row - 1, column, current, visited)
+                || containsPathCore(matrix, str, row + 1, column, current, visited)
+                || containsPathCore(matrix, str, row, column - 1, current, visited)
+                || containsPathCore(matrix, str, row, column + 1, current, visited)) {
+            return true;
+        } else {
+            visited[row][column] = false;
+            return false;
+        }
     }
 
     /**
@@ -149,7 +211,7 @@ public class MyClass {
     }
 
     /**
-     * 快速排序
+     * 快速排序O(n*logn)
      */
     private static void quickSort(int[] numbers, int low, int high) {
         if (low < high) {

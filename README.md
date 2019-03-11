@@ -32,6 +32,6 @@
 - Timer和ScheduledThreadPoolExecutor的比较
 
 # 数据结构和算法相关的
-- LeetCode算法题目实现
 - 实现普通二叉树/搜索二叉树的基本方法及几个相关算法题目(详细解释)
-- 快速排序, 二分法查找;
+- 剑指Offer题目;
+- LeetCode算法题目实现
