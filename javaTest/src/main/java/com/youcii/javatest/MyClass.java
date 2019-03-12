@@ -65,6 +65,45 @@ public class MyClass {
                 {'j', 'd', 'e', 'h'}};
         char[] target2 = {'a', 'c', 'j', 'd', 'e', 'h', 's', 'g', 't', 'b', 'f', 'c'};
         System.out.println("回溯法判断矩阵中是否存在某路径: " + containsPath(data, target2));
+
+        System.out.println("\n");
+        System.out.println("机器人的运动范围: " + moveNum(10, 100, 100));
+    }
+
+    /**
+     * 回溯法, 机器人能够到达多少个格子
+     * 剑指offer p92
+     *
+     * @param limit 可移动的格子的行列的各位相加的最大值
+     */
+    private static int moveNum(int limit, int rows, int cols) {
+        if (limit < 0 || rows < 1 || cols < 1) {
+            return 0;
+        }
+        boolean[][] visited = new boolean[rows][cols];
+        return movingCore(limit, rows, cols, visited, 0, 0);
+    }
+
+    private static int movingCore(int limit, int rows, int cols, boolean[][] visited, int row, int col) {
+        int count = 0;
+        if (row >= 0 && col >= 0 && row < rows && col < cols && !visited[row][col] && getDigitSum(row) + getDigitSum(col) <= limit) {
+            count++;
+            visited[row][col] = true;
+            count += movingCore(limit, rows, cols, visited, row + 1, col);
+            count += movingCore(limit, rows, cols, visited, row - 1, col);
+            count += movingCore(limit, rows, cols, visited, row, col + 1);
+            count += movingCore(limit, rows, cols, visited, row, col - 1);
+        }
+        return count;
+    }
+
+    private static int getDigitSum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
     }
 
     /**
