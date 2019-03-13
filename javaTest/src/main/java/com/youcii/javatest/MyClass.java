@@ -56,7 +56,7 @@ public class MyClass {
 
         System.out.println("\n");
         array = new int[]{7, 8, 9, 4, 5, 6, 7};
-        System.out.println("二分法查找自增旋转数组中的最小值: " + findMin1(array, 0, 6) + ":" + findMin2(array));
+        System.out.println("二分法查找自增旋转数组中的最小值: " + findMin1(array, 0, 6) + ", " + findMin2(array));
 
         System.out.println("\n");
         char[][] data = {
@@ -68,6 +68,71 @@ public class MyClass {
 
         System.out.println("\n");
         System.out.println("机器人的运动范围: " + moveNum(10, 100, 100));
+
+        System.out.println("\n");
+        System.out.println("剪绳子: 动态规划算法" + cutRopeByDynamicProgramming(8) + ", 贪婪算法: " + cutRopeByGreedy(8));
+    }
+
+    /**
+     * 剪绳子, 长度为n的绳子剪至少一刀后, 各段绳子的最大乘积
+     * <p>
+     * 动态规划算法: 分解为子问题自上而下求解, 因为子问题会重复, 所以暂存子问题最优解, 避免重复计算
+     */
+    private static int cutRopeByDynamicProgramming(int length) {
+        if (length < 2) {
+            return 0;
+        }
+        if (length == 3) {
+            return 2;
+        }
+        if (length == 4) {
+            return 4;
+        }
+
+        int[] child = new int[length + 1]; // +1是因为多存储一个0
+        child[1] = 1;
+        child[2] = 2;
+        child[3] = 3;
+        child[4] = 4;
+
+        int max;
+        for (int i = 5; i <= length; i++) {
+            // 长度为i时, 切为j*(i-j)两段, 计算最大值
+            max = 0;
+            for (int j = 1; j <= i / 2; j++) {
+                max = Math.max(max, child[j] * child[i - j]);
+            }
+            // 把子问题的最优解暂存, 以便下阶段使用
+            child[i] = max;
+        }
+
+        return child[length];
+    }
+
+    /**
+     * 贪婪算法
+     * 事先通过数学办法推算出最优算法
+     */
+    private static int cutRopeByGreedy(int length) {
+        if (length < 2) {
+            return 0;
+        }
+        if (length == 3) {
+            return 2;
+        }
+        if (length == 4) {
+            return 4;
+        }
+
+        int numOf3 = length / 3;
+        int extra = length % 3;
+        if (extra == 0) {
+            return (int) Math.pow(3, numOf3);
+        } else if (extra == 1) {
+            return (int) Math.pow(3, numOf3 - 1) * 4;
+        } else {
+            return (int) Math.pow(3, numOf3) * 2;
+        }
     }
 
     /**
