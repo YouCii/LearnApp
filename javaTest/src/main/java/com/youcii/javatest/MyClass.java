@@ -71,12 +71,73 @@ public class MyClass {
 
         System.out.println("\n");
         System.out.println("剪绳子: 动态规划算法" + cutRopeByDynamicProgramming(8) + ", 贪婪算法: " + cutRopeByGreedy(8));
+
+        System.out.println("\n");
+        dataType();
+
+        System.out.println("\n");
+        print1ToMaxNumber(4);
+    }
+
+    /**
+     * 打印1, 2, 3, ... , n位最大数
+     */
+    private static void print1ToMaxNumber(int n) {
+        if (n <= 0) {
+            return;
+        }
+        int arraySize = (n & 1) == 1 ? n / 2 + 1 : n / 2;
+        byte[] data = new byte[arraySize];
+        while (increment(data, (n & 1) == 1)) {
+            System.out.println(getStringFromBytes(data));
+        }
+    }
+
+    /**
+     * byte数组转string
+     */
+    private static String getStringFromBytes(byte[] data) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = data.length - 1; i >= 0; i--) {
+            if (data[i] == 0 && builder.length() == 0) {
+                continue;
+            }
+            if (data[i] < 10 && builder.length() != 0) {
+                builder.append(0);
+            }
+            builder.append(data[i]);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * @param isSingleAtLast 最后一位最大是单位9
+     * @return 是否没有溢出
+     */
+    private static boolean increment(byte[] data, boolean isSingleAtLast) {
+        boolean notOverflow = true; // 没有溢出
+        int position = 0; // 当前计算的位置
+        boolean carry = true; // 是否有进位
+        boolean isSingle; // 表明是不是"一位"的最后一位
+        while (carry) {
+            isSingle = isSingleAtLast && position == data.length - 1;
+            if ((isSingle && data[position] < 9) || (!isSingle && data[position] < 99)) {
+                data[position]++;
+                carry = false;
+            } else if (isSingle) {
+                notOverflow = false;
+            } else {
+                data[position] = 0;
+                position++;
+            }
+        }
+        return notOverflow;
     }
 
     /**
      * 基本类型位数
      */
-    private void dataType() {
+    private static void dataType() {
         // 有符号8位, 最大值为pow(2, 7) - 1 = 127
         byte a = 127;
         // 有符号16位, 最大值为pow(2, 15) - 1 = 32767
@@ -94,6 +155,12 @@ public class MyClass {
         float f = -111111111111111111111111111111111111111F;
         // 有符号64位, 1位符号位, 11位指数位, 52位尾数位
         double g = -111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111D;
+
+        System.out.println("byte:" + a + "; e:" + (char) 54);
+
+        int[] ints = {1};
+        ints[0]++;
+        System.out.println("ints[0]++:" + ints[0]);
     }
 
     /**
