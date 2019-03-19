@@ -76,11 +76,47 @@ public class MyClass {
         dataType();
 
         System.out.println("\n");
-        print1ToMaxNumber(4);
+        print1ToMaxNumberByFullArrange(3);
     }
 
     /**
      * 打印1, 2, 3, ... , n位最大数
+     * byte数组, 各位的0~9全排列方式
+     */
+    private static void print1ToMaxNumberByFullArrange(int n) {
+        if (n <= 0) {
+            return;
+        }
+        int arraySize = (n & 1) == 1 ? n / 2 + 1 : n / 2;
+        byte[] data = new byte[arraySize];
+
+        // 从最高位开始, 如果最高位是单数, 最大遍历到9
+        int maxNum = (n & 1) == 1 ? 10 : 100;
+        for (byte i = 0; i < maxNum; i++) {
+            data[arraySize - 1] = i;
+            fullArrangeRecursively(data, arraySize - 1);
+        }
+    }
+
+    /**
+     * 递归每位全排位
+     *
+     * @param index 当前位置
+     */
+    private static void fullArrangeRecursively(byte[] data, int index) {
+        if (index == 0) {
+            System.out.println(getStringFromBytes(data));
+            return;
+        }
+        for (byte i = 0; i < 100; i++) {
+            data[index - 1] = i;
+            fullArrangeRecursively(data, index - 1);
+        }
+    }
+
+    /**
+     * 打印1, 2, 3, ... , n位最大数
+     * 用byte数组模拟+1操作实现
      */
     private static void print1ToMaxNumber(int n) {
         if (n <= 0) {
