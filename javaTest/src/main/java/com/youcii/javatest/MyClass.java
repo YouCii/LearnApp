@@ -77,6 +77,58 @@ public class MyClass {
 
         System.out.println("\n");
         print1ToMaxNumberByFullArrange(3);
+
+        System.out.println("\n");
+        LinkedNode root3 = new LinkedNode(1);
+        root3.next = new LinkedNode(2);
+        root3.next.next = new LinkedNode(3);
+        root3.next.next.next = new LinkedNode(4);
+        root3.next.next.next.next = new LinkedNode(5);
+        root3.next.next.next.next.next = new LinkedNode(6);
+        root3.next.next.next.next.next.next = new LinkedNode(7);
+        System.out.println("删除重复的排序链表节点: " + deleteDuplicate(root3));
+    }
+
+    /**
+     * 删除重复的排序链表节点
+     */
+    private static LinkedNode deleteDuplicate(LinkedNode head) {
+        if (head == null) {
+            return null;
+        }
+        LinkedNode pre = null, current = head, next;
+        while (current.next != null) {
+            next = current.next;
+            if (next.val == current.val) {
+                while (next.next != null) {
+                    if (next.next.val == next.val) {
+                        next = next.next;
+                    } else {
+                        break;
+                    }
+                }
+                if (pre == null) {
+                    if (next.next == null) {
+                        return null;
+                    } else {
+                        head.val = next.next.val;
+                        head.next = next.next.next;
+                    }
+                } else {
+                    if (next.next == null) {
+                        pre.next = null;
+                        return head;
+                    } else {
+                        current = next.next;
+                        pre.next = next.next;
+                    }
+                }
+            } else {
+                pre = current;
+                current = current.next;
+            }
+        }
+        return head;
     }
 
     /**
