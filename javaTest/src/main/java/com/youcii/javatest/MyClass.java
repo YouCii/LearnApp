@@ -87,6 +87,50 @@ public class MyClass {
         root3.next.next.next.next.next = new LinkedNode(6);
         root3.next.next.next.next.next.next = new LinkedNode(7);
         System.out.println("删除重复的排序链表节点: " + deleteDuplicate(root3));
+
+        System.out.println("\n");
+        System.out.println("正则表达式匹配: " + patternMatch("abcdef", ".*.*.*.*"));
+    }
+
+    /**
+     * 正则表达式匹配
+     * .可以表示任意字符, *表示前面的字符可以出现任意次数(包括0次)
+     * 测试用例: s -- abcdef, p -- .*, ab.c*def, abzdef, abz*cdef, abcdef, ......, .*.*.*.*
+     */
+    private static boolean patternMatch(String s, String pattern) {
+        if (s == null || pattern == null) {
+            return false;
+        }
+        if (pattern.startsWith("*") || pattern.contains("**")) {
+            throw new IllegalArgumentException("pattern格式错误");
+        }
+        return match(s, pattern);
+    }
+
+    private static boolean match(String s, String pattern) {
+        if (pattern.startsWith("*")) {
+            throw new IllegalArgumentException("pattern格式错误");
+        }
+        if (s.length() == 0) {
+            return pattern.length() == 0;
+        }
+        if (pattern.length() == 0) {
+            return false;
+        }
+        char cOfS = s.charAt(0), cOfP = pattern.charAt(0);
+        if (pattern.length() == 1 || pattern.charAt(1) != '*') {
+            if (cOfS == cOfP || cOfP == '.') {
+                return match(s.substring(1), pattern.substring(1));
+            } else {
+                return false;
+            }
+        } else {
+            if (cOfS == cOfP || cOfP == '.') {
+                return match(s.substring(1), pattern) || match(s.substring(1), pattern.substring(2));
+            } else {
+                return match(s, pattern.substring(2));
+            }
+        }
     }
 
     /**
@@ -139,15 +183,11 @@ public class MyClass {
         if (n <= 0) {
             return;
         }
-        int arraySize = (n & 1) == 1 ? n / 2 + 1 : n / 2;
+        boolean isSingle = (n & 1) == 1;
+        int arraySize = isSingle ? n / 2 + 1 : n / 2;
         byte[] data = new byte[arraySize];
 
-        // 从最高位开始, 如果最高位是单数, 最大遍历到9
-        int maxNum = (n & 1) == 1 ? 10 : 100;
-        for (byte i = 0; i < maxNum; i++) {
-            data[arraySize - 1] = i;
-            fullArrangeRecursively(data, arraySize - 1);
-        }
+        fullArrangeRecursively(data, isSingle, arraySize);
     }
 
     /**
@@ -155,14 +195,16 @@ public class MyClass {
      *
      * @param index 当前位置
      */
-    private static void fullArrangeRecursively(byte[] data, int index) {
+    private static void fullArrangeRecursively(byte[] data, boolean isSingle, int index) {
+        // 如果是第一遍递归的话, 这里的data内还没有值, 所以需要把递归次数+1, 即index从data.length开始, 而不是原本的第一高位data.length-1
         if (index == 0) {
             System.out.println(getStringFromBytes(data));
             return;
         }
-        for (byte i = 0; i < 100; i++) {
+        int maxNum = (isSingle && index == data.length) ? 10 : 100;
+        for (byte i = 0; i < maxNum; i++) {
             data[index - 1] = i;
-            fullArrangeRecursively(data, index - 1);
+            fullArrangeRecursively(data, isSingle, index - 1);
         }
     }
 
