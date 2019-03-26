@@ -90,7 +90,52 @@ public class MyClass {
 
         System.out.println("\n");
         System.out.println("正则表达式匹配: " + patternMatch("abcdef", ".*.*.*.*"));
+
+        System.out.println("\n");
+        char[] chars = {'+','2'};
+        System.out.println("校验一个String是否是数字: " + isNumber(chars));
     }
+
+    /**
+     * 校验一个String是否是数字
+     * 正例: +2  -2  .2  2.  2E2  2e2  2E+2  2E-2  2.E-2
+     * 反例: E2  2E  EE  .2. +-2  2e2.2
+     * <p>
+     * 思路一: 以小数点和E/e把字符串分为三部分, 第一部分可以为+/-(数字).(数字), 第二部分为纯数字, 第三部分为+/-(数字)
+     * 思路二: O(n)遍历校验每个字符, 每个字符都有自己的规则, 此思路比较清晰, 以此实现
+     */
+    private static boolean isNumber(char[] chars) {
+        if (chars == null || chars.length < 1) {
+            return false;
+        }
+        boolean hasDot = false, hasE = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '+' || chars[i] == '-') {
+                // +/-只会出现在第一位或者E的后一位
+                if (i != 0 && chars[i - 1] != 'E' && chars[i - 1] != 'e') {
+                    return false;
+                }
+            } else if (chars[i] == 'E' || chars[i] == 'e') {
+                // E不允许出现在第一位/最后一位, 并且只能出现一次
+                if (i == 0 || i == chars.length - 1 || hasE) {
+                    return false;
+                } else {
+                    hasE = true;
+                }
+            } else if (chars[i] == '.') {
+                // .不允许出现在E后面, 并且只能出现一次
+                if (hasE || hasDot) {
+                    return false;
+                } else {
+                    hasDot = true;
+                }
+            } else if (chars[i] < '0' || chars[i] > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * 正则表达式匹配
