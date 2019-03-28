@@ -16,6 +16,10 @@ public class LinkedNode {
         while (current != null) {
             builder.append("->").append(current.val);
             current = current.next;
+            if (current == this) {
+                builder.append("->ring");
+                break;
+            }
         }
         return builder.toString();
     }

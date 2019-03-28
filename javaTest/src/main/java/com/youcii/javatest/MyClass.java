@@ -3,17 +3,14 @@ package com.youcii.javatest;
 import com.youcii.javatest.structure.LinkedNode;
 import com.youcii.javatest.structure.tree.BinaryTreeNode;
 import com.youcii.javatest.structure.tree.SearchTreeNode;
-import com.youcii.javatest.structure.tree.TreeNode;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by jdw on 2018/12/20.
  * <p>
- * 用于LeetCode的测试
+ * 算法相关
  */
 public class MyClass {
 
@@ -21,79 +18,137 @@ public class MyClass {
      * 单独打印"\n"是为了防止算法方法在回调String之前在内部打印了日志
      */
     public static void main(String[] args) {
-        System.out.println("\n");
-        System.out.println("无重复字符的最长子串的长度: " + lengthOfLongestSubstring("pwwkew"));
+//        System.out.println("\n");
+//        System.out.println("无重复字符的最长子串的长度: " + lengthOfLongestSubstring("pwwkew"));
+//
+//        System.out.println("\n");
+//        LinkedNode root1 = new LinkedNode(2);
+//        root1.next = new LinkedNode(4);
+//        root1.next.next = new LinkedNode(3);
+//        LinkedNode root2 = new LinkedNode(5);
+//        root2.next = new LinkedNode(6);
+//        root2.next.next = new LinkedNode(4);
+//        System.out.println("两数之和: " + addTwoNumbers(root1, root2));
+//
+//        System.out.println("\n");
+//        BinaryTreeNode<Integer> node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
+//        System.out.println(normalTreeOperation(node));
+//
+//        System.out.println("\n");
+//        System.out.println(searchTreeOperation());
+//
+//        System.out.println("\n");
+//        node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
+//        List<TreeNode<Integer>> nodes = node.findNodeByVal(7);
+//        BinaryTreeNode<Integer> target1 = null;
+//        if (nodes.size() > 0) {
+//            target1 = (BinaryTreeNode<Integer>) nodes.get(0);
+//        }
+//        System.out.println("查找中序遍历顺序的下一个节点: " + findNextFollowInOrder(target1));
+//
+//        System.out.println("\n");
+//        int[] array = new int[]{3, 2, 4, 0, 8, 7};
+//        quickSort(array, 0, 5);
+//        System.out.println("快速排序结果: " + Arrays.toString(array));
+//
+//        System.out.println("\n");
+//        array = new int[]{7, 8, 9, 4, 5, 6, 7};
+//        System.out.println("二分法查找自增旋转数组中的最小值: " + findMin1(array, 0, 6) + ", " + findMin2(array));
+//
+//        System.out.println("\n");
+//        char[][] data = {
+//                {'a', 'b', 't', 'g'},
+//                {'c', 'f', 'c', 's'},
+//                {'j', 'd', 'e', 'h'}};
+//        char[] target2 = {'a', 'c', 'j', 'd', 'e', 'h', 's', 'g', 't', 'b', 'f', 'c'};
+//        System.out.println("回溯法判断矩阵中是否存在某路径: " + containsPath(data, target2));
+//
+//        System.out.println("\n");
+//        System.out.println("机器人的运动范围: " + moveNum(10, 100, 100));
+//
+//        System.out.println("\n");
+//        System.out.println("剪绳子: 动态规划算法" + cutRopeByDynamicProgramming(8) + ", 贪婪算法: " + cutRopeByGreedy(8));
+//
+//        System.out.println("\n");
+//        dataType();
+//
+//        System.out.println("\n");
+//        print1ToMaxNumberByFullArrange(3);
+//
+//        System.out.println("\n");
+//        LinkedNode root3 = new LinkedNode(1);
+//        root3.next = new LinkedNode(2);
+//        root3.next.next = new LinkedNode(3);
+//        root3.next.next.next = new LinkedNode(4);
+//        root3.next.next.next.next = new LinkedNode(5);
+//        root3.next.next.next.next.next = new LinkedNode(6);
+//        root3.next.next.next.next.next.next = new LinkedNode(7);
+//        System.out.println("删除重复的排序链表节点: " + deleteDuplicate(root3));
+//
+//        System.out.println("\n");
+//        System.out.println("正则表达式匹配: " + patternMatch("abcdef", ".*.*.*.*"));
+//
+//        System.out.println("\n");
+//        char[] chars = {'+','2'};
+//        System.out.println("校验一个String是否是数字: " + isNumber(chars));
 
         System.out.println("\n");
-        LinkedNode root1 = new LinkedNode(2);
-        root1.next = new LinkedNode(4);
-        root1.next.next = new LinkedNode(3);
-        LinkedNode root2 = new LinkedNode(5);
-        root2.next = new LinkedNode(6);
-        root2.next.next = new LinkedNode(4);
-        System.out.println("两数之和: " + addTwoNumbers(root1, root2));
+        LinkedNode root4 = new LinkedNode(1);
+        root4.next = new LinkedNode(2);
+        root4.next.next = new LinkedNode(3);
+        root4.next.next.next = new LinkedNode(4);
+        root4.next.next.next.next = new LinkedNode(5);
+        root4.next.next.next.next.next = new LinkedNode(6);
+        root4.next.next.next.next.next.next = new LinkedNode(7);
+        root4.next.next.next.next.next.next.next = root4.next.next.next;
+        System.out.println("链表中环的入口节点: " + getRingEnter(root4));
+    }
 
-        System.out.println("\n");
-        BinaryTreeNode<Integer> node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
-        System.out.println(normalTreeOperation(node));
-
-        System.out.println("\n");
-        System.out.println(searchTreeOperation());
-
-        System.out.println("\n");
-        node = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
-        List<TreeNode<Integer>> nodes = node.findNodeByVal(7);
-        BinaryTreeNode<Integer> target1 = null;
-        if (nodes.size() > 0) {
-            target1 = (BinaryTreeNode<Integer>) nodes.get(0);
+    /**
+     * 链表中环的入口节点
+     * <p>
+     * 1. 两个指针遍历, 速度2的指针与速度1的指针相遇说明有环
+     * 2. 记录相遇位置, 再次回到此位置时, 移动距离为环的节点数目
+     * 3. 两个指针遍历, 指针1首先移动环节点数步, 一起移动的首次相遇点即入口点
+     */
+    private static LinkedNode getRingEnter(LinkedNode header) {
+        if (header == null) {
+            return null;
         }
-        System.out.println("查找中序遍历顺序的下一个节点: " + findNextFollowInOrder(target1));
+        LinkedNode slow = header, fast = header, meet = null;
+        int ringChild = 0;
+        while (fast != null && slow != null) {
+            if (meet == null) {
+                slow = slow.next;
+                fast = fast.next;
+                if (fast != null) {
+                    fast = fast.next;
+                    if (fast == slow) {
+                        meet = fast;
+                    }
+                }
+            } else {
+                slow = slow.next;
+                ringChild++;
+                if (slow == meet) {
+                    break;
+                }
+            }
+        }
+        if (slow == null || fast == null) {
+            return null;
+        }
 
-        System.out.println("\n");
-        int[] array = new int[]{3, 2, 4, 0, 8, 7};
-        quickSort(array, 0, 5);
-        System.out.println("快速排序结果: " + Arrays.toString(array));
-
-        System.out.println("\n");
-        array = new int[]{7, 8, 9, 4, 5, 6, 7};
-        System.out.println("二分法查找自增旋转数组中的最小值: " + findMin1(array, 0, 6) + ", " + findMin2(array));
-
-        System.out.println("\n");
-        char[][] data = {
-                {'a', 'b', 't', 'g'},
-                {'c', 'f', 'c', 's'},
-                {'j', 'd', 'e', 'h'}};
-        char[] target2 = {'a', 'c', 'j', 'd', 'e', 'h', 's', 'g', 't', 'b', 'f', 'c'};
-        System.out.println("回溯法判断矩阵中是否存在某路径: " + containsPath(data, target2));
-
-        System.out.println("\n");
-        System.out.println("机器人的运动范围: " + moveNum(10, 100, 100));
-
-        System.out.println("\n");
-        System.out.println("剪绳子: 动态规划算法" + cutRopeByDynamicProgramming(8) + ", 贪婪算法: " + cutRopeByGreedy(8));
-
-        System.out.println("\n");
-        dataType();
-
-        System.out.println("\n");
-        print1ToMaxNumberByFullArrange(3);
-
-        System.out.println("\n");
-        LinkedNode root3 = new LinkedNode(1);
-        root3.next = new LinkedNode(2);
-        root3.next.next = new LinkedNode(3);
-        root3.next.next.next = new LinkedNode(4);
-        root3.next.next.next.next = new LinkedNode(5);
-        root3.next.next.next.next.next = new LinkedNode(6);
-        root3.next.next.next.next.next.next = new LinkedNode(7);
-        System.out.println("删除重复的排序链表节点: " + deleteDuplicate(root3));
-
-        System.out.println("\n");
-        System.out.println("正则表达式匹配: " + patternMatch("abcdef", ".*.*.*.*"));
-
-        System.out.println("\n");
-        char[] chars = {'+','2'};
-        System.out.println("校验一个String是否是数字: " + isNumber(chars));
+        slow = fast = header;
+        while (ringChild > 0) {
+            fast = fast.next;
+            ringChild--;
+        }
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
     }
 
     /**
