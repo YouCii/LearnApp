@@ -91,17 +91,43 @@ public class MyClass {
 //        System.out.println("\n");
 //        char[] chars = {'+','2'};
 //        System.out.println("校验一个String是否是数字: " + isNumber(chars));
+//
+//        System.out.println("\n");
+//        LinkedNode root4 = new LinkedNode(1);
+//        root4.next = new LinkedNode(2);
+//        root4.next.next = new LinkedNode(3);
+//        root4.next.next.next = new LinkedNode(4);
+//        root4.next.next.next.next = new LinkedNode(5);
+//        root4.next.next.next.next.next = new LinkedNode(6);
+//        root4.next.next.next.next.next.next = new LinkedNode(7);
+//        root4.next.next.next.next.next.next.next = root4.next.next.next;
+//        System.out.println("链表中环的入口节点: " + getRingEnter(root4));
 
         System.out.println("\n");
-        LinkedNode root4 = new LinkedNode(1);
-        root4.next = new LinkedNode(2);
-        root4.next.next = new LinkedNode(3);
-        root4.next.next.next = new LinkedNode(4);
-        root4.next.next.next.next = new LinkedNode(5);
-        root4.next.next.next.next.next = new LinkedNode(6);
-        root4.next.next.next.next.next.next = new LinkedNode(7);
-        root4.next.next.next.next.next.next.next = root4.next.next.next;
-        System.out.println("链表中环的入口节点: " + getRingEnter(root4));
+        LinkedNode root5 = new LinkedNode(1);
+        root5.next = new LinkedNode(2);
+        root5.next.next = new LinkedNode(3);
+        root5.next.next.next = new LinkedNode(4);
+        root5.next.next.next.next = new LinkedNode(5);
+        root5.next.next.next.next.next = new LinkedNode(6);
+        root5.next.next.next.next.next.next = new LinkedNode(7);
+        root5.next.next.next.next.next.next.next = new LinkedNode(8);
+        System.out.println("反转链表: " + reverseLinked(root5));
+    }
+
+    /**
+     * 反转链表
+     */
+    private static LinkedNode reverseLinked(LinkedNode header) {
+        LinkedNode last = null, current = header, next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = last;
+
+            last = current;
+            current = next;
+        }
+        return last;
     }
 
     /**
