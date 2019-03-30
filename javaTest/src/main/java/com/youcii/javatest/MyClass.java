@@ -102,17 +102,72 @@ public class MyClass {
 //        root4.next.next.next.next.next.next = new LinkedNode(7);
 //        root4.next.next.next.next.next.next.next = root4.next.next.next;
 //        System.out.println("链表中环的入口节点: " + getRingEnter(root4));
+//
+//        System.out.println("\n");
+//        LinkedNode root5 = new LinkedNode(1);
+//        root5.next = new LinkedNode(2);
+//        root5.next.next = new LinkedNode(3);
+//        root5.next.next.next = new LinkedNode(4);
+//        root5.next.next.next.next = new LinkedNode(5);
+//        root5.next.next.next.next.next = new LinkedNode(6);
+//        root5.next.next.next.next.next.next = new LinkedNode(7);
+//        root5.next.next.next.next.next.next.next = new LinkedNode(8);
+//        System.out.println("反转链表: " + reverseLinked(root5));
 
         System.out.println("\n");
-        LinkedNode root5 = new LinkedNode(1);
-        root5.next = new LinkedNode(2);
-        root5.next.next = new LinkedNode(3);
-        root5.next.next.next = new LinkedNode(4);
-        root5.next.next.next.next = new LinkedNode(5);
-        root5.next.next.next.next.next = new LinkedNode(6);
-        root5.next.next.next.next.next.next = new LinkedNode(7);
-        root5.next.next.next.next.next.next.next = new LinkedNode(8);
-        System.out.println("反转链表: " + reverseLinked(root5));
+        LinkedNode root6 = new LinkedNode(1);
+        root6.next = new LinkedNode(2);
+        root6.next.next = new LinkedNode(3);
+        root6.next.next.next = new LinkedNode(4);
+        LinkedNode root7 = new LinkedNode(2);
+        root7.next = new LinkedNode(2);
+        root7.next.next = new LinkedNode(3);
+        root7.next.next.next = new LinkedNode(4);
+        System.out.println("合并递增链表: " + mergeLinked(root6, root7));
+    }
+
+    /**
+     * 合并两个递增链表, 保持递增
+     */
+    private static LinkedNode mergeLinked(LinkedNode node1, LinkedNode node2) {
+        if (node1 == null) {
+            return node2;
+        }
+        if (node2 == null) {
+            return node1;
+        }
+
+        LinkedNode header = null, current = null, min = null;
+        while (node1 != null || node2 != null) {
+            min = minNode(node1, node2);
+
+            if (min == node1) {
+                node1 = node1.next;
+            } else {
+                node2 = node2.next;
+            }
+
+            if (current == null) {
+                header = current = min;
+            } else {
+                current.next = min;
+                current = current.next;
+            }
+        }
+        return header;
+    }
+
+    private static LinkedNode minNode(LinkedNode node1, LinkedNode node2) {
+        if (node1 == null) {
+            return node2;
+        }
+        if (node2 == null) {
+            return node1;
+        }
+        if (node1.val > node2.val) {
+            return node2;
+        }
+        return node1;
     }
 
     /**
