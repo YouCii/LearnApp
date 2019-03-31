@@ -122,17 +122,13 @@ public class MyClass {
         System.out.println("\n");
         BinaryTreeNode parent = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
         BinaryTreeNode child = rebuildTree(new Integer[]{6, 7, 8}, new Integer[]{7, 6, 8});
-        System.out.println("树的子结构: " + isSubTree(parent, child));
+        System.out.println("树的子结构: " + isSubTree2(parent, child));
     }
 
     /**
-     * 树的子结构
-     * 1.         1
-     * 2.      2      3
-     * 3.   4    5      6
-     * 4.       7 8
+     * 树的子结构: 层次遍历
      */
-    private static boolean isSubTree(BinaryTreeNode parent, BinaryTreeNode child) {
+    private static boolean isSubTree1(BinaryTreeNode parent, BinaryTreeNode child) {
         if (parent == null || child == null) {
             return false;
         }
@@ -153,6 +149,27 @@ public class MyClass {
             }
         }
         return false;
+    }
+
+    /**
+     * 树的子结构: 前序遍历
+     */
+    private static boolean isSubTree2(BinaryTreeNode parent, BinaryTreeNode child) {
+        if (parent == null || child == null) {
+            return false;
+        }
+        if (parent.val == child.val && startWithTree(parent, child)) {
+            return true;
+        } else {
+            boolean result = false;
+            if (parent.left != null) {
+                result = isSubTree2(parent.left, child);
+            }
+            if (parent.right != null) {
+                result |= isSubTree2(parent.right, child);
+            }
+            return result;
+        }
     }
 
     private static boolean startWithTree(BinaryTreeNode parent, BinaryTreeNode child) {
