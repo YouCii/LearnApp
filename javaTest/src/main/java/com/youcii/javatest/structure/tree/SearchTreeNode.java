@@ -101,7 +101,7 @@ public class SearchTreeNode<T extends Comparable<T>> extends BinaryTreeNode<T> {
                         predecessorParent = predecessor;
                         predecessor = (SearchTreeNode<T>) predecessor.right;
                     }
-                    // 前驱只会是父节点的右子节点, 而且前驱没有右子节点, 所以只有这一种重排序 <==重要规律
+                    // 前驱只会是其父节点的右子节点, 而且前驱没有右子节点, 所以只有这一种重排序 <==重要规律
                     predecessorParent.right = predecessor.left;
 
                     val = predecessor.val;

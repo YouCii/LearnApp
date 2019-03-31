@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -268,7 +269,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     @NotNull
     @Override
     public String levelOrder() {
-        LinkedList<BinaryTreeNode> queue = new LinkedList<>();
+        Queue<BinaryTreeNode> queue = new LinkedList<>();
         StringBuilder builder = new StringBuilder();
         queue.offer(this);
         while (queue.size() != 0) {
