@@ -124,30 +124,6 @@ public class SearchTreeNode<T extends Comparable<T>> extends BinaryTreeNode<T> {
         }
     }
 
-    /**
-     * 获取前驱节点
-     * (中序前驱节点, 在搜索二叉树中体现为左子树的最大值)
-     */
-    private SearchTreeNode<T> predecessor() {
-        if (this.left == null) {
-            throw new NullPointerException("没有前驱节点");
-        } else {
-            return (SearchTreeNode<T>) this.left.findMax();
-        }
-    }
-
-    /**
-     * 获取后继节点
-     * (中序后继节点, 在搜索二叉树中体现为右子树的最小值)
-     */
-    private SearchTreeNode<T> successor() {
-        if (this.right == null) {
-            throw new NullPointerException("没有后继节点");
-        } else {
-            return (SearchTreeNode<T>) this.right.findMin();
-        }
-    }
-
     @Override
     public boolean contains(T t) {
         if (t == null) {

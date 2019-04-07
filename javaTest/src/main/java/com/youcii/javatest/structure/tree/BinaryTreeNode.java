@@ -34,7 +34,7 @@ public class BinaryTreeNode<T extends Comparable<T>> implements TreeNode<T> {
     }
 
     /**
-     * 按照层级方向, 第一个没有左右子节点的节点就是目标节点
+     * 按照层级方向, 第一个左右子节点不全或都没有的节点就是目标节点
      */
     @Override
     public boolean insert(T t) {

@@ -161,14 +161,7 @@ public class MyClass {
         if (parent.val == child.val && startWithTree(parent, child)) {
             return true;
         } else {
-            boolean result = false;
-            if (parent.left != null) {
-                result = isSubTree2(parent.left, child);
-            }
-            if (parent.right != null) {
-                result |= isSubTree2(parent.right, child);
-            }
-            return result;
+            return isSubTree2(parent.left, child) || isSubTree2(parent.right, child);
         }
     }
 
@@ -234,15 +227,15 @@ public class MyClass {
      * 反转链表
      */
     private static LinkedNode reverseLinked(LinkedNode header) {
-        LinkedNode last = null, current = header, next = null;
+        LinkedNode pre = null, current = header, next = null;
         while (current != null) {
             next = current.next;
-            current.next = last;
+            current.next = pre;
 
-            last = current;
+            pre = current;
             current = next;
         }
-        return last;
+        return pre;
     }
 
     /**
@@ -520,7 +513,7 @@ public class MyClass {
 
         // 8位
         boolean i = false;
-        // 无符号16位, 最大值位pow(2, 8) - 1 = 65536
+        // 无符号16位, 最大值位pow(2, 16) - 1 = 65536
         char e = 65535;
         // 有符号32位, 1位符号位, 8位指数位, 23位尾数位
         float f = -111111111111111111111111111111111111111F;
@@ -560,6 +553,7 @@ public class MyClass {
         for (int i = 5; i <= length; i++) {
             // 长度为i时, 切为j*(i-j)两段, 计算最大值
             max = 0;
+            // j从1开始是因为至少剪一刀
             for (int j = 1; j <= i / 2; j++) {
                 max = Math.max(max, child[j] * child[i - j]);
             }
@@ -714,29 +708,27 @@ public class MyClass {
         if (array[0] < array[array.length - 1]) {
             return array[0];
         }
-        int min = 0;
         int low = 0, height = array.length - 1, middle = (height + low) / 2;
         while (height - low > 1) {
             if (array[low] == array[height] && array[low] == array[middle]) {
-                min = array[low];
+                int min = array[low];
                 for (int i = low + 1; i <= height; i++) {
                     if (array[i] < min) {
                         min = array[i];
                     }
                 }
-                break;
+                return min;
             }
             if (array[middle] <= array[low] && array[middle] <= array[height]) {
                 height = middle;
-                min = array[middle];
             }
             if (array[middle] >= array[low] && array[middle] >= array[height]) {
                 low = middle;
-                min = array[height];
             }
             middle = (low + height) / 2;
         }
-        return min;
+        // 终止了循环, 即height - low <= 1
+        return array[low] > array[height] ? array[height] : array[low];
     }
 
     /**
@@ -847,7 +839,7 @@ public class MyClass {
         if (target == target.parent.left) {
             return target.parent.val;
         }
-        // 执行到这里说明该节点是父节点的右子节点, 那么其下一个节点就是其前辈节点中第一个是其父节点的左子节点的那一个
+        // 执行到这里说明该节点是父节点的右子节点, 那么其下一个节点就是其前辈节点中第一个是其父节点的左子节点的那一个前辈节点的父节点
         BinaryTreeNode<T> current = target.parent;
         while (current.parent != null) {
             if (current == current.parent.left) {

@@ -9,7 +9,9 @@ import android.text.method.ScrollingMovementMethod
 import com.jakewharton.rxbinding2.view.RxView
 import com.youcii.mvplearn.R
 import com.youcii.mvplearn.activity.LockSynchronizedActivity.ObservableKind.*
-import com.youcii.mvplearn.base.BaseActivity
+import com.youcii.mvplearn.activity.interfaces.IThreadTestView
+import com.youcii.mvplearn.base.BasePresenterActivity
+import com.youcii.mvplearn.presenter.ThreadTestPresenter
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_lock_synchronized.*
 import java.lang.ref.WeakReference
@@ -22,28 +24,26 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 /**
  * Created by jdw on 2018/5/28.
  *
-附 公平锁和非公平锁的实现:
-
-1. 简化版的步骤：（非公平锁的核心）
-基于CAS尝试将state（锁数量）从0设置为1
-A、如果设置成功，设置当前线程为独占锁的线程；
-B、如果设置失败，还会再
-获取一次锁数量，
-B1、如果锁数量为0，再
-基于CAS尝试将state（锁数量）从0设置为1一次，如果设置成功，设置当前线程为独占锁的线程；
-B2、如果锁数量不为0或者上边的尝试又失败了，
-查看当前线程是不是已经是独占锁的线程了，如果是，则将当前的锁数量+1；如果不是，则将该线程封装在一个Node内，并加入到等待队列中去。等待被其前一个线程节点唤醒。
-
-2. 简化版的步骤：（公平锁的核心）
-获取一次锁数量，
-B1、如果锁数量为0，如果当前线程是等待队列中的头节点，
-基于CAS尝试将state（锁数量）从0设置为1一次，如果设置成功，设置当前线程为独占锁的线程；
-B2、如果锁数量不为0或者当前线程不是等待队列中的头节点或者上边的尝试又失败了，
-查看当前线程是不是已经是独占锁的线程了，如果是，则将当前的锁数量+1；如果不是，则将该线程封装在一个Node内，并加入到等待队列中去。等待被其前一个线程节点唤醒。
-
+ *   附 公平锁和非公平锁的实现:
+ *
+ *   1. 简化版的步骤：（非公平锁的核心）
+ *   基于CAS尝试将state（锁数量）从0设置为1
+ *   A、如果设置成功，设置当前线程为独占锁的线程；
+ *   B、如果设置失败，还会再
+ *   获取一次锁数量，
+ *   B1、如果锁数量为0，再
+ *   基于CAS尝试将state（锁数量）从0设置为1一次，如果设置成功，设置当前线程为独占锁的线程；
+ *   B2、如果锁数量不为0或者上边的尝试又失败了，
+ *   查看当前线程是不是已经是独占锁的线程了，如果是，则将当前的锁数量+1；如果不是，则将该线程封装在一个Node内，并加入到等待队列中去。等待被其前一个线程节点唤醒。
+ *
+ *   2. 简化版的步骤：（公平锁的核心）
+ *   获取一次锁数量，
+ *   B1、如果锁数量为0，如果当前线程是等待队列中的头节点，
+ *   基于CAS尝试将state（锁数量）从0设置为1一次，如果设置成功，设置当前线程为独占锁的线程；
+ *   B2、如果锁数量不为0或者当前线程不是等待队列中的头节点或者上边的尝试又失败了，
+ *   查看当前线程是不是已经是独占锁的线程了，如果是，则将当前的锁数量+1；如果不是，则将该线程封装在一个Node内，并加入到等待队列中去。等待被其前一个线程节点唤醒。
  */
-class LockSynchronizedActivity : BaseActivity() {
-
+class LockSynchronizedActivity : BasePresenterActivity<IThreadTestView, ThreadTestPresenter>(), IThreadTestView {
     /**
      * 执行完毕后才能再次点击
      */
@@ -135,6 +135,13 @@ class LockSynchronizedActivity : BaseActivity() {
                         }
                     }
                 }
+
+        // 测试五个线程分段打印
+        presenter.startTestThread()
+    }
+
+    override fun initPresenter(): ThreadTestPresenter {
+        return ThreadTestPresenter(this)
     }
 
     /**
@@ -238,6 +245,10 @@ class LockSynchronizedActivity : BaseActivity() {
         val message = myHandler.obtainMessage()
         message.obj = obj
         message.sendToTarget()
+    }
+
+    override fun showText(string: String) {
+        sendMessage(string)
     }
 
     override fun onDestroy() {
