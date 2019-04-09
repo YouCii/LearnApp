@@ -123,6 +123,49 @@ public class MyClass {
         BinaryTreeNode parent = rebuildTree(new Integer[]{1, 2, 4, 5, 7, 8, 3, 6}, new Integer[]{4, 2, 7, 5, 8, 1, 3, 6});
         BinaryTreeNode child = rebuildTree(new Integer[]{6, 7, 8}, new Integer[]{7, 6, 8});
         System.out.println("树的子结构: " + isSubTree2(parent, child));
+
+        System.out.println("\n");
+        int[] target = new int[]{1, 5, 2, 4, 8, 7, 3, 6};
+        mergerSort(target, 0, target.length - 1);
+        System.out.println("归并排序: " + Arrays.toString(target));
+    }
+
+    /**
+     * 归并排序, 思路是分治法, 递归执行比较简单的合并已排序数组操作即可
+     */
+    private static void mergerSort(int[] array, int low, int high) {
+        if (array == null || array.length < 2 || low < 0 || high > array.length - 1 || low >= high) {
+            return;
+        }
+        int middle = (high + low) >>> 1;
+        mergerSort(array, low, middle);
+        mergerSort(array, middle + 1, high);
+
+        mergeSortArrays(array, low, middle, high);
+    }
+
+    private static void mergeSortArrays(int[] array, int low, int middle, int high) {
+        if (middle < low || middle > high) {
+            return;
+        }
+        int[] cache = new int[high - low + 1];
+        int indexLeft = low, indexRight = middle + 1, indexCache = 0;
+        while (indexLeft <= middle && indexRight <= high) {
+            if (array[indexLeft] < array[indexRight]) {
+                cache[indexCache++] = array[indexLeft++];
+            } else {
+                cache[indexCache++] = array[indexRight++];
+            }
+        }
+        while (indexLeft <= middle) {
+            cache[indexCache++] = array[indexLeft++];
+        }
+        while (indexRight <= high) {
+            cache[indexCache++] = array[indexRight++];
+        }
+        while (indexCache > 0) {
+            array[high--] = cache[--indexCache];
+        }
     }
 
     /**
