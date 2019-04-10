@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Created by jdw on 2018/12/20.
@@ -128,6 +129,34 @@ public class MyClass {
         int[] target = new int[]{1, 5, 2, 4, 8, 7, 3, 6};
         mergerSort(target, 0, target.length - 1);
         System.out.println("归并排序: " + Arrays.toString(target));
+
+        System.out.println("\n");
+        int[] pushArray = new int[]{1, 2, 3, 4, 5};
+        int[] popArray = new int[]{4, 5, 2, 3, 1};
+        System.out.println("两数组是否互为进出栈关系: " + isPopArray(pushArray, popArray));
+    }
+
+    /**
+     * 注意, 入栈不一定是一下全部压入, 可能边压入边弹出
+     *
+     * @param pushArray 按入栈顺序存储的数组
+     * @param popArray  按出栈顺序存储的数组
+     * @return 返回顺序是否匹配
+     */
+    private static boolean isPopArray(int[] pushArray, int[] popArray) {
+        if (pushArray == null || popArray == null) {
+            throw new NullPointerException();
+        }
+        Stack<Integer> cache = new Stack<>();
+        int indexPush = 0, indexPop = 0;
+        while (indexPush < pushArray.length) {
+            cache.push(pushArray[indexPush++]);
+            while (indexPop < popArray.length && cache.peek() == popArray[indexPop]) {
+                cache.pop();
+                indexPop++;
+            }
+        }
+        return cache.empty();
     }
 
     /**
