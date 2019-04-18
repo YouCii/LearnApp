@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,8 +10,8 @@
         android:id="@+id/tv_log"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:paddingLeft="20dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_synchronized"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,10 +21,10 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Synchronized"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_wait_notify"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_wait_notify"
@@ -31,10 +32,10 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="WaitNotify"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_reentrant"
-        app:layout_constraintStart_toEndOf="@+id/btn_synchronized" />
+        app:layout_constraintStart_toEndOf="@+id/btn_synchronized"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_reentrant"
@@ -42,10 +43,10 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Reentrant"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_read_write"
-        app:layout_constraintStart_toEndOf="@+id/btn_wait_notify" />
+        app:layout_constraintStart_toEndOf="@+id/btn_wait_notify"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_read_write"
@@ -53,9 +54,9 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="ReadWrite"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_reentrant" />
+        app:layout_constraintStart_toEndOf="@+id/btn_reentrant"
+        tools:ignore="HardcodedText" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

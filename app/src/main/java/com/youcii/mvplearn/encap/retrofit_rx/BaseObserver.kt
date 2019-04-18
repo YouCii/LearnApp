@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.encap.RetrofitRxJava
+package com.youcii.mvplearn.encap.retrofit_rx
 
 import android.app.Dialog
 import android.content.Context
@@ -58,7 +58,7 @@ open class BaseObserver<T>(context: Context) : DisposableObserver<T>() {
             is ConnectException ->
                 ToastUtils.showShortToast(App.getContext().getString(R.string.network_error))
             else ->
-                ToastUtils.showShortToast("请求失败: " + throwable.toString())
+                ToastUtils.showShortToast("请求失败: $throwable")
         }
     }
 

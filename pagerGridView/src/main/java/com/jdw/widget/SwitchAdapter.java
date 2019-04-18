@@ -1,8 +1,9 @@
 package com.jdw.widget;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,8 @@ public class SwitchAdapter extends RecyclerView.Adapter<SwitchAdapter.ViewHolder
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(context).inflate(itemView, parent, false);
         ViewHolder viewHolder = new ViewHolder(convertView);
         convertView.setTag(viewHolder);
@@ -64,7 +66,7 @@ public class SwitchAdapter extends RecyclerView.Adapter<SwitchAdapter.ViewHolder
      * 此处必须显式声明 SwitchAdapter.ViewHolder holder, 否则编译失败
      */
     @Override
-    public void onBindViewHolder(SwitchAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SwitchAdapter.ViewHolder holder, int position) {
         bindViewHolderRunnable.onBindViewHolder(holder, list.get(position));
     }
 
@@ -83,7 +85,7 @@ public class SwitchAdapter extends RecyclerView.Adapter<SwitchAdapter.ViewHolder
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
-        public TextView textView;
+        TextView textView;
 
         ViewHolder(View convertView) {
             super(convertView);

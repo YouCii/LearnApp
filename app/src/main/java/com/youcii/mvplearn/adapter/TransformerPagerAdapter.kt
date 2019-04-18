@@ -2,7 +2,6 @@ package com.youcii.mvplearn.adapter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.item_transformer_pager.view.*
  *
  * 露边动画效果ViewPager的adapter
  */
-class TransformerPagerAdapter(private val context: Context, private val imgList: List<Drawable>) : PagerAdapter() {
+class TransformerPagerAdapter(private val context: Context, private val imgList: List<Drawable>) : androidx.viewpager.widget.PagerAdapter() {
 
     override fun getCount(): Int {
         return imgList.size

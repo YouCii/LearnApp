@@ -4,9 +4,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.youcii.mvplearn.activity.interfaces.ILoginView;
 import com.youcii.mvplearn.base.BasePresenter;
-import com.youcii.mvplearn.encap.OkGoCallBack.CallBackAdapter;
-import com.youcii.mvplearn.encap.OkGoCallBack.HttpRequestBuilder;
-import com.youcii.mvplearn.encap.OkGoCallBack.JsonConverter;
+import com.youcii.mvplearn.encap.okgo_callback.CallBackAdapter;
+import com.youcii.mvplearn.encap.okgo_callback.HttpRequestBuilder;
+import com.youcii.mvplearn.encap.okgo_callback.JsonConverter;
 import com.youcii.mvplearn.response.IpQueryResponse;
 
 import java.util.Random;

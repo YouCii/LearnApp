@@ -41,8 +41,6 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
      */
     @Synchronized
     private fun initArray() {
-        testArray.add("列表刷新") // ? 代表自动检测空，如果为空则跳过，不抛出异常
-        testArray.add("接口压力测试")
         testArray.add("自定义View测试")
         testArray.add("仿Native网页")
         testArray.add("可滑动的大图ToolBar")
@@ -70,18 +68,16 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
         when (position) { // when 方法，替代which，可以使用 in 等更方便的判断
-            2 -> ListRefreshActivity.startActivity(this)
-            3 -> HttpTestActivity.startActivity(this)
-            4 -> DiyViewActivity.startActivity(this)
-            5 -> H5Activity.startActivity(this)
-            6 -> CollapsingActivity.startActivity(this)
-            7 -> IPMovieActivity.startActivity(this)
-            8 -> PagerGridActivity.startActivity(this)
-            9 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
-            10 -> ImmersiveActivity.startActivity(this)
-            11 -> LockSynchronizedActivity.startActivity(this)
-            12 -> TransformerViewPagerActivity.startActivity(this)
-            13 -> TimerExecutorServiceActivity.startActivity(this)
+            2 -> DiyViewActivity.startActivity(this)
+            3 -> H5Activity.startActivity(this)
+            4 -> CollapsingActivity.startActivity(this)
+            5 -> IPMovieActivity.startActivity(this)
+            6 -> PagerGridActivity.startActivity(this)
+            7 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
+            8 -> ImmersiveActivity.startActivity(this)
+            9 -> LockSynchronizedActivity.startActivity(this)
+            10 -> TransformerViewPagerActivity.startActivity(this)
+            11 -> TimerExecutorServiceActivity.startActivity(this)
             else -> {
             }
         }

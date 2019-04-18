@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.encap.OkGoCallBack;
+package com.youcii.mvplearn.encap.okgo_callback;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.GetRequest;

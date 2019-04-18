@@ -20,7 +20,7 @@ class IpQueryResponse : BaseResponse() {
     var info = ""
     var infocode = ""
     var province = ""
-    var city = ""
+    private var city = ""
     var adcode = ""
     var rectangle = ""
 

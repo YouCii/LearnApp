@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.jdw.widget" />
+<manifest package="com.jdw.widget" />

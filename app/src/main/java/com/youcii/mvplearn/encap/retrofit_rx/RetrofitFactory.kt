@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.encap.RetrofitRxJava
+package com.youcii.mvplearn.encap.retrofit_rx
 
 import android.text.TextUtils
 import com.youcii.mvplearn.constant.ConnectConfig

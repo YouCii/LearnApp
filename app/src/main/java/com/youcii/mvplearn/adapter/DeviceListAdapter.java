@@ -55,9 +55,9 @@ public class DeviceListAdapter extends BaseAdapter {
         if (convertView == null) {
             deviceHolder = new DeviceHolder();
             convertView = inflater.inflate(R.layout.item_device, parent, false);
-            deviceHolder.tvDevice = (TextView) convertView.findViewById(R.id.tv_device);
-            deviceHolder.location = (TextView) convertView.findViewById(R.id.location);
-            deviceHolder.tvDistance = (TextView) convertView.findViewById(R.id.tv_distance);
+            deviceHolder.tvDevice = convertView.findViewById(R.id.tv_device);
+            deviceHolder.location = convertView.findViewById(R.id.location);
+            deviceHolder.tvDistance = convertView.findViewById(R.id.tv_distance);
 
             convertView.setTag(deviceHolder);
         } else {

@@ -1,8 +1,8 @@
 package com.youcii.mvplearn.utils;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +23,8 @@ public class FragmentUtils {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        if (fragmentList != null) {
-            for (Fragment from : fragmentList) {
-                fragmentTransaction.hide(from);
-            }
+        for (Fragment from : fragmentList) {
+            fragmentTransaction.hide(from);
         }
 
         if (!to.isAdded() && !fragmentArray.contains(to)) { // 切换太快的话，isAdded函数返回会出错，自己再次判断一下

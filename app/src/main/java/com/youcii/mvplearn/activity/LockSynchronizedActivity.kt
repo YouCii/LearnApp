@@ -79,7 +79,7 @@ class LockSynchronizedActivity : BasePresenterActivity<IThreadTestView, ThreadTe
                 .subscribe {
                     var thread: Thread
                     when (it) {
-                        ObservableKind.Synchronized -> {
+                        Synchronized -> {
                             tv_log.append("\n\nSynchronized")
                             // 不是公平锁, 可能不是先到先得, 但是因为目前逻辑太简单, 所以测试的一般都是123
                             for (i in 0 until THREAD_NUM) {
@@ -90,7 +90,7 @@ class LockSynchronizedActivity : BasePresenterActivity<IThreadTestView, ThreadTe
                                 }, 20L * i)
                             }
                         }
-                        ObservableKind.ReentrantLock -> {
+                        ReentrantLock -> {
                             tv_log.append("\n\nReentrant")
                             // 公平锁, 永远先到先得
                             for (i in 0 until THREAD_NUM) {
@@ -106,7 +106,7 @@ class LockSynchronizedActivity : BasePresenterActivity<IThreadTestView, ThreadTe
                                 thread.start()
                             }, 30L)
                         }
-                        ObservableKind.WaitNotify -> {
+                        WaitNotify -> {
                             tv_log.append("\n\nWaitNotifySynchronized")
                             for (i in 0 until THREAD_NUM) {
                                 thread = Thread(runnableWait, "Wait$i")
@@ -117,7 +117,7 @@ class LockSynchronizedActivity : BasePresenterActivity<IThreadTestView, ThreadTe
                             threadList.add(thread)
                             thread.start()
                         }
-                        ObservableKind.ReadWrite -> {
+                        ReadWrite -> {
                             tv_log.append("\n\nReentrantReadWriteLock")
                             thread = Thread(writeRunnable, "Write1")
                             threadList.add(thread)

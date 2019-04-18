@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.encap.RetrofitRxJava
+package com.youcii.mvplearn.encap.retrofit_rx
 
 import com.youcii.mvplearn.response.IpQueryResponse
 import com.youcii.mvplearn.response.TopMovieResponse

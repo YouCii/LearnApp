@@ -6,8 +6,7 @@ buildscript {
         build_tools_version = '28.0.3'
         min_sdk_version = 21  /* 5.0 */
 
-        kotlin_version = '1.3.11'
-        support_version = '28.0.0'
+        kotlin_version = '1.3.30'
     }
 
     repositories {
@@ -18,7 +17,7 @@ buildscript {
     dependencies {
         // 3.3.1 有bug, 虽然不影响运行, 但是编译报错/R无法导入, 而且会有API 'variant.getJavaCompiler()' is obsolete警告
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

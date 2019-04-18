@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.res.Resources.NotFoundException
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 
 /**
  * Created by jdw on 2018/11/8.

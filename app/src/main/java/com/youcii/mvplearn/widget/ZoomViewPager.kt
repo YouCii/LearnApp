@@ -1,7 +1,7 @@
 package com.youcii.mvplearn.widget
 
 import android.content.Context
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.View
 
@@ -26,7 +26,7 @@ class ZoomViewPager @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * 用于处理ViewPager的缩放效果
      */
-    private class CustomPagerTransformer : ViewPager.PageTransformer {
+    private class CustomPagerTransformer : PageTransformer {
         private var viewPager: ViewPager? = null
 
         override fun transformPage(view: View, position: Float) {

@@ -3,14 +3,14 @@ package com.youcii.mvplearn.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonSyntaxException
 import com.youcii.mvplearn.R
 import com.youcii.mvplearn.adapter.MovieAdapter
 import com.youcii.mvplearn.base.BaseActivity
-import com.youcii.mvplearn.encap.RetrofitRxJava.BaseObserver
-import com.youcii.mvplearn.encap.RetrofitRxJava.RetrofitFactory
+import com.youcii.mvplearn.encap.retrofit_rx.BaseObserver
+import com.youcii.mvplearn.encap.retrofit_rx.RetrofitFactory
 import com.youcii.mvplearn.greendao.DaoManager
 import com.youcii.mvplearn.model.MovieEntity
 import com.youcii.mvplearn.response.IpQueryResponse
@@ -122,7 +122,7 @@ class IPMovieActivity : BaseActivity() {
                     tvResult.text = it.toString()
                 }
                 .observeOn(Schedulers.io())
-                .flatMap({ movieObservable })
+                .flatMap { movieObservable }
                 .observeOn(Schedulers.io())
                 .map {
                     DaoManager.getMovieEntityDao().insertOrReplaceInTx(it.subjects)

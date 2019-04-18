@@ -2,8 +2,10 @@ package com.jdw.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -26,7 +28,7 @@ public class PagerGridView extends FrameLayout {
 
     private ViewPager.OnPageChangeListener onPageChangeListener;
 
-    private boolean cycleScroll = false;
+    private boolean cycleScroll;
 
 
     public PagerGridView(Context context) {
@@ -45,8 +47,8 @@ public class PagerGridView extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
         LayoutInflater.from(getContext()).inflate(R.layout.layout_pager_grid, this);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        viewPager = findViewById(R.id.view_pager);
+        radioGroup = findViewById(R.id.radio_group);
 
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PagerGridView, defStyleAttr, defStyleRes);
         cycleScroll = typedArray.getBoolean(R.styleable.PagerGridView_cycleScroll, false);

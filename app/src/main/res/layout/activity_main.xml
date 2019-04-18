@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,38 +10,38 @@
     tools:context=".activity.MainActivity">
 
     <!-- AppBarLayout 一种支持响应滚动手势的app bar布局（比如工具栏滚出或滚入屏幕) -->
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
         <!-- app:layout_scrollFlags是用来设置view是否可以滚动的: "scroll|enterAlways"滑动recyclerView就会隐藏ToolBar  -->
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/main_viewpager"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/mainViewpager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/main_tab_layout"
-            app:layout_constraintEnd_toEndOf="@id/main_tab_layout"
+            app:layout_constraintBottom_toTopOf="@id/mainTabLayout"
+            app:layout_constraintEnd_toEndOf="@id/mainTabLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,20 +49,20 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toTopOf="@+id/main_tab_layout"
-            app:layout_constraintEnd_toEndOf="@+id/main_viewpager" />
+            app:layout_constraintBottom_toTopOf="@+id/mainTabLayout"
+            app:layout_constraintEnd_toEndOf="@+id/mainViewpager" />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/main_tab_layout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/mainTabLayout"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_gravity="bottom"
             android:background="@drawable/back_bottom_tap"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_viewpager"
+            app:layout_constraintTop_toBottomOf="@+id/mainViewpager"
             app:tabIndicatorHeight="0dp" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

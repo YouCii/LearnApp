@@ -1,4 +1,4 @@
-package com.youcii.mvplearn.encap.OkGoCallBack
+package com.youcii.mvplearn.encap.okgo_callback
 
 import java.util.*
 import kotlin.collections.HashMap

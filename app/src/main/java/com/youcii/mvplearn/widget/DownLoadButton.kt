@@ -110,19 +110,19 @@ class DownLoadButton @JvmOverloads constructor(context: Context, attrs: Attribut
         /**
          * 未下载
          */
-        val STATE_NO_DOWNLOAD = 0
+        const val STATE_NO_DOWNLOAD = 0
         /**
          * 下载中
          */
-        val STATE_DOWNLOADING = 1
+        const val STATE_DOWNLOADING = 1
         /**
          * 下载完成
          */
-        val STATE_COMPLETE = 2
+        const val STATE_COMPLETE = 2
         /**
          * 已使用
          */
-        val STATE_USED = 3
+        const val STATE_USED = 3
     }
 
 }

@@ -4,13 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.PermissionChecker;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,26 +21,25 @@ import java.util.List;
 
 public class PermissionUtils {
 
-    public final static int INTERNET = 0;
-    public final static int LOCATION = 1;
-    public final static int WAKE_LOCK = 2;
-    public final static int READ_PHONE_STATE = 3;
-    public final static int WRITE_EXTERNAL_STORAGE = 4;
-    public final static int KILL_BACKGROUND_PROCESSES = 5;
-    public final static int CAMERA = 6;
-    public final static int VIBRATE = 7;
+    private final static int INTERNET = 0;
+    private final static int LOCATION = 1;
+    private final static int WAKE_LOCK = 2;
+    private final static int READ_PHONE_STATE = 3;
+    private final static int WRITE_EXTERNAL_STORAGE = 4;
+    private final static int KILL_BACKGROUND_PROCESSES = 5;
+    private final static int CAMERA = 6;
+    private final static int VIBRATE = 7;
 
-    public final static int ALL = 100;
+    private final static int ALL = 100;
 
     /**
      * 检查权限赋予情况
      *
      * @param permissions {@link #ALL, #INTERNET, #LOCATION ..}
-     * @return true if no permission be refused;
      */
-    public static boolean examinePermission(final Context context, int... permissions) {
+    public static void examinePermission(final Context context, int... permissions) {
         if (permissions == null || permissions.length == 0) {
-            return true;
+            return;
         }
 
         List<String> list = new ArrayList<>();
@@ -97,41 +95,27 @@ public class PermissionUtils {
         }
 
         if (list.size() != 0) {
-            String[] strings = list.toArray(new String[list.size()]);
+            String[] strings = list.toArray(new String[0]);
             new AlertDialog.Builder(context)
                     .setTitle("请在设置中允许以下权限, 或信任此应用, 否则程序不能运行: ")
                     .setItems(strings, null)
                     .setCancelable(false)
-                    .setPositiveButton("现在设置", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            Intent intent = new Intent();
-                            if (Build.VERSION.SDK_INT >= 9) {
-                                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-                                intent.setData(Uri.fromParts("package", context.getPackageName(), null));
-                            } else if (Build.VERSION.SDK_INT <= 8) {
-                                intent.setAction(Intent.ACTION_VIEW);
-                                intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
-                                intent.putExtra("com.android.settings.ApplicationPkgName", context.getPackageName());
-                            }
-                            context.startActivity(intent);
-                        }
+                    .setPositiveButton("现在设置", (dialog, which) -> {
+                        dialog.dismiss();
+                        Intent intent = new Intent();
+                        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+                        context.startActivity(intent);
                     })
-                    .setNegativeButton("退出应用", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (context instanceof Activity) {
-                                ((Activity) context).onBackPressed();
-                            }
-                            System.exit(0);
+                    .setNegativeButton("退出应用", (dialog, which) -> {
+                        if (context instanceof Activity) {
+                            ((Activity) context).onBackPressed();
                         }
+                        System.exit(0);
                     })
                     .show();
-            return false;
         }
 
-        return true;
     }
 
 }

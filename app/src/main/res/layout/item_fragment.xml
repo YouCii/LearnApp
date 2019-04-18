@@ -12,8 +12,8 @@
         android:layout_weight="2"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
-        android:maxLines="1"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/content"
@@ -23,6 +23,6 @@
         android:layout_weight="1"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
-        android:maxLines="1"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:singleLine="true" />
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,43 +19,48 @@
         app:layout_constraintBottom_toTopOf="@id/btnQuery"
         app:layout_constraintRight_toLeftOf="@id/etMovieCount"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText,UnusedAttribute"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/etMovieCount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:hint="TOP250获取数目"
         android:inputType="numberDecimal"
         android:text="10"
         app:layout_constraintBaseline_toBaselineOf="@id/etIp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/etIp" />
+        app:layout_constraintStart_toEndOf="@id/etIp"
+        tools:ignore="HardcodedText,UnusedAttribute"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/btnQuery"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="联合查询:IP+Movie"
         app:layout_constraintBottom_toTopOf="@id/tvResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etIp" />
+        app:layout_constraintTop_toBottomOf="@+id/etIp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:maxHeight="40dp"
         app:layout_constraintBottom_toTopOf="@id/rvMovie"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/btnQuery"
         tools:text="预览预览" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovie"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -74,4 +78,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvResult" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

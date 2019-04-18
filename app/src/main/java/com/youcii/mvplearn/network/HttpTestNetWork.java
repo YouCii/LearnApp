@@ -1,7 +1,7 @@
 package com.youcii.mvplearn.network;
 
-import com.youcii.mvplearn.encap.OkGoCallBack.BaseNetWork;
-import com.youcii.mvplearn.encap.OkGoCallBack.CallBackAdapter;
+import com.youcii.mvplearn.encap.okgo_callback.BaseNetWork;
+import com.youcii.mvplearn.encap.okgo_callback.CallBackAdapter;
 
 import java.util.Map;
 

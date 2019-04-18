@@ -2,7 +2,7 @@ package com.youcii.mvplearn.utils;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +21,7 @@ public class ToastUtils {
         Snackbar snackbar = Snackbar.make(rootView, content, Snackbar.LENGTH_SHORT);
 
         Snackbar.SnackbarLayout ve = (Snackbar.SnackbarLayout) snackbar.getView();
-        TextView textView = (TextView) ve.findViewById(R.id.snackbar_text);
+        TextView textView = ve.findViewById(R.id.snackbar_text);
         textView.setTextColor(Color.parseColor("#0BB668"));
 
         snackbar.show();

@@ -15,9 +15,7 @@ public class ActivityUtils {
     public static boolean isIntentExit(Context context, Intent intent) {
         PackageManager packageManager = context.getPackageManager();
         if (packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
-            if (packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
-                return true;
-            }
+            return packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null;
         }
         return false;
     }

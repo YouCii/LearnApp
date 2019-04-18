@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.youcii.mvplearn.R;
 import com.youcii.mvplearn.base.BasePresenterFragment;
 import com.youcii.mvplearn.fragment.interfaces.IFragSocketView;
@@ -36,7 +38,7 @@ public class SocketFragment extends BasePresenterFragment<IFragSocketView, FragS
     EditText etServerPort;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_socket, container, false);
         ButterKnife.bind(this, view);
 

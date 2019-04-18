@@ -1,6 +1,6 @@
 package com.youcii.mvplearn.listener;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
