@@ -29,9 +29,4 @@
     - 多样式多spanSize的RecyclerView
     - 带有下载动画按钮
     - 露边动画ViewPager
-- Timer和ScheduledThreadPoolExecutor的比较
-
-# 数据结构和算法相关的
-- 实现普通二叉树/搜索二叉树的基本方法及几个相关算法题目(详细解释)
-- 剑指Offer题目;
-- LeetCode算法题目实现
+- 使用 com.amitshekhar.android 调试android数据库/SP    

@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author Administrator
@@ -60,7 +61,7 @@ public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresen
     }
 
     private void subscribeLoginObserver(Observable<Object> observable) {
-        observable
+        Disposable ignore = observable
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe((v) -> {
                     ViewUtils.hideInput(this);

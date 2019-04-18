@@ -105,8 +105,11 @@ public class PitPatAidlService extends Service {
      * 进行网络的连接,在线程中进行的网络的建立
      */
     private void socketConnected(String ip, int port) {
-        connectThread = new ConnectThread(ip, port);
-        connectThread.start();
+        synchronized (this) {
+            closeAll();
+            connectThread = new ConnectThread(ip, port);
+            connectThread.start();
+        }
     }
 
     private class ConnectThread extends Thread {
@@ -166,12 +169,16 @@ public class PitPatAidlService extends Service {
 
     private void sendMessage(String string) {
         try {
-            out.write((string + "\n").getBytes());
-            out.flush();
-            if (iSocketStateListener != null) {
-                iSocketStateListener.onSend(string);
+            if (socket != null && socket.isConnected()) {
+                out.write((string + "\n").getBytes());
+                out.flush();
+                if (iSocketStateListener != null) {
+                    iSocketStateListener.onSend(string);
+                }
+                Logger.i("socket: " + "发送成功");
+            } else {
+                Logger.i("socket: " + "尚未连接, 不能发送");
             }
-            Logger.i("socket: " + "发送成功");
         } catch (IOException e) {
             Logger.e("socket: " + "发送失败");
             e.printStackTrace();

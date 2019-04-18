@@ -15,6 +15,7 @@ import com.youcii.mvplearn.fragment.interfaces.IFragSocketView;
 import com.youcii.mvplearn.model.ServiceData;
 import com.youcii.mvplearn.service.PitPatAidlService;
 import com.youcii.mvplearn.service.PitPatService;
+import com.youcii.mvplearn.utils.ThreadPool;
 
 /**
  * @author YouCii
@@ -80,12 +81,14 @@ public class FragSocketPresenter extends BasePresenter<IFragSocketView> {
     public void socketSend() {
         if (isAIDL) {
             if (aidlBinder != null) {
-                try {
-                    aidlBinder.sendMessage(new ServiceData());
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                    Logger.e("aidlBinder: " + "sendMessage调用失败：" + e.toString());
-                }
+                ThreadPool.getThreadPool().execute(() -> {
+                    try {
+                        aidlBinder.sendMessage(new ServiceData());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                        Logger.e("aidlBinder: " + "sendMessage调用失败：" + e.toString());
+                    }
+                });
             }
         } else {
             if (normalBinder != null) {
