@@ -1,5 +1,6 @@
 package com.youcii.mvplearn.app;
 
+import android.app.Application;
 import android.util.DisplayMetrics;
 
 import com.lzy.okgo.OkGo;
@@ -20,11 +21,14 @@ import okhttp3.OkHttpClient;
  */
 public class App extends LitePalApplication {
 
+    private static Application application;
+
     private static int screenHeight, screenWidth;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        application = this;
 
         // CrashHandler.getInstance().init(this);
         LeakCanary.install(this);  // 启用LeakCanary, 正式发布时会自动失效
@@ -32,6 +36,10 @@ public class App extends LitePalApplication {
 
         initScreenSize();
         initOkGo();
+    }
+
+    public static Application getInstance() {
+        return application;
     }
 
     private void initOkGo() {

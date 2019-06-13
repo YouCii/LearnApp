@@ -24,8 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m"
-        android:fullBackupContent="">
+        tools:ignore="AllowBackup">
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name">
@@ -62,6 +61,7 @@
         <activity android:name=".activity.LockSynchronizedActivity" />
         <activity android:name=".activity.TransformerViewPagerActivity" />
         <activity android:name=".activity.TimerExecutorServiceActivity" />
+        <activity android:name=".activity.NotificationActivity" />
     </application>
 
 </manifest>

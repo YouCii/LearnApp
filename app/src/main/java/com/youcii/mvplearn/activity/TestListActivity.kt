@@ -51,6 +51,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("Lock/Synchronized")
         testArray.add("露边动画ViewPager")
         testArray.add("Timer和ExecutorService比较")
+        testArray.add("分组推送测试")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -78,6 +79,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             9 -> LockSynchronizedActivity.startActivity(this)
             10 -> TransformerViewPagerActivity.startActivity(this)
             11 -> TimerExecutorServiceActivity.startActivity(this)
+            12 -> NotificationActivity.startActivity(this)
             else -> {
             }
         }
