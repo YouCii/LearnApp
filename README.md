@@ -1,4 +1,7 @@
 # LearnApp
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fc0814d10ea64777866c84c8ab209c58)](https://app.codacy.com/app/550341130/LearnApp?utm_source=github.com&utm_medium=referral&utm_content=YouCii/LearnApp&utm_campaign=Badge_Grade_Settings)
+
 小程序, 主要包括自己学习的新技术/测试用界面等.
 
 # 应用内用到的东西:
