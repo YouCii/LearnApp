@@ -103,11 +103,6 @@ public class WebFragment extends BaseFragment implements IFragWebView, View.OnCl
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     @SuppressLint("SetJavaScriptEnabled")
     public void webSettings(WebView webView) {
         WebSettings settings = webView.getSettings();

@@ -52,6 +52,19 @@ public class LoginActivity extends BasePresenterActivity<ILoginView, LoginPresen
         setContentView(R.layout.activity_login);
         Logger.i("Login--onCreate");
 
+        // 设置透明状态栏
+        // if (Build.VERSION.SDK_INT >= 21) {
+        //     // SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN 会保留状态栏, SYSTEM_UI_FLAG_FULLSCREEN 会默认不保留然后下拉显示
+        //     // 暂未搞懂 View.SYSTEM_UI_FLAG_LAYOUT_STABLE 的作用
+        //     getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        //     getWindow().setStatusBarColor(Color.TRANSPARENT);
+        //
+        //     ActionBar actionBar = getSupportActionBar();
+        //     if (actionBar != null) {
+        //         actionBar.hide();
+        //     }
+        // }
+
         ButterKnife.bind(this);
 
         etUser.setOnEditorActionListener(this);

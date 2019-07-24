@@ -14,7 +14,7 @@
 - Observer/Observable
 - 使用layout方式自定义控件, 实现带有指示器可循环滚动的菜单页
 - IntDef注解的基本使用, 用于替代Enum(但实际上不如Enum方便, DisposableHelper是Enum类)
-- 沉浸式效果
+- 沉浸式效果, 透明状态栏效果
 - RxJava2
 - 两个主流网络请求: OkGo2/Retrofit2, 模拟生产环境封装, 隔离业务和第三方库
     - OkGo + CallBack
