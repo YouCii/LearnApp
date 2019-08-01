@@ -23,20 +23,20 @@ import java.net.SocketTimeoutException
  * 2. 继承 DisposableSingleObserver: 使用onSuccess替代了onNext/onComplete
  *      但是考虑zip/merge等操作符的话就不能用single了
  */
-open class BaseObserver<T>(context: Context) : DisposableObserver<T>() {
+open class BaseObserver<T>(context: Context, showDialog: Boolean = true) : DisposableObserver<T>() {
 
-    private val loadingDialog: Dialog = Dialog(context)
+    private val loadingDialog: Dialog? = if (showDialog) Dialog(context) else null
 
     init {
-        loadingDialog.setContentView(R.layout.dialog_loading)
-        loadingDialog.setCanceledOnTouchOutside(false)
-        loadingDialog.window?.setBackgroundDrawable(ColorDrawable(Color.argb(0, 0, 0, 0)))
+        loadingDialog?.setContentView(R.layout.dialog_loading)
+        loadingDialog?.setCanceledOnTouchOutside(false)
+        loadingDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.argb(0, 0, 0, 0)))
     }
 
     override fun onStart() {
         super.onStart()
         if (PhoneUtils.isOnLine()) {
-            loadingDialog.show()
+            loadingDialog?.show()
         } else {
             throw ConnectException(App.getContext().getString(R.string.network_error))
         }
@@ -46,11 +46,11 @@ open class BaseObserver<T>(context: Context) : DisposableObserver<T>() {
     }
 
     override fun onComplete() {
-        loadingDialog.dismiss()
+        loadingDialog?.dismiss()
     }
 
     override fun onError(throwable: Throwable) {
-        loadingDialog.dismiss()
+        loadingDialog?.dismiss()
 
         when (throwable) {
             is SocketTimeoutException ->

@@ -16,8 +16,11 @@ abstract class BasePresenterActivity<V : BaseView, T : BasePresenter<V>> : BaseA
 
     abstract fun initPresenter(): T
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDetach()
+    override fun onStop() {
+        super.onStop()
+        if (isFinishing) {
+            presenter.onDetach()
+        }
     }
+
 }
