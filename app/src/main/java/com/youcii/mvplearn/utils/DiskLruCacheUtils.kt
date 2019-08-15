@@ -16,6 +16,17 @@ import java.io.InputStream
  * Created by jdw on 2019/1/28.
  */
 class DiskLruCacheUtils {
+    /**
+     * DiskLruCache.open(savePath, version, MAX_SIZE)
+     *  ⬇
+     * diskLruCache.edit(nameKey).newOutputStream()
+     *  ⬇
+     * BufferedOutputStream(oOS).write(intFromIS)
+     *  ⬇
+     * Editor.commit
+     *  ⬇
+     * diskLruCache.flush + close
+     */
     private val diskLruCache = DiskLruCache.open(getSaveDir(), 1, 1, MAX_SIZE)
 
     fun save(saveName: String, inputStream: InputStream) {
@@ -72,7 +83,7 @@ class DiskLruCacheUtils {
     companion object {
         private const val MAX_SIZE = 1024 * 1024 * 100L
 
-        private fun getSaveDir(): File {
+        private fun getSaveDir(): File? {
             return App.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         }
     }

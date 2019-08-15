@@ -4,21 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import android.view.ViewGroup;
 
 import java.util.List;
 
+/**
+ * 1.FragmentStatePagerAdapter:
+ * a. 适合大量页面，不断重建和销毁, viewpager切换时执行到onDestroy;
+ * b. 会保存内部fragments
+ * 2.FragmentPagerAdapter:
+ * a. 适合少量页面，常驻内存, viewpager切换时仅执行到onDestroyView;
+ * b. 不会保存内部fragments
+ */
 public class MainPagerAdapter extends FragmentPagerAdapter {
+
     private List<Fragment> fragmentList;
     private List<String> titleList;
 
-    private FragmentManager fragmentManager;
-    private Fragment currentFragment;
-
     public MainPagerAdapter(FragmentManager fragmentManager, List<Fragment> fragmentList, List<String> titleList) {
-        super(fragmentManager);
+        super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        this.fragmentManager = fragmentManager;
         this.fragmentList = fragmentList;
         this.titleList = titleList;
     }
@@ -43,28 +47,4 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    @Override
-    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        super.setPrimaryItem(container, position, object);
-
-        currentFragment = (Fragment) object;
-    }
-
-    public Fragment getCurrentFragment() {
-        return currentFragment;
-    }
-
-    @Override
-    @NonNull
-    public Fragment instantiateItem(@NonNull ViewGroup container, int position) { /* 用于保存原fragment状态 */
-        Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        fragmentManager.beginTransaction().show(fragment).commit();
-        return fragment;
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) { /* 用于保存原fragment状态 */
-        Fragment fragment = fragmentList.get(position);
-        fragmentManager.beginTransaction().hide(fragment).commit();
-    }
 }
