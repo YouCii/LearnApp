@@ -8,6 +8,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.youcii.mvplearn.constant.ConnectConfig;
+import com.youcii.mvplearn.flutter.SingleFlutterView;
 
 import org.litepal.LitePalApplication;
 
@@ -36,6 +37,8 @@ public class App extends LitePalApplication {
 
         initScreenSize();
         initOkGo();
+
+        SingleFlutterView.INSTANCE.init(this);
     }
 
     public static Application getInstance() {

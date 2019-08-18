@@ -41,6 +41,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
      */
     @Synchronized
     private fun initArray() {
+        testArray.add("FlutterView")
         testArray.add("自定义View测试")
         testArray.add("仿Native网页")
         testArray.add("可滑动的大图ToolBar")
@@ -69,17 +70,18 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
         when (position) { // when 方法，替代which，可以使用 in 等更方便的判断
-            2 -> DiyViewActivity.startActivity(this)
-            3 -> H5Activity.startActivity(this)
-            4 -> CollapsingActivity.startActivity(this)
-            5 -> IPMovieActivity.startActivity(this)
-            6 -> PagerGridActivity.startActivity(this)
-            7 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
-            8 -> ImmersiveActivity.startActivity(this)
-            9 -> LockSynchronizedActivity.startActivity(this)
-            10 -> TransformerViewPagerActivity.startActivity(this)
-            11 -> TimerExecutorServiceActivity.startActivity(this)
-            12 -> NotificationActivity.startActivity(this)
+            2 -> FlutterActivity.startActivity(this)
+            3 -> DiyViewActivity.startActivity(this)
+            4 -> H5Activity.startActivity(this)
+            5 -> CollapsingActivity.startActivity(this)
+            6 -> IPMovieActivity.startActivity(this)
+            7 -> PagerGridActivity.startActivity(this)
+            8 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
+            9 -> ImmersiveActivity.startActivity(this)
+            10 ->LockSynchronizedActivity.startActivity(this)
+            11 -> TransformerViewPagerActivity.startActivity(this)
+            12 -> TimerExecutorServiceActivity.startActivity(this)
+            13 -> NotificationActivity.startActivity(this)
             else -> {
             }
         }

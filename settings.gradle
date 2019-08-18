@@ -1,1 +1,4 @@
 include ':app', ':pagerGridView'
+
+setBinding(new Binding([gradle: this]))
+evaluate(new File(settingsDir.parentFile, '/LearnApp/flutter_module/.android/include_flutter.groovy'))

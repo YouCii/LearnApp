@@ -62,6 +62,9 @@
         <activity android:name=".activity.TransformerViewPagerActivity" />
         <activity android:name=".activity.TimerExecutorServiceActivity" />
         <activity android:name=".activity.NotificationActivity" />
+        <activity
+            android:name=".activity.FlutterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
