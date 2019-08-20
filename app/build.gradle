@@ -26,6 +26,9 @@ android {
         versionCode 1
         versionName "1.0"
 
+        /* 用于测试正式版 */
+        signingConfig signingConfigs.debug
+
         /* 解决真机可运行虚拟机xml崩溃的问题 */
         generatedDensities = []
 
@@ -34,6 +37,21 @@ android {
             annotationProcessorOptions {
                 includeCompileClasspath = true
             }
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('keystore')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+        release {
+            storeFile file('keystore')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
         }
     }
 
