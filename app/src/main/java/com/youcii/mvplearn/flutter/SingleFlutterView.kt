@@ -21,8 +21,7 @@ object SingleFlutterView {
     }
 
     fun createView(activity: AppCompatActivity, route: String = "./"): FlutterView {
-        val nativeView = FlutterNativeView(activity)
-        val flutterView = object : FlutterView(activity, null, nativeView) {
+        val flutterView = object : FlutterView(activity, null, FlutterNativeView(activity)) {
             private val lifecycleMessages = BasicMessageChannel(this, "flutter/lifecycle", StringCodec.INSTANCE)
             override fun onFirstFrame() {
                 super.onFirstFrame()

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.View
+import kotlin.math.abs
 
 /**
  * Created by jdw on 2018/11/2.
@@ -43,7 +44,7 @@ class ZoomViewPager @JvmOverloads constructor(context: Context, attrs: Attribute
 
             // 缩放比例
             val offsetRate = offsetX.toFloat() * 0.15f / viewPager!!.measuredWidth
-            val scaleFactor = 1 - Math.abs(offsetRate)
+            val scaleFactor = 1 - abs(offsetRate)
             if (scaleFactor > 0) {
                 view.scaleX = scaleFactor
                 view.scaleY = scaleFactor
