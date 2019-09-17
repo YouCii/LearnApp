@@ -10,8 +10,8 @@
         android:id="@+id/tv_log"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingEnd="8dp"
         android:paddingStart="20dp"
+        android:paddingEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_synchronized"
         app:layout_constraintTop_toTopOf="parent" />
 
