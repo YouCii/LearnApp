@@ -50,7 +50,8 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("IntDef替代Enum")
         testArray.add("沉浸式效果")
         testArray.add("Lock/Synchronized")
-        testArray.add("露边动画ViewPager")
+        testArray.add("露边动画ViewPager(横向)")
+        testArray.add("露边动画ViewPager(竖向)")
         testArray.add("Timer和ExecutorService比较")
         testArray.add("分组推送测试")
         testArray.add("111")
@@ -78,10 +79,11 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             7 -> PagerGridActivity.startActivity(this)
             8 -> IntDefActivity.startActivity(this, InstitutionEnum.HOTEL)
             9 -> ImmersiveActivity.startActivity(this)
-            10 ->LockSynchronizedActivity.startActivity(this)
-            11 -> TransformerViewPagerActivity.startActivity(this)
-            12 -> TimerExecutorServiceActivity.startActivity(this)
-            13 -> NotificationActivity.startActivity(this)
+            10 -> LockSynchronizedActivity.startActivity(this)
+            11 -> TransformerPager1Activity.startActivity(this)
+            12 -> TransformerPager2Activity.startActivity(this)
+            13 -> TimerExecutorServiceActivity.startActivity(this)
+            14 -> NotificationActivity.startActivity(this)
             else -> {
             }
         }

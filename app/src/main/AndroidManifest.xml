@@ -59,7 +59,8 @@
         <activity android:name=".activity.IntDefActivity" />
         <activity android:name=".activity.ImmersiveActivity" />
         <activity android:name=".activity.LockSynchronizedActivity" />
-        <activity android:name=".activity.TransformerViewPagerActivity" />
+        <activity android:name=".activity.TransformerPager1Activity" />
+        <activity android:name=".activity.TransformerPager2Activity" />
         <activity android:name=".activity.TimerExecutorServiceActivity" />
         <activity android:name=".activity.NotificationActivity" />
         <activity

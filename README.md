@@ -33,7 +33,7 @@
 - 几个特殊UI样式:
     - 多样式多spanSize的RecyclerView
     - 带有下载动画按钮
-    - 露边动画ViewPager
+    - 露边动画ViewPager(ViewPager横向, ViewPager2竖向)
 - 使用 com.amitshekhar.android 调试android数据库/SP    
 - 分组通知
 - Flutter_Module
