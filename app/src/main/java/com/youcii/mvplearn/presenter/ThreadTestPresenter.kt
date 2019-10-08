@@ -3,7 +3,7 @@ package com.youcii.mvplearn.presenter
 import com.youcii.mvplearn.activity.interfaces.IThreadTestView
 import com.youcii.mvplearn.base.BasePresenter
 
-class ThreadTestPresenter(private val iThreadTestView: IThreadTestView) : BasePresenter<IThreadTestView>(iThreadTestView) {
+class ThreadTestPresenter(iThreadTestView: IThreadTestView) : BasePresenter<IThreadTestView>(iThreadTestView) {
 
     fun startTestThread() {
         val thread1 = Thread { run() }
@@ -12,8 +12,8 @@ class ThreadTestPresenter(private val iThreadTestView: IThreadTestView) : BasePr
         val thread4 = Thread { run() }
         val thread5 = Thread {
             synchronized(this) {
-                iThreadTestView.showText("Hello")
-                iThreadTestView.showText("World")
+                getView()?.showText("Hello")
+                getView()?.showText("World")
                 (this as Object).notifyAll()
             }
         }
@@ -25,10 +25,10 @@ class ThreadTestPresenter(private val iThreadTestView: IThreadTestView) : BasePr
     }
 
     @Synchronized
-    fun run() {
-        iThreadTestView.showText("Hello")
+    private fun run() {
+        getView()?.showText("Hello")
         (this as Object).wait()
-        iThreadTestView.showText("World")
+        getView()?.showText("World")
     }
 
     override fun detach() {
