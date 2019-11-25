@@ -63,6 +63,7 @@
         <activity android:name=".activity.TransformerPager2Activity" />
         <activity android:name=".activity.TimerExecutorServiceActivity" />
         <activity android:name=".activity.NotificationActivity" />
+        <activity android:name=".activity.HookActivity" />
         <activity
             android:name=".activity.FlutterActivity"
             android:theme="@style/AppTheme.NoActionBar" />

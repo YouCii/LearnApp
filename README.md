@@ -36,4 +36,5 @@
     - 露边动画ViewPager(ViewPager横向, ViewPager2竖向)
 - 使用 com.amitshekhar.android 调试android数据库/SP    
 - 分组通知
-- Flutter_Module
+- Hook
+- Flutter_Module: 在FlutterModule中执行assembleDebug时会打包出aar, 直接引入主工程即可, 不需要在主工程维护此Module, 方便分组协同开发.

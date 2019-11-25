@@ -54,7 +54,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
         testArray.add("露边动画ViewPager(竖向)")
         testArray.add("Timer和ExecutorService比较")
         testArray.add("分组推送测试")
-        testArray.add("111")
+        testArray.add("Hook")
         testArray.add("111")
         testArray.add("111")
         testArray.add("111")
@@ -84,6 +84,7 @@ class TestListActivity : BaseActivity(), AdapterView.OnItemClickListener {
             12 -> TransformerPager2Activity.startActivity(this)
             13 -> TimerExecutorServiceActivity.startActivity(this)
             14 -> NotificationActivity.startActivity(this)
+            15 -> HookActivity.startActivity(this)
             else -> {
             }
         }

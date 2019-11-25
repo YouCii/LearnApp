@@ -8,11 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 
 import com.jakewharton.rxbinding2.view.RxView
@@ -28,8 +23,6 @@ import com.youcii.mvplearn.utils.ViewUtils
 
 import java.util.concurrent.TimeUnit
 
-import butterknife.Bind
-import butterknife.ButterKnife
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
