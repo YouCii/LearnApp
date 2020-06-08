@@ -40,7 +40,6 @@ object SingleFlutterView {
                 arguments.bundlePath = FlutterMain.findAppBundlePath(activity.applicationContext)
                 arguments.entrypoint = "main"
                 flutterView.runFromBundle(arguments)
-                GeneratedPluginRegistrant.registerWith(flutterView.pluginRegistry)
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_START)
