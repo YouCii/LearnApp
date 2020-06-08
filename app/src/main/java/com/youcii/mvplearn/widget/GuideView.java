@@ -321,10 +321,10 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
             return;
         }
 
-        drawBackground(canvas);
+        drawSelfBackground(canvas);
     }
 
-    private void drawBackground(Canvas canvas) {
+    private void drawSelfBackground(Canvas canvas) {
         needDraw = false;
         // 先绘制bitmap，再将bitmap绘制到屏幕
         bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);

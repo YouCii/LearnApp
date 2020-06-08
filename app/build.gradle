@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
@@ -91,6 +92,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':pagerGridView')
     implementation project(':flutter')
+    kapt project(":methodRecord")
     /* 这个aar里面包含了assets里一个js文件，所以单纯的jar是不行的，Eclipse想引用的话必须把assets的文件复制到自己的项目中 */
     implementation(name: 'jsbridge-1.0.4', ext: 'aar')
     implementation 'com.google.android.material:material:1.1.0-beta01'
