@@ -66,6 +66,16 @@ object RetrofitFactory {
             .build()
             .create(RetrofitService::class.java)
 
+    // 换种方式统一header
+    private val newCallRetrofit: RetrofitService = Retrofit.Builder()
+            .baseUrl(UrlConstant.BASE_URL_ALI)
+            .callFactory {
+                val newRequest = it.newBuilder().addHeader("", "").build()
+                okHttpClient.newCall(newRequest)
+            }
+            .build()
+            .create(RetrofitService::class.java)
+
     /**
      * 查询ip的网络请求: RxJava
      */
